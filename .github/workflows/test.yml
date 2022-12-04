@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
 
+concurrency:
+  group: lint-and-test
+  cancel-in-progress: true
+
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
@@ -12,7 +16,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 19.x
-          cache: 'yarn'
+          cache: yarn
 
       - run: yarn install --frozen-lockfile --production=false
       - run: yarn lint
