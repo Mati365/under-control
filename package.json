@@ -6,7 +6,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "npx turbo run build",
-    "lint": "npx turbo run lint"
+    "lint": "npx turbo run lint",
+    "prepare": "npx husky install"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [

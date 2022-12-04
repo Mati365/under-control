@@ -6,7 +6,7 @@
   "author": "Mateusz Bagiński",
   "license": "MIT",
   "scripts": {
-    "build": "rollup --config rollup.config.ts --configPlugin typescript"
+    "build": "npx rollup --config rollup.config.ts --configPlugin typescript"
   },
   "dependencies": {
     "@under-control/core": "1.0.0"

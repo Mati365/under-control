@@ -6,7 +6,6 @@
   "author": "Mateusz Bagiński",
   "license": "MIT",
   "scripts": {
-    "prepare": "npx husky install",
-    "build": "rollup --config rollup.config.ts --configPlugin typescript"
+    "build": "npx rollup --config rollup.config.ts --configPlugin typescript"
   }
 }
