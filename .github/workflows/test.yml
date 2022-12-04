@@ -25,5 +25,5 @@ jobs:
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: packages/core/coverage/clover.xml,packages/forms/coverage/clover.xml,packages/inputs/coverage/clover.xml
+          coverage-reports: packages/core/coverage/lcov.info,packages/forms/coverage/lcov.info,packages/inputs/coverage/lcov.info
           language: typescript
