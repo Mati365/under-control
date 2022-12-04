@@ -1,18 +1,14 @@
 module.exports = ({ rootDir }) => ({
-  verbose: true,
   rootDir,
   setupFilesAfterEnv: ['@testing-library/jest-dom', 'jest-extended/all'],
-  testPathIgnorePatterns: [
-    '<rootDir>/node_modules',
-    '<rootDir>/packages/*/dist/*',
-  ],
+  testPathIgnorePatterns: ['node_modules'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   testRegex: '.test\\.(ts|tsx|js|jsx)$',
   transform: {
     '^.+\\.(t|j)sx?$': ['@swc/jest'],
   },
   collectCoverage: true,
-  collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**'],
+  collectCoverageFrom: ['<rootDir>/src/**/*.{ts, tsx}'],
   coverageThreshold: {
     global: {
       branches: 90,
