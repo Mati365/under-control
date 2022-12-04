@@ -1,0 +1,12 @@
+{
+  "name": "@under-control/core",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "repository": "https://github.com/Mati365/under-control",
+  "author": "Mateusz Bagiński",
+  "license": "MIT",
+  "scripts": {
+    "prepare": "npx husky install",
+    "build": "rollup --config rollup.config.ts --configPlugin typescript"
+  }
+}

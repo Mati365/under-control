@@ -1,10 +1,17 @@
 {
   "name": "under-control",
   "version": "1.0.0",
+  "private": true,
   "description": "Are you losing sanity every time you need to make a form? are you have enough of all antipatterns and cursed frameworks in react? Screw that! Treat all of them as a recursive composable control!",
   "main": "dist/index.js",
   "scripts": {
-    "test": "yarn test"
+    "build": "npx turbo run build",
+    "lint": "npx turbo run lint"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "sh -c 'yarn lint'"
+    ]
   },
   "repository": {
     "type": "git",
@@ -20,5 +27,21 @@
   "bugs": {
     "url": "https://github.com/Mati365/under-control/issues"
   },
-  "homepage": "https://github.com/Mati365/under-control#readme"
+  "homepage": "https://github.com/Mati365/under-control#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^17.3.0",
+    "@commitlint/config-conventional": "^17.3.0",
+    "@commitlint/types": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-typescript": "^10.0.1",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.0.4",
+    "rollup": "^3.5.1",
+    "tslib": "^2.4.1",
+    "turbo": "^1.6.3",
+    "typescript": "^4.9.3"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }

@@ -1,0 +1,15 @@
+{
+  "name": "@under-control/forms",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "repository": "https://github.com/Mati365/under-control",
+  "author": "Mateusz Bagiński",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup --config rollup.config.ts --configPlugin typescript"
+  },
+  "dependencies": {
+    "@under-control/core": "1.0.0",
+    "@under-control/inputs": "1.0.0"
+  }
+}
