@@ -1,1 +1,1 @@
-export * from './format';
+console.info('Error!');

@@ -7,27 +7,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  codacy-analysis-cli:
-    name: Codacy Analysis CLI
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@main
-
-      - name: Run Codacy Analysis CLI
-        uses: codacy/codacy-analysis-cli-action@master
-        with:
-          output: results.sarif
-          format: sarif
-          gh-code-scanning-compat: true
-          max-allowed-issues: 2147483647
-
-      - name: Upload SARIF results file
-        uses: github/codeql-action/upload-sarif@main
-        with:
-          sarif_file: results.sarif
-
   lint-and-test:
+    name: Lint app and run tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -39,3 +20,10 @@ jobs:
       - run: yarn install --frozen-lockfile --production=false
       - run: yarn lint
       - run: yarn test
+
+      - name: Run codacy-coverage-reporter
+        uses: codacy/codacy-coverage-reporter-action@v1
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: packages/core/coverage/clover.xml,packages/forms/coverage/clover.xml,packages/inputs/coverage/clover.xml
+          language: typescript
