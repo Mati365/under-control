@@ -1,14 +1,22 @@
 name: CI
 
-on:
-  push:
-    branches: [main]
+on: ['push']
 
 concurrency:
   group: lint-and-test
   cancel-in-progress: true
 
 jobs:
+  codacy-analysis-cli:
+    name: Codacy Analysis CLI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@main
+
+      - name: Run Codacy Analysis CLI
+        uses: codacy/codacy-analysis-cli-action@master
+
   lint-and-test:
     runs-on: ubuntu-latest
     steps:
