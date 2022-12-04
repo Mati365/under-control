@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 19.x
+          cache: 'yarn'
+
+      - run: yarn install --frozen-lockfile --production=false
+      - run: yarn lint
+      - run: yarn test
