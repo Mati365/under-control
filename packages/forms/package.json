@@ -6,7 +6,9 @@
   "author": "Mateusz Bagiński",
   "license": "MIT",
   "scripts": {
-    "build": "npx rollup --config rollup.config.ts --configPlugin typescript"
+    "build": "npx rollup --config rollup.config.ts --configPlugin typescript",
+    "test": "npx jest --passWithNoTests --c ../../config/jest.config.js .",
+    "lint": "npx eslint -c ../../.eslintrc.yml src/"
   },
   "dependencies": {
     "@under-control/core": "1.0.0",
