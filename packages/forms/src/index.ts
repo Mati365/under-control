@@ -1,1 +1,1 @@
-console.info('ABC!');
+export * from './format';
