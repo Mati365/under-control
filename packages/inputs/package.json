@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "npx rollup --config rollup.config.ts --configPlugin typescript",
-    "test": "npx jest --passWithNoTests --c ../../config/jest.config.js .",
+    "test": "npx jest --passWithNoTests --c ./jest.config.js",
     "lint": "npx eslint -c ../../.eslintrc.yml src/"
   },
   "dependencies": {

@@ -1,1 +1,1 @@
-console.info('ABC!324');
+export * from './format';

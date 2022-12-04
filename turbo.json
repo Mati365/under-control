@@ -10,7 +10,8 @@
     },
     "test": {
       "outputs": [],
-      "inputs": ["src/**/*.test.tsx", "src/**/*.test.ts"]
+      "inputs": ["src/**/*.test.tsx", "src/**/*.test.ts"],
+      "cache": false
     },
     "deploy": {
       "dependsOn": ["build", "lint", "test"],
