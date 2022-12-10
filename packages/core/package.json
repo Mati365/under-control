@@ -6,8 +6,11 @@
   "author": "Mateusz Bagiński",
   "license": "MIT",
   "scripts": {
-    "build": "npx rollup --config rollup.config.ts --configPlugin typescript",
+    "build": "npx rollup --config rollup.config.mjs",
     "test": "npx jest --passWithNoTests --c ./jest.config.js",
-    "lint": "npx eslint -c ../../.eslintrc.yml src/"
+    "lint": "npx eslint src/"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17 || ^18"
   }
 }

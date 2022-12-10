@@ -11,7 +11,10 @@
     "resolveJsonModule": true,
     "strict": true,
     "strictNullChecks": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "noEmitOnError": true
   },
   "exclude": ["node_modules/"]
 }

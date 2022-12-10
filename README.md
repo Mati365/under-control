@@ -31,7 +31,7 @@
 ## Install
 
 ```bash
-npm install under-control
+npm install @under-control/forms
 ```
 
 ## License
