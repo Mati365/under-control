@@ -18,7 +18,7 @@
 </div>
 
 <p align='center'>
-  Are you losing sanity every time you need to make a form? Are you tired enough of all antipatterns and cursed frameworks in React? Screw that! Treat all forms and inputs as a recursive composable control!
+  Are you losing sanity every time you need to make a form? Are you tired enough of all antipatterns and cursed frameworks in React? Screw that! Treat all forms and inputs as a recursive composable controls!
 </p>
 
 ## What is included
