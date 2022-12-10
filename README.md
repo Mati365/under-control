@@ -23,9 +23,9 @@
 
 ## What is included?
 
-- **Hook that binds controls to state**
-- **Hook that implements simple form submitting / validation logic**
-- **Decorator that makes any passed component controllable**
+- Hook that binds controls to state
+- Hook that implements simple form submitting / validation logic
+- Decorator that makes any passed component controllable
 - ... and nothing more
 
 ## License
