@@ -1,31 +1,47 @@
 import { JoinWithSeparator } from './join-with-separator';
 
-type MaxPathDepthGuard<N extends number> = [1, 2, 3, 4, 5, 6, 7, never][N];
+type ObjectsToIgnore = (new (...parms: any[]) => any) | Date | any[] | Function;
 
-type MappingTypePathExtractor<
-  K,
-  P,
-  S extends string,
-  D extends number,
-> = D extends never
-  ? unknown
-  : P extends {}
-  ? JoinWithSeparator<K, GetAllObjectPaths<P, S, D>, S>
-  : K;
+export type ObjectTypeEntry<P, T> = P extends ''
+  ? never
+  : {
+      path: P;
+      type: T;
+    };
+
+export type GetAllObjectPathsEntries<
+  O,
+  S extends string = '.',
+  P extends string = '',
+> =
+  | (P extends '' ? never : ObjectTypeEntry<P, O>)
+  | (O extends unknown[]
+      ? GetAllObjectPathsEntries<
+          O[number],
+          S,
+          JoinWithSeparator<P, `[${number}]`>
+        >
+      : O extends ObjectsToIgnore
+      ? ObjectTypeEntry<P, O>
+      : O extends object
+      ? {
+          [Key in keyof O]: GetAllObjectPathsEntries<
+            O[Key],
+            S,
+            JoinWithSeparator<P, Key>
+          >;
+        }[keyof O]
+      : ObjectTypeEntry<P, O>);
 
 export type GetAllObjectPaths<
-  T,
+  O,
   S extends string = '.',
-  D extends number = 0,
-> = D extends never
-  ? unknown
-  : T extends object
-  ? {
-      [K in keyof T]: MappingTypePathExtractor<
-        K,
-        T[K],
-        S,
-        MaxPathDepthGuard<D>
-      >;
-    }[keyof T]
-  : '';
+  P extends string = '',
+  D extends ObjectTypeEntry<string, any> = GetAllObjectPathsEntries<O, S, P>,
+> = D['path'];
+
+export type GetPathObjectType<
+  O,
+  P extends GetAllObjectPaths<O>,
+  D = GetAllObjectPathsEntries<O>,
+> = D extends ObjectTypeEntry<any, any> ? (D & { path: P })['type'] : never;
