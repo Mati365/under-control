@@ -1,8 +1,9 @@
 <p align='center'>
   <picture>
     <source media='(prefers-color-scheme: dark)' srcset='assets/social/under-control-banner.png'>
-    <img src='assets/social/under-control-banner.png' height='375'>
+    <img src='assets/social/under-control-banner.png' alt='Banner'>
   </picture>
+
   <h1 align='center'>under-control</h1>
 </p>
 
@@ -19,6 +20,13 @@
 <p align='center'>
   Are you losing sanity every time you need to make a form? Are you have enough of all antipatterns and cursed frameworks in React? Screw that! Treat all forms and inputs as a recursive composable control!
 </p>
+
+## What is included?
+
+- **Hook that binds controls to state**
+- **Hook that implements simple form submitting / validation logic**
+- **Decorator that makes any passed component controllable**
+- ... and nothing more
 
 ## License
 
