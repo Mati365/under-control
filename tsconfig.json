@@ -1,20 +1,17 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "src",
     "jsx": "react",
     "target": "ES2021",
-    "module": "commonjs",
+    "module": "CommonJS",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "downlevelIteration": true,
     "emitDecoratorMetadata": true,
-    "resolveJsonModule": true,
     "strict": true,
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
-    "declaration": true,
-    "declarationMap": true,
     "noEmitOnError": true
   },
   "exclude": ["node_modules/"]

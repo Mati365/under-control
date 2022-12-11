@@ -74,6 +74,6 @@
     "packages/*"
   ],
   "dependencies": {
-    "@rollup/plugin-typescript": "^10.0.1"
+    "rollup-plugin-typescript2": "^0.34.1"
   }
 }

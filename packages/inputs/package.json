@@ -2,6 +2,7 @@
   "name": "@under-control/inputs",
   "version": "1.0.0",
   "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "repository": "https://github.com/Mati365/under-control",
   "author": "Mateusz Bagiński",
   "license": "MIT",
