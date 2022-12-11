@@ -12,8 +12,5 @@
   },
   "dependencies": {
     "@under-control/core": "1.0.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17 || ^18"
   }
 }
