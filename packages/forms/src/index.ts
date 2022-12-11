@@ -1,1 +1,1 @@
-console.info('test');
+export * from './hooks';
