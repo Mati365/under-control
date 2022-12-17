@@ -4,18 +4,17 @@ import { useConstRefCallback } from '@under-control/core';
 import { areControlledInputAttrs } from '../guards';
 import { ControllableInputAttrs, ControlValue } from '../types';
 
-type ControlValueSettersAttrs<V extends ControlValue> =
-  | { value: V }
+type ControlValueSettersAttrs<V> =
+  | { value: V; merge?: false }
   | { value: Partial<V>; merge: true };
 
-type ControlHookState<V extends ControlValue> = {
+type ControlHookState<V> = {
   value: V;
 };
 
-export type ControlStateHookAttrs<V extends ControlValue> =
-  ControllableInputAttrs<V>;
+export type ControlStateHookAttrs<V> = ControllableInputAttrs<V>;
 
-export type ControlStateHookResult<V extends ControlValue> = {
+export type ControlStateHookResult<V> = {
   getValue: () => V;
   setValue: (attrs: ControlValueSettersAttrs<V>) => void;
 };
@@ -24,7 +23,7 @@ export function useControlState<V extends ControlValue>(
   attrs: ControlStateHookAttrs<V>,
 ): ControlStateHookResult<V> {
   // Check when user provided props such as `value` / `onChange` to check if `defaultValue`
-  // should be used. If `controlled` value is true then `initialValue` is copied from `value`.
+  // should be used. If `controlled` value is true then `defaultValue` is copied from `value`.
   // see: https://reactjs.org/docs/uncontrolled-components.html
   const controlled = areControlledInputAttrs(attrs);
   const getInitialState = (): ControlHookState<V> => ({
@@ -65,7 +64,7 @@ export function useControlState<V extends ControlValue>(
     (changedAttrs: ControlValueSettersAttrs<V>) => {
       const currentValue = getInternalStateValue();
       const newValue = (() => {
-        if ('merge' in changedAttrs) {
+        if ('merge' in changedAttrs && changedAttrs.merge) {
           if (typeof currentValue !== 'object') {
             throw new Error(
               'You passed `merge: true` when hook `state` is not object!',

@@ -1,6 +1,13 @@
 import { JoinWithSeparator } from './join-with-separator';
 
-type ObjectsToIgnore = (new (...parms: any[]) => any) | Date | any[] | Function;
+export type ObjectWithoutPaths =
+  | (new (...parms: any[]) => any)
+  | Date
+  | any[]
+  | Function
+  | number
+  | boolean
+  | string;
 
 export type ObjectTypeEntry<P, T> = P extends ''
   ? never
@@ -16,12 +23,8 @@ export type GetAllObjectPathsEntries<
 > =
   | (P extends '' ? never : ObjectTypeEntry<P, O>)
   | (O extends unknown[]
-      ? GetAllObjectPathsEntries<
-          O[number],
-          S,
-          JoinWithSeparator<P, `[${number}]`>
-        >
-      : O extends ObjectsToIgnore
+      ? GetAllObjectPathsEntries<O[number], S, `${P}[${number}]`>
+      : O extends ObjectWithoutPaths
       ? ObjectTypeEntry<P, O>
       : O extends object
       ? {
@@ -43,5 +46,11 @@ export type GetAllObjectPaths<
 export type GetPathObjectType<
   O,
   P extends GetAllObjectPaths<O>,
-  D = GetAllObjectPathsEntries<O>,
-> = D extends ObjectTypeEntry<any, any> ? (D & { path: P })['type'] : never;
+  D extends { type: any } = GetAllObjectPathsEntries<O>,
+> = O extends ObjectWithoutPaths
+  ? O
+  : D extends ObjectTypeEntry<any, any>
+  ? P extends D['path']
+    ? D['type']
+    : never
+  : never;
