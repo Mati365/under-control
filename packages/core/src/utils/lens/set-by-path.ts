@@ -6,7 +6,7 @@ export function setByPath<
   O extends ObjectWithPaths,
   K extends GetAllObjectPaths<O>,
 >(path: K, value: GetPathObjectType<O, K>, obj: O): O {
-  const flattenParts = getFlattenPathParts(path as string);
+  const flattenParts = getFlattenPathParts(path);
   const reducedObj: any = Array.isArray(obj) ? [...obj] : { ...obj };
 
   let previousObj = reducedObj;
