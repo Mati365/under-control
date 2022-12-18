@@ -18,20 +18,58 @@
 </div>
 
 <p align='center'>
-  Are you losing sanity every time you need to make a form? Are you tired enough of all antipatterns and cursed frameworks in React? Screw that! Treat all forms and inputs as a recursive composable controls!
+  Are you losing sanity every time you need to make a form? Are you tired enough of all antipatterns and cursed React frameworks? Screw that! Treat all forms and inputs as a recursive composable controls!
 </p>
 
-## What is included
+## Features
+
+### Utils
 
 - Hook that binds controls to state
 - Hook that implements simple form submitting / validation logic
 - Decorator that makes any passed component controllable
 - ... and nothing more
 
+### TypeScript integration
+
+![Object type check example](assets/examples/type-check-object.png 'Type check object with array')
+
 ## Install
 
 ```bash
 npm install @under-control/forms
+```
+
+## Usage
+
+### useControl
+
+Bind entire state to input:
+
+```tsx
+const Component = () => {
+  const { bind } = useControl({
+    defaultValue: 'Hello world',
+  });
+
+  return <input type="text" {...bind.entire()} />;
+};
+```
+
+Bind single state property to input:
+
+```tsx
+const Component = () => {
+  const { bind } = useControl({
+    defaultValue: {
+      message: {
+        nested: ['Hello world'],
+      },
+    },
+  });
+
+  return <input type="text" {...bind.path('message.nested[0]')} />;
+};
 ```
 
 ## License

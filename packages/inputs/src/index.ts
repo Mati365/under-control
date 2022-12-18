@@ -1,3 +1,3 @@
-export * from './guards';
-export * from './hooks';
+export * from './hooks/use-control';
+export * from './decorators/controlled';
 export * from './types';
