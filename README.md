@@ -34,6 +34,48 @@
 
 ![Object type check example](assets/examples/type-check-object.png 'Type check object with array')
 
+### Composition
+
+Build and treat your forms as composable set of controlled components. Do not mess with implementing `value` / `onChange` logic each time when you create standalone controls.
+
+Example:
+
+```tsx
+type PrefixValue = {
+  prefix: string;
+  name: string;
+};
+
+const PrefixedInput = controlled<PrefixValue>()(({ control: { bind } }) => (
+  <>
+    <input type="text" {...bind.path('prefix')} />
+    <input type="text" {...bind.path('name')} />
+  </>
+));
+```
+
+Usage in bigger component:
+
+```tsx
+...
+
+const PrefixedInput = controlled<PrefixValue>()(({ control: { bind } }) => (
+  <>
+    <PrefixedInput {...bind.path('prefixA')} />
+    <PrefixedInput {...bind.path('prefixB')} />
+  </>
+));
+```
+
+State:
+
+```tsx
+{
+  prefixA: { prefix, name },
+  prefixB: { prefix, name }
+}
+```
+
 ## Install
 
 ```bash
