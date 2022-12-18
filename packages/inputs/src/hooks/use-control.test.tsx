@@ -4,22 +4,18 @@ import { render, renderHook, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { ControlledInputAttrs } from '../types';
+import { useControl } from './use-control';
 
-import { useControlBind } from './use-control-bind';
-import { useControlState } from './use-control-state';
-
-describe('useControlBind', () => {
+describe('useControl', () => {
   describe('type inference for value and onChange', () => {
     it('should return string register type', () => {
       const { result } = renderHook(() =>
-        useControlBind<string>({
-          state: useControlState({
-            defaultValue: 'Hello world',
-          }),
+        useControl({
+          defaultValue: 'Hello world',
         }),
       );
 
-      expectTypeOf(result.current).toEqualTypeOf<{
+      expectTypeOf(result.current.bind).toEqualTypeOf<{
         entire: () => ControlledInputAttrs<string>;
       }>();
     });
@@ -33,32 +29,34 @@ describe('useControlBind', () => {
         },
       };
 
-      const { result } = renderHook(() =>
-        useControlBind({
-          state: useControlState({
-            defaultValue,
-          }),
+      const {
+        result: {
+          current: { bind },
+        },
+      } = renderHook(() =>
+        useControl({
+          defaultValue,
         }),
       );
 
-      expectTypeOf(result.current.entire()).toMatchTypeOf<{
+      expectTypeOf(bind.entire()).toMatchTypeOf<{
         value: {
           a: { b: { c: number[] } };
         };
       }>();
 
-      expectTypeOf(result.current.path('a')).toMatchTypeOf<{
+      expectTypeOf(bind.path('a')).toMatchTypeOf<{
         value: {
           b: { c: number[] };
         };
       }>();
 
-      expectTypeOf(result.current.path('a.b.c')).toMatchTypeOf<{
+      expectTypeOf(bind.path('a.b.c')).toMatchTypeOf<{
         value: number[];
         onChange: (value: number[]) => void;
       }>();
 
-      expectTypeOf(result.current.path('a.b.c[0]')).toMatchTypeOf<{
+      expectTypeOf(bind.path('a.b.c[0]')).toMatchTypeOf<{
         value: number;
         onChange: (value: number) => void;
       }>();
@@ -68,18 +66,14 @@ describe('useControlBind', () => {
   describe('component usage', () => {
     it('should sync state with <input /> when use entire bind', async () => {
       const Component: FC = () => {
-        const state = useControlState<string>({
+        const { getValue, bind } = useControl({
           defaultValue: 'Hello world',
-        });
-
-        const bind = useControlBind({
-          state,
         });
 
         return (
           <>
             <input name="input" type="text" {...bind.entire()} />
-            <div>Value: {state.getValue()}</div>
+            <div>Value: {getValue()}</div>
           </>
         );
       };
@@ -105,18 +99,14 @@ describe('useControlBind', () => {
           },
         };
 
-        const state = useControlState({
+        const { bind, getValue } = useControl({
           defaultValue,
-        });
-
-        const bind = useControlBind({
-          state,
         });
 
         return (
           <>
             <input name="input" type="text" {...bind.path('a.b')} />
-            <div>Value: {state.getValue().a.b}</div>
+            <div>Value: {getValue().a.b}</div>
           </>
         );
       };
@@ -130,6 +120,4 @@ describe('useControlBind', () => {
       expect(screen.getByText('Value: HelloWorld')).toBeInTheDocument();
     });
   });
-
-  describe('validation', () => {});
 });

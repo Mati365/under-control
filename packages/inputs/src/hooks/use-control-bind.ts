@@ -22,7 +22,7 @@ type ControlBindPathFn<V extends ControlValue> = <
   path: K,
 ) => ControlledInputAttrs<GetPathObjectType<V, K>>;
 
-type ControlBindHookResult<V> = {
+export type ControlBindHookResult<V> = {
   entire: () => ControlledInputAttrs<V>;
 } & (V extends ObjectWithPaths
   ? {

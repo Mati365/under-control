@@ -13,12 +13,13 @@ module.exports = ({ rootDir }) => ({
   },
   collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/**/*.{ts, tsx}'],
+  coveragePathIgnorePatterns: ['index.ts'],
   coverageThreshold: {
     global: {
-      branches: 30,
-      functions: 30,
-      lines: 30,
-      statements: 30,
+      branches: 90,
+      functions: 90,
+      lines: 90,
+      statements: 90,
     },
   },
 });
