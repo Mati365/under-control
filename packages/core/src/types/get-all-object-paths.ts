@@ -20,21 +20,26 @@ export type GetAllObjectPathsEntries<
   O,
   S extends string = '.',
   P extends string = '',
-> =
-  | (P extends '' ? never : ObjectTypeEntry<P, O>)
-  | (O extends unknown[]
-      ? GetAllObjectPathsEntries<O[number], S, `${P}[${number}]`>
-      : O extends ObjectWithoutPaths
-      ? ObjectTypeEntry<P, O>
-      : O extends object
-      ? {
-          [Key in keyof O]: GetAllObjectPathsEntries<
-            O[Key],
-            S,
-            JoinWithSeparator<P, Key>
-          >;
-        }[keyof O]
-      : ObjectTypeEntry<P, O>);
+> = unknown extends O
+  ? {
+      path: string;
+      type: any;
+    }
+  :
+      | (P extends '' ? never : ObjectTypeEntry<P, O>)
+      | (O extends unknown[]
+          ? GetAllObjectPathsEntries<O[number], S, `${P}[${number}]`>
+          : O extends ObjectWithoutPaths
+          ? ObjectTypeEntry<P, O>
+          : O extends object
+          ? {
+              [Key in keyof O]: GetAllObjectPathsEntries<
+                O[Key],
+                S,
+                JoinWithSeparator<P, Key>
+              >;
+            }[keyof O]
+          : ObjectTypeEntry<P, O>);
 
 export type GetAllObjectPaths<
   O,
@@ -53,4 +58,4 @@ export type GetPathObjectType<
   ? P extends D['path']
     ? D['type']
     : never
-  : never;
+  : unknown;

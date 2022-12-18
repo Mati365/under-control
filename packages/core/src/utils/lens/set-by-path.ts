@@ -1,6 +1,6 @@
 import { GetAllObjectPaths, GetPathObjectType } from '../../types';
 import { getFlattenPathParts } from './get-flatten-path-parts';
-import { ObjectWithPaths } from './is-object-with-paths';
+import { ObjectWithPaths } from '../../types/object-with-paths';
 
 export function setByPath<
   O extends ObjectWithPaths,

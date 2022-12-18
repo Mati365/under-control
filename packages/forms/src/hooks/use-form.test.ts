@@ -1,3 +1,9 @@
+import { useForm } from './use-form';
+
 describe('useForm', () => {
-  test.skip('Workaround', () => {});
+  test('Workaround', () => {
+    const r = useForm();
+
+    expect(r).toBeUndefined();
+  });
 });

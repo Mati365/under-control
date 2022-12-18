@@ -1,10 +1,6 @@
-import {
-  ControllableInputAttrs,
-  ControlledInputAttrs,
-  ControlValue,
-} from '../types';
+import { ControllableInputAttrs, ControlledInputAttrs } from '../types';
 
-export function areControlledInputAttrs<V extends ControlValue>(
+export function areControlledInputAttrs<V>(
   attrs: ControllableInputAttrs<V>,
 ): attrs is ControlledInputAttrs<V> {
   return 'value' in attrs;

@@ -83,7 +83,7 @@ export function useControlState<V extends ControlValue>(
       });
 
       if (controlled) {
-        attrs.onChange(newValue, currentValue);
+        attrs.onChange(newValue);
       }
     },
   );

@@ -28,7 +28,7 @@ rules:
   quotes: ['error', 'single']
   import/no-default-export: 2
   import/no-extraneous-dependencies: 0
-  no-console: [2, { 'allow': ['warn', 'error', 'info'] }]
+  no-console: warn
   '@typescript-eslint/strict-boolean-expressions': off
   '@typescript-eslint/indent': off
   '@typescript-eslint/consistent-type-definitions': ['error', 'type']

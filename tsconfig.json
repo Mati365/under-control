@@ -12,7 +12,8 @@
     "strict": true,
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmitOnError": true
+    "noEmitOnError": true,
+    "allowJs": true
   },
   "exclude": ["node_modules/"]
 }
