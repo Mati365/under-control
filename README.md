@@ -21,6 +21,12 @@
   Are you losing sanity every time you need to make a form? Are you tired enough of all antipatterns and cursed React frameworks? Screw that! Treat all forms and inputs as a recursive composable controls!
 </p>
 
+## Install
+
+```bash
+npm install @under-control/forms
+```
+
 ## Features
 
 ### Utils
@@ -57,29 +63,26 @@ const PrefixedInput = controlled<PrefixValue>()(({ control: { bind } }) => (
 Usage in bigger component:
 
 ```tsx
-...
+type PrefixPair = {
+  a: PrefixValue;
+  b: PrefixValue;
+};
 
-const PrefixedInput = controlled<PrefixValue>()(({ control: { bind } }) => (
+const PrefixedInput = controlled<PrefixPair>()(({ control: { bind } }) => (
   <>
-    <PrefixedInput {...bind.path('prefixA')} />
-    <PrefixedInput {...bind.path('prefixB')} />
+    <PrefixedInput {...bind.path('a')} />
+    <PrefixedInput {...bind.path('b')} />
   </>
 ));
 ```
 
-State:
+`onChange` output from `PrefixedInput` component:
 
 ```tsx
 {
-  prefixA: { prefix, name },
-  prefixB: { prefix, name }
+  a: { prefix, name },
+  b: { prefix, name }
 }
-```
-
-## Install
-
-```bash
-npm install @under-control/forms
 ```
 
 ## Usage
