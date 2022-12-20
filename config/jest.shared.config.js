@@ -12,7 +12,7 @@ module.exports = ({ rootDir }) => ({
     '^.+\\.(t|j)sx?$': ['ts-jest'],
   },
   collectCoverage: true,
-  collectCoverageFrom: ['<rootDir>/src/**/*.{ts, tsx}'],
+  collectCoverageFrom: ['<rootDir>/src/**/*.{ts,tsx}'],
   coveragePathIgnorePatterns: ['index.ts'],
   coverageThreshold: {
     global: {

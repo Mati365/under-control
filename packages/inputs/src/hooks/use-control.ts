@@ -1,6 +1,7 @@
 import { RelaxNarrowType } from '@under-control/core';
-import { ControlValue } from '../types';
-import { ControlBindHookResult, useControlBind } from './use-control-bind';
+import { ControlBindMethods, ControlValue } from '../types';
+
+import { useControlBind } from './use-control-bind';
 import {
   ControlStateHookAttrs,
   ControlStateHookResult,
@@ -9,7 +10,7 @@ import {
 
 export type ControlHookAttrs<V> = ControlStateHookAttrs<V>;
 export type ControlHookResult<V> = ControlStateHookResult<V> & {
-  bind: ControlBindHookResult<V>;
+  bind: ControlBindMethods<V>;
 };
 
 export function useControl<R extends ControlValue>(

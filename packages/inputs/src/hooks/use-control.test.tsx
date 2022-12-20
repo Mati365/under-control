@@ -3,8 +3,8 @@ import { expectTypeOf } from 'expect-type';
 import { render, renderHook, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { ControlledInputAttrs } from '../types';
 import { useControl } from './use-control';
+import { ControlBindInputAttrs } from '../types';
 
 describe('useControl', () => {
   describe('type inference for value and onChange', () => {
@@ -16,7 +16,7 @@ describe('useControl', () => {
       );
 
       expectTypeOf(result.current.bind).toEqualTypeOf<{
-        entire: () => ControlledInputAttrs<string>;
+        entire: () => ControlBindInputAttrs<string>;
       }>();
     });
 
@@ -59,6 +59,30 @@ describe('useControl', () => {
       expectTypeOf(bind.path('a.b.c[0]')).toMatchTypeOf<{
         value: number;
         onChange: (value: number) => void;
+      }>();
+    });
+  });
+
+  describe('bind attributes', () => {
+    it('map input returns proper value and type', () => {
+      const {
+        result: {
+          current: { bind },
+        },
+      } = renderHook(() =>
+        useControl({
+          defaultValue: {
+            a: 2,
+          },
+        }),
+      );
+
+      const mappedBind = bind.path('a', { input: val => ({ d: val }) });
+
+      expect(mappedBind.value).toEqual({ d: 2 });
+      expectTypeOf(mappedBind).toMatchTypeOf<{
+        value: { d: number };
+        onChange: (value: { d: number }) => void;
       }>();
     });
   });

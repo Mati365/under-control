@@ -1,2 +1,3 @@
+export * from './control-bind';
+export * from './control-state';
 export * from './control-value';
-export * from './control-attrs';

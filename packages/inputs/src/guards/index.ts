@@ -1,1 +1,1 @@
-export * from './are-controlled-input-attrs';
+export * from './are-controlled-control-attrs';

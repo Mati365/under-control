@@ -15,7 +15,7 @@ describe('useControlState', () => {
 
       result.current.setValue({ value: 'World' });
       expect(result.current.getValue()).toBe('World');
-      expect(onChange).toHaveBeenNthCalledWith(1, 'World');
+      expect(onChange).toHaveBeenNthCalledWith(1, 'World', 'Hello');
     });
 
     it('should raise exception when call setValue(merge: true) for non-object type', () => {

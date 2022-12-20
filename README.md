@@ -117,6 +117,29 @@ const Component = () => {
 };
 ```
 
+Map single property and map it to input:
+
+```tsx
+const Component = () => {
+  const { bind } = useControl({
+    defaultValue: {
+      message: {
+        nested: ['Hello world'],
+      },
+    },
+  });
+
+  return (
+    <input
+      type="text"
+      {...bind.path('message.nested[0]', {
+        input: str => `${str}!`, // appends `!` value tored in message.nested[0]
+      })}
+    />
+  );
+};
+```
+
 ## License
 
 [MIT](LICENSE)

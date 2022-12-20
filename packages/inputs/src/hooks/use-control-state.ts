@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useConstRefCallback } from '@under-control/core';
 
-import { areControlledInputAttrs } from '../guards';
-import { ControllableInputAttrs, ControlValue } from '../types';
+import { areControlledControlAttrs } from '../guards';
+import { ControlStateAttrs, ControlValue } from '../types';
 
 type ControlValueSettersAttrs<V> =
   | { value: V; merge?: false }
@@ -12,7 +12,7 @@ type ControlHookState<V> = {
   value: V;
 };
 
-export type ControlStateHookAttrs<V> = ControllableInputAttrs<V>;
+export type ControlStateHookAttrs<V> = ControlStateAttrs<V>;
 
 export type ControlStateHookResult<V> = {
   getValue: () => V;
@@ -25,7 +25,7 @@ export function useControlState<V extends ControlValue>(
   // Check when user provided props such as `value` / `onChange` to check if `defaultValue`
   // should be used. If `controlled` value is true then `defaultValue` is copied from `value`.
   // see: https://reactjs.org/docs/uncontrolled-components.html
-  const controlled = areControlledInputAttrs(attrs);
+  const controlled = areControlledControlAttrs(attrs);
   const getInitialState = (): ControlHookState<V> => ({
     value: controlled ? attrs.value : attrs.defaultValue,
   });
@@ -83,7 +83,7 @@ export function useControlState<V extends ControlValue>(
       });
 
       if (controlled) {
-        attrs.onChange(newValue);
+        attrs.onChange(newValue, currentValue);
       }
     },
   );
