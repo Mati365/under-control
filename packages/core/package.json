@@ -13,5 +13,8 @@
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17 || ^18"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

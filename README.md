@@ -12,7 +12,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/00361e89d67049baa02723ee0e818ed0?style=for-the-badge)](https://www.codacy.com/gh/Mati365/under-control/dashboard?utm_source=github.com&utm_medium=referral&utm_content=Mati365/under-control&utm_campaign=Badge_Coverage)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/00361e89d67049baa02723ee0e818ed0)](https://www.codacy.com/gh/Mati365/under-control/dashboard?utm_source=github.com&utm_medium=referral&utm_content=Mati365/under-control&utm_campaign=Badge_Grade)
 [![NPM](https://img.shields.io/npm/l/under-control?style=flat)](LICENSE)
-[![NPM downloads](https://img.shields.io/npm/dm/under-control?style=flat&label=NPM)](https://www.npmjs.com/package/under-control)
+![NPM Downloads](https://img.shields.io/npm/dm/@under-control/core)
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/Mati365/under-control?style=flat)
 
 </div>
@@ -22,6 +22,18 @@
 </p>
 
 ## Install
+
+If you want only control bind functions:
+
+![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@under-control/inputs)
+
+```bash
+npm install @under-control/inputs
+```
+
+If you want form utils (it uses `@under-control/inputs` as dependency):
+
+![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@under-control/forms)
 
 ```bash
 npm install @under-control/forms

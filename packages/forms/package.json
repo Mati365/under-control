@@ -14,5 +14,8 @@
   "dependencies": {
     "@under-control/core": "1.0.0",
     "@under-control/inputs": "1.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

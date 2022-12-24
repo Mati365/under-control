@@ -18,6 +18,7 @@ describe('useConstRefCallback hook', () => {
       });
 
       useEffect(() => {
+        // eslint-disable-next-line no-console
         mutex.promise.then(safeFn).catch(console.error);
       }, []);
 

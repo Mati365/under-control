@@ -10,11 +10,12 @@
       "outputs": []
     },
     "test": {
+      "dependsOn": ["lint"],
       "outputs": [],
       "inputs": ["src/**/*.test.tsx", "src/**/*.test.ts"],
       "cache": false
     },
-    "deploy": {
+    "pre-deploy": {
       "dependsOn": ["build", "lint", "test"],
       "outputs": []
     }
