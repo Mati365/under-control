@@ -104,6 +104,37 @@ const PrefixedInputGroup = controlled<PrefixPair>()(({ control: { bind } }) => (
 
 ## Usage
 
+### useForm
+
+Create basic form with `PrefixedInputs` from previous example.
+
+```tsx
+const createPrefixPair = (): PrefixPair => ({
+  prefix: '',
+  name: '',
+});
+
+const Component: FC = () => {
+  const { bind, handleSubmitEvent } = useForm({
+    defaultValue: {
+      a: createPrefixPair(),
+      b: createPrefixPair(),
+    },
+    onSubmit: async data => {
+      console.info('Submit!', data);
+    },
+  });
+
+  return (
+    <form onSubmit={handleSubmitEvent}>
+      <PrefixedInput type="text" {...bind.path('a')} />
+      <PrefixedInput type="text" {...bind.path('b')} />
+      <input type="submit" value="Submit" />
+    </form>
+  );
+};
+```
+
 ### useControl
 
 Bind entire state to input:
@@ -159,30 +190,6 @@ const Component = () => {
         input: str => `${str}!`, // appends `!` value stored in message.nested[0]
       })}
     />
-  );
-};
-```
-
-### useForm
-
-```tsx
-const Component: FC = () => {
-  const { bind, handleSubmitEvent } = useForm({
-    defaultValue: {
-      a: '',
-      b: '',
-    },
-    onSubmit: async data => {
-      console.info('Submit!', data);
-    },
-  });
-
-  return (
-    <form onSubmit={handleSubmitEvent}>
-      <PrefixedInput type="text" {...bind.path('a')} />
-      <PrefixedInput type="text" {...bind.path('b')} />
-      <input type="submit" value="Submit" />
-    </form>
   );
 };
 ```
