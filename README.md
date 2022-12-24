@@ -156,7 +156,7 @@ const Component = () => {
     <input
       type="text"
       {...bind.path('message.nested[0]', {
-        input: str => `${str}!`, // appends `!` value tored in message.nested[0]
+        input: str => `${str}!`, // appends `!` value stored in message.nested[0]
       })}
     />
   );
