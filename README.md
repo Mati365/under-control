@@ -78,13 +78,14 @@ Usage in bigger component:
 
 ```tsx
 import { controlled } from '@under-control/inputs';
+import { PrefixedInput } from './prefixed-input';
 
 type PrefixPair = {
   a: PrefixValue;
   b: PrefixValue;
 };
 
-const PrefixedInput = controlled<PrefixPair>()(({ control: { bind } }) => (
+const PrefixedInputGroup = controlled<PrefixPair>()(({ control: { bind } }) => (
   <>
     <PrefixedInput {...bind.path('a')} />
     <PrefixedInput {...bind.path('b')} />
