@@ -59,6 +59,8 @@ Build and treat your forms as composable set of controlled components. Do not me
 Example:
 
 ```tsx
+import { controlled } from '@under-control/inputs';
+
 type PrefixValue = {
   prefix: string;
   name: string;
@@ -75,6 +77,8 @@ const PrefixedInput = controlled<PrefixValue>()(({ control: { bind } }) => (
 Usage in bigger component:
 
 ```tsx
+import { controlled } from '@under-control/inputs';
+
 type PrefixPair = {
   a: PrefixValue;
   b: PrefixValue;
@@ -104,6 +108,8 @@ const PrefixedInput = controlled<PrefixPair>()(({ control: { bind } }) => (
 Bind entire state to input:
 
 ```tsx
+import { useControl } from '@under-control/inputs';
+
 const Component = () => {
   const { bind } = useControl({
     defaultValue: 'Hello world',
@@ -116,6 +122,8 @@ const Component = () => {
 Bind single state property to input:
 
 ```tsx
+import { useControl } from '@under-control/inputs';
+
 const Component = () => {
   const { bind } = useControl({
     defaultValue: {
@@ -132,6 +140,8 @@ const Component = () => {
 Map single property and map it to input:
 
 ```tsx
+import { useControl } from '@under-control/inputs';
+
 const Component = () => {
   const { bind } = useControl({
     defaultValue: {
