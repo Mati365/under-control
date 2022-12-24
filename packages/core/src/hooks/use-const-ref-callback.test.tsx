@@ -6,7 +6,7 @@ import { screen, waitFor } from '@testing-library/dom';
 import { DeferredUnlock } from '../../test/deferred-unlock';
 import { useConstRefCallback } from './use-const-ref-callback';
 
-describe('useConstRefCallback hook', () => {
+describe('useConstRefCallback', () => {
   it('should prevent stale closure problem in useEffect env', async () => {
     const globalCachedFnMock = jest.fn();
     const mutex = new DeferredUnlock();

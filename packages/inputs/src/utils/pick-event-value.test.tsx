@@ -23,4 +23,22 @@ describe('pickEventValue', () => {
 
     expect(trackFn).toBeCalledWith(true);
   });
+
+  it('should pick first file from file input', async () => {
+    const callback = jest.fn();
+    const testFile = new File(['hello'], 'hello.png', {
+      type: 'image/png',
+    });
+
+    render(
+      <input
+        data-testid="file"
+        type="file"
+        onChange={e => callback(pickEventValue(e))}
+      />,
+    );
+
+    await userEvent.upload(screen.getByTestId('file'), testFile);
+    expect(callback).toBeCalledWith(testFile);
+  });
 });

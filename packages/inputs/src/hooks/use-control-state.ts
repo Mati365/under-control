@@ -45,7 +45,7 @@ export function useControlState<V extends ControlValue>(
   // `getStateValue()` call will return always newest value even if you call it in useMemo(() => {}, [])
   const getInternalStateValue = useConstRefCallback(() => state.value);
   const setInternalStateValue = useConstRefCallback(
-    ({ value, rerender = true }: { value: V; rerender?: boolean }) => {
+    ({ value, rerender }: { value: V; rerender: boolean }) => {
       if (rerender) {
         setState(prevState => ({
           ...prevState,
@@ -77,13 +77,20 @@ export function useControlState<V extends ControlValue>(
         return changedAttrs.value;
       })();
 
-      setInternalStateValue({
-        value: newValue,
-        rerender: !controlled,
-      });
+      if (controlled && typeof attrs.onChange === 'function') {
+        setInternalStateValue({
+          value: newValue,
+          rerender: false,
+        });
 
-      if (controlled) {
         attrs.onChange(newValue, currentValue);
+      } else if (!controlled) {
+        setInternalStateValue({
+          value: newValue,
+          rerender: true,
+        });
+
+        attrs.onChange?.(newValue, currentValue);
       }
     },
   );

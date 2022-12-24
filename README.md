@@ -163,6 +163,30 @@ const Component = () => {
 };
 ```
 
+### useForm
+
+```tsx
+const Component: FC = () => {
+  const { bind, handleSubmitEvent } = useForm({
+    defaultValue: {
+      a: '',
+      b: '',
+    },
+    onSubmit: async data => {
+      console.info('Submit!', data);
+    },
+  });
+
+  return (
+    <form onSubmit={handleSubmitEvent}>
+      <PrefixedInput type="text" {...bind.path('a')} />
+      <PrefixedInput type="text" {...bind.path('b')} />
+      <input type="submit" value="Submit" />
+    </form>
+  );
+};
+```
+
 ## License
 
 [MIT](LICENSE)
