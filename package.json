@@ -8,7 +8,7 @@
     "lint": "npx turbo run lint",
     "test": "npx turbo run test",
     "prepare": "npx husky install",
-    "publish": "npx turbo run pre-deploy && npx changeset version && npx changeset publish"
+    "publish": "npx turbo run pre-deploy && npx changeset && npx changeset version && npx changeset publish"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
