@@ -1,5 +1,5 @@
 {
-  "name": "@under-control/forms",
+  "name": "@under-control/validate",
   "version": "1.1.4",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -12,9 +12,7 @@
     "lint": "npx eslint src/"
   },
   "dependencies": {
-    "@under-control/core": "1.1.4",
-    "@under-control/inputs": "1.1.4",
-    "@under-control/validate": "1.1.4"
+    "@under-control/core": "1.1.4"
   },
   "publishConfig": {
     "access": "public"

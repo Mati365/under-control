@@ -5,10 +5,14 @@ import { Nullable } from '../types';
 import { identity } from '../utils';
 import { useMountedRef } from './use-mounted-ref';
 
+type ExtractAsyncReturnType<T extends (...args: any) => any> = Awaited<
+  ReturnType<T>
+>;
+
 export type PromiseState<T, E> = {
   result?: T;
   error?: E | undefined | null | true;
-  loading?: boolean;
+  loading: boolean;
 };
 
 export type PromiseCallbackAttrs<T, E> = {
@@ -18,22 +22,23 @@ export type PromiseCallbackAttrs<T, E> = {
   errorSelectorFn?: Nullable<(e: any) => E>;
 };
 
-type PromiseCallbackResult<T, E, F> = [F, PromiseState<T, E>];
+export type PromiseCallbackResult<F extends (...args: any) => any, E = any> = [
+  F,
+  PromiseState<Awaited<ReturnType<F>>, E>,
+];
 
-export const usePromiseCallback = <
-  F extends (...args: any[]) => any,
-  T = ReturnType<F>,
-  E = any,
->(
+export const usePromiseCallback = <F extends (...args: any) => any, E = any>(
   promiseFn: F,
   {
     initialPromiseState,
     rethrow = true,
     resultParserFn = identity,
     errorSelectorFn,
-  }: PromiseCallbackAttrs<T, E> = {},
-): PromiseCallbackResult<T, E, F> => {
-  const [promiseState, setPromiseState] = useState<PromiseState<T, E>>(
+  }: PromiseCallbackAttrs<ExtractAsyncReturnType<F>, E> = {},
+): PromiseCallbackResult<F, E> => {
+  const [promiseState, setPromiseState] = useState<
+    PromiseState<ExtractAsyncReturnType<F>, E>
+  >(
     initialPromiseState ?? {
       loading: false,
     },
@@ -85,5 +90,5 @@ export const usePromiseCallback = <
     [],
   );
 
-  return [fn as F, promiseState];
+  return [fn as F, promiseState as any];
 };

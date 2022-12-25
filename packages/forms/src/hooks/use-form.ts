@@ -14,16 +14,22 @@ import {
   useControl,
 } from '@under-control/inputs';
 
-export type FormSubmitCallback<V> = (
+export type FormSubmitCallback<V extends ControlValue> = (
   data: RelaxNarrowType<V>,
 ) => CanBePromise<void>;
 
-export type FormHookAttrs<V, R = void> = UncontrolledControlStateAttrs<V> & {
+export type FormHookAttrs<
+  V extends ControlValue,
+  R = void,
+> = UncontrolledControlStateAttrs<V> & {
   initialDirty?: boolean;
   onSubmit: (value: V) => CanBePromise<R>;
 };
 
-export type FormHookResult<V, R = void> = ControlHookResult<V> & {
+export type FormHookResult<
+  V extends ControlValue,
+  R = void,
+> = ControlHookResult<V> & {
   error: any;
   submitting: boolean;
   isDirty: boolean;
@@ -55,7 +61,9 @@ export function useForm<V extends ControlValue, R = void>({
 
   const handleSubmitEvent = (e: FormEvent): void => {
     suppressEvent(e);
-    handleSubmit(); // eslint-disable-line @typescript-eslint/no-floating-promises
+
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    handleSubmit();
   };
 
   return {

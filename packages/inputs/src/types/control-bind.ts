@@ -10,6 +10,7 @@ import { ControlValue } from './control-value';
 export type ControlBindInputAttrs<V> = {
   value: V;
   onChange: (value: V | ChangeEvent<HTMLElement>) => void;
+  onBlur?: VoidFunction;
 };
 
 export type ControlBindPathAttrs<V, O = V> = {

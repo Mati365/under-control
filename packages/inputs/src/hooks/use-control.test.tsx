@@ -117,14 +117,12 @@ describe('useControl', () => {
 
     it('should sync state with <input /> when use path bind', async () => {
       const Component: FC = () => {
-        const defaultValue = {
-          a: {
-            b: 'Hello',
-          },
-        };
-
         const { bind, getValue } = useControl({
-          defaultValue,
+          defaultValue: {
+            a: {
+              b: 'Hello',
+            },
+          },
         });
 
         return (
@@ -142,6 +140,64 @@ describe('useControl', () => {
 
       expect(input).toHaveValue('HelloWorld');
       expect(screen.getByText('Value: HelloWorld')).toBeInTheDocument();
+    });
+  });
+
+  describe('blur detection', () => {
+    it('should detect blur on entire elements', async () => {
+      const onBlur = jest.fn();
+
+      const Component: FC = () => {
+        const { bind } = useControl({
+          defaultValue: '',
+          onBlur,
+        });
+
+        return (
+          <input data-testid="a" name="input" type="text" {...bind.entire()} />
+        );
+      };
+
+      render(<Component />);
+
+      const input = screen.getByTestId('a');
+
+      await userEvent.type(input, 'ABC');
+      await userEvent.click(document.body);
+
+      expect(onBlur).toHaveBeenNthCalledWith(1, {
+        path: null,
+        value: 'ABC',
+      });
+    });
+
+    it('should detect blur on path nested elements', async () => {
+      const onBlur = jest.fn();
+
+      const Component: FC = () => {
+        const { bind } = useControl({
+          defaultValue: {
+            a: '',
+          },
+          onBlur,
+        });
+
+        return (
+          <input data-testid="a" name="input" type="text" {...bind.path('a')} />
+        );
+      };
+
+      render(<Component />);
+
+      const input = screen.getByTestId('a');
+
+      await userEvent.type(input, 'ABC');
+      await userEvent.click(document.body);
+
+      expect(onBlur).toHaveBeenNthCalledWith(1, {
+        path: 'a',
+        value: 'ABC',
+      });
     });
   });
 });
