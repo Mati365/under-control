@@ -1,6 +1,5 @@
 {
   "name": "under-control",
-  "version": "1.0.0",
   "private": true,
   "description": "Are you losing sanity every time you need to make a form? are you have enough of all antipatterns and cursed frameworks in react? Screw that! Treat all of them as a recursive composable control!",
   "main": "dist/index.js",

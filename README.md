@@ -11,9 +11,9 @@
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/00361e89d67049baa02723ee0e818ed0?style=for-the-badge)](https://www.codacy.com/gh/Mati365/under-control/dashboard?utm_source=github.com&utm_medium=referral&utm_content=Mati365/under-control&utm_campaign=Badge_Coverage)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/00361e89d67049baa02723ee0e818ed0)](https://www.codacy.com/gh/Mati365/under-control/dashboard?utm_source=github.com&utm_medium=referral&utm_content=Mati365/under-control&utm_campaign=Badge_Grade)
-[![NPM](https://img.shields.io/npm/l/under-control?style=flat)](LICENSE)
+[![NPM](https://img.shields.io/npm/l/@under-control/core?style=flat)](LICENSE)
 ![NPM Downloads](https://img.shields.io/npm/dm/@under-control/core)
-![GitHub package.json version](https://img.shields.io/github/package-json/v/Mati365/under-control?style=flat)
+![NPM version](https://img.shields.io/npm/v/@under-control/core)
 
 </div>
 
