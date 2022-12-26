@@ -18,12 +18,12 @@ export type FormValidatorUtils<V> = {
   all: (fn: GlobalValidator<V>) => GlobalValidator<V>;
 };
 
-export type UnparsedValidators<V> =
+export type FormValidatorsList<V> =
   | FormValidators<V>
   | Reader<FormValidatorUtils<V>, FormValidators<V> | Validator<V>>;
 
 export function useFormValidatorsSelector<V>(
-  validatorsGetter: UnparsedValidators<V>,
+  validatorsGetter: FormValidatorsList<V>,
 ): FormValidators<V> {
   if (typeof validatorsGetter === 'function') {
     const result = validatorsGetter({

@@ -37,8 +37,8 @@ describe('useFormValidator', () => {
 
       await waitFor(() => {
         expect(result.current.errors).toMatchObject([
-          error('Error 2'),
-          error('Error 3'),
+          error('Error 2', null, null),
+          error('Error 3', null, null),
         ]);
       });
     });

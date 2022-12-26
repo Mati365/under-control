@@ -12,7 +12,7 @@ import { isGlobalValidator } from '../guards';
 
 import { ValidationError, Validator } from '../types';
 import {
-  UnparsedValidators,
+  FormValidatorsList,
   useFormValidatorsSelector,
 } from './use-form-validators-selector';
 
@@ -22,7 +22,7 @@ type FormValidateFn<V> = (
 ) => Promise<void>;
 
 export type FormValidatorHookAttrs<V> = {
-  validators: UnparsedValidators<V>;
+  validators: FormValidatorsList<V>;
 };
 
 export type FormValidatorHookResult<V> = {
@@ -38,19 +38,30 @@ export function useFormValidator<V>({
   const validators = useFormValidatorsSelector(validatorsGetter);
 
   const executeValidator = (value: V) => async (validator: Validator<V>) => {
+    // execute root level global validators
     if (isGlobalValidator(validator)) {
-      return validator({
-        value,
-      });
+      const results = safeToArray(
+        await validator({
+          value,
+        }),
+      );
+
+      return results.map(item => ({
+        ...item,
+        ...(item.path === undefined && {
+          path: null,
+        }),
+      }));
     }
 
+    // execute nested validators
     const results = await validator.fn({
       value: getByPath<any, any>(validator.path, value),
     });
 
-    return safeToArray(results).map(result => ({
-      ...result,
-      ...(result.path === undefined && {
+    return safeToArray(results).map(item => ({
+      ...item,
+      ...(item.path === undefined && {
         path: validator.path,
       }),
     }));

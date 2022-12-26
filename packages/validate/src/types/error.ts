@@ -6,7 +6,7 @@ export type ValidationMessage = {
 
 export type ValidationError<
   V,
-  M extends ValidationMessage = ValidationMessage,
+  M extends ValidationMessage = any,
   O extends object = object,
 > = {
   path: CanBeBlank<GetAllObjectPaths<V>>;
