@@ -9,18 +9,19 @@ export type FormValidatorMessagesHookAttrs<V> = {
   errors: Array<ValidationError<V>>;
 };
 
-export type FormValidatorMessagesHookResult<V> = {
-  extract: FormErrorsExtractor<V>;
-};
+export type FormValidatorMessagesHookResult<V> =
+  FormValidatorMessagesHookAttrs<V> & {
+    extract: FormErrorsExtractor<V>;
+  };
 
-export function useFormValidatorMessage<V>({
+export function useFormValidatorMessages<V>({
   errors,
 }: FormValidatorMessagesHookAttrs<V>): FormValidatorMessagesHookResult<V> {
   const extract: FormErrorsExtractor<V> = (path = null) =>
     errors.flatMap(item => {
       const itemPath = item.path as string;
       const truncatedPath =
-        itemPath?.substring((path as string).length + 1) || null;
+        itemPath?.substring((path as string)?.length + 1) || null;
 
       if (!truncatedPath && path !== null) {
         return [];
@@ -35,6 +36,7 @@ export function useFormValidatorMessage<V>({
     });
 
   return {
+    errors,
     extract,
   };
 }

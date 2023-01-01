@@ -1,5 +1,6 @@
+import { expectTypeOf } from 'expect-type';
 import { error } from '../utils';
-import { useFormValidatorMessage } from './use-form-validator-messages';
+import { useFormValidatorMessages } from './use-form-validator-messages';
 
 type MockObj = {
   a: {
@@ -9,11 +10,18 @@ type MockObj = {
 
 describe('useFormValidatorMessages', () => {
   it('should extract by default element with null path', () => {
-    const { extract } = useFormValidatorMessage<MockObj>({
-      errors: [error('Error 1')],
+    const { extract } = useFormValidatorMessages<MockObj>({
+      errors: [error('Error 1'), error('Error 2', null, 'a.b')],
     });
 
-    expect(extract('a')).toHaveLength(0);
-    expect(extract()).toMatchObject([error('Error 1', null, null)]);
+    expectTypeOf(extract)
+      .parameter(0)
+      .toEqualTypeOf<'a.b' | 'a' | null | undefined>();
+
+    expect(extract('a')).toHaveLength(1);
+    expect(extract()).toMatchObject([
+      error('Error 1', null, null),
+      error('Error 2', null, 'a.b'),
+    ]);
   });
 });

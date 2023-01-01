@@ -11,10 +11,7 @@ import {
 import { isGlobalValidator } from '../guards';
 
 import { ValidationError, Validator } from '../types';
-import {
-  FormValidatorsList,
-  useFormValidatorsSelector,
-} from './use-form-validators-selector';
+import { FormValidatorsList, useFormValidatorsSelector } from './internal';
 
 type FormValidateFn<V> = (
   value: V,

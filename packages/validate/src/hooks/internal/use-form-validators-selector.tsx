@@ -5,7 +5,7 @@ import {
   identity,
 } from '@under-control/core';
 
-import { PathValidator, GlobalValidator, Validator } from '../types';
+import { PathValidator, GlobalValidator, Validator } from '../../types';
 
 export type FormValidators<V> = NonEmptyArray<Validator<V>>;
 
