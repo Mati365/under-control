@@ -140,6 +140,13 @@ const Component: FC = () => {
 ### With validation
 
 ```tsx
+import {
+  flattenMessagesList,
+  error,
+  ValidationErrorsListProps,
+} from '@under-control/validate';
+import { useForm } from '@under-control/forms';
+
 // Example component that accepts list of errors, it may be controlled
 type FormInputProps = JSX.IntrinsicElements['input'] &
   ValidationErrorsListProps<string>;
@@ -152,11 +159,6 @@ const FormInput = ({ errors, ...props }: FormInputProps) => (
 );
 
 // Form that validates input on blur or validation
-type FormProps = {
-  onSubmit: any;
-  validationMode: FormValidationMode[];
-};
-
 const Form: FC<FormProps> = ({ onSubmit }) => {
   const {
     bind,
@@ -170,11 +172,6 @@ const Form: FC<FormProps> = ({ onSubmit }) => {
         path('a', ({ value }) => {
           if (value === 'Hello') {
             return error('Error a');
-          }
-        }),
-        path('b', ({ value }) => {
-          if (value === 'World') {
-            return error('Error b');
           }
         }),
       ],
