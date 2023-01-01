@@ -66,7 +66,7 @@ type PrefixValue = {
   name: string;
 };
 
-const PrefixedInput = controlled<PrefixValue>()(({ control: { bind } }) => (
+const PrefixedInput = controlled<PrefixValue>(({ control: { bind } }) => (
   <>
     <input type="text" {...bind.path('prefix')} />
     <input type="text" {...bind.path('name')} />
@@ -85,7 +85,7 @@ type PrefixPair = {
   b: PrefixValue;
 };
 
-const PrefixedInputGroup = controlled<PrefixPair>()(({ control: { bind } }) => (
+const PrefixedInputGroup = controlled<PrefixPair>(({ control: { bind } }) => (
   <>
     <PrefixedInput {...bind.path('a')} />
     <PrefixedInput {...bind.path('b')} />
@@ -105,6 +105,8 @@ const PrefixedInputGroup = controlled<PrefixPair>()(({ control: { bind } }) => (
 ## Usage
 
 ### useForm
+
+### Without validation
 
 Create basic form with `PrefixedInputs` from previous example.
 
@@ -130,6 +132,68 @@ const Component: FC = () => {
       <PrefixedInput type="text" {...bind.path('a')} />
       <PrefixedInput type="text" {...bind.path('b')} />
       <input type="submit" value="Submit" />
+    </form>
+  );
+};
+```
+
+### With validation
+
+```tsx
+// Example component that accepts list of errors, it may be controlled
+type FormInputProps = JSX.IntrinsicElements['input'] &
+  ValidationErrorsListProps<string>;
+
+const FormInput = ({ errors, ...props }: FormInputProps) => (
+  <>
+    <input type="text" {...props} />
+    <div>{flattenMessagesList(errors ?? []).join(',')}</div>
+  </>
+);
+
+// Form that validates input on blur or validation
+type FormProps = {
+  onSubmit: any;
+  validationMode: FormValidationMode[];
+};
+
+const Form: FC<FormProps> = ({ onSubmit }) => {
+  const {
+    bind,
+    handleSubmitEvent,
+    submitState,
+    validator: { errors },
+  } = useForm({
+    validation: {
+      mode: ['blur', 'submit'],
+      validators: ({ path }) => [
+        path('a', ({ value }) => {
+          if (value === 'Hello') {
+            return error('Error a');
+          }
+        }),
+        path('b', ({ value }) => {
+          if (value === 'World') {
+            return error('Error b');
+          }
+        }),
+      ],
+    },
+    defaultValue: {
+      a: '',
+      b: '',
+    },
+    onSubmit,
+  });
+
+  return (
+    <form onSubmit={handleSubmitEvent}>
+      <FormInput {...bind.path('a')} {...errors.extract('a')} />
+      <FormInput {...bind.path('b')} {...errors.extract('b')} />
+
+      <input type="submit" value="Submit" />
+
+      {submitState.loading && <div>Submitting...</div>}
     </form>
   );
 };

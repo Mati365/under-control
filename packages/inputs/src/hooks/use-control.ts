@@ -18,6 +18,21 @@ export type ControlHookResult<V extends ControlValue> =
     bind: ControlBindMethods<V>;
   };
 
+/**
+ * RelaxNarrowType is used to convert constants passed in `V` to for example `number`.
+ * Example:
+ *  useControl({
+ *    ...
+ *    defaultValue: {
+ *      a: {
+ *        b: 2,
+ *      }
+ *    }
+ *  })
+ *
+ * In this scenario TS resolves `a.b` property type to `2` instead of `number`.
+ * After apply `RelaxNarrowType` type is converted to `number`.
+ */
 export function useControl<V extends ControlValue>({
   onBlur,
   ...stateAttrs

@@ -11,7 +11,9 @@ export type ValidatorAttrs<V> = {
   value: V;
 };
 
-export type ValidatorResult<V> = CanBePromise<CanBeArray<ValidationError<V>>>;
+export type ValidatorResult<V> =
+  | CanBePromise<CanBeArray<ValidationError<V>>>
+  | CanBePromise<void>;
 
 export type GlobalValidator<V> = (
   attrs: ValidatorAttrs<V>,

@@ -14,14 +14,7 @@ describe('useFormValidatorMessages', () => {
       errors: [error('Error 1'), error('Error 2', null, 'a.b')],
     });
 
-    expectTypeOf(extract)
-      .parameter(0)
-      .toEqualTypeOf<'a.b' | 'a' | null | undefined>();
-
-    expect(extract('a')).toHaveLength(1);
-    expect(extract()).toMatchObject([
-      error('Error 1', null, null),
-      error('Error 2', null, 'a.b'),
-    ]);
+    expectTypeOf(extract).parameter(0).toEqualTypeOf<'a.b' | 'a'>();
+    expect(extract('a').errors).toHaveLength(1);
   });
 });

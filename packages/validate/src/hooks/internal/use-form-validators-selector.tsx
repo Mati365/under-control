@@ -20,11 +20,12 @@ export type FormValidatorUtils<V> = {
 
 export type FormValidatorsList<V> =
   | FormValidators<V>
-  | Reader<FormValidatorUtils<V>, FormValidators<V> | Validator<V>>;
+  | Reader<FormValidatorUtils<V>, FormValidators<V> | Validator<V>>
+  | undefined;
 
 export function useFormValidatorsSelector<V>(
   validatorsGetter: FormValidatorsList<V>,
-): FormValidators<V> {
+): FormValidators<V> | undefined {
   if (typeof validatorsGetter === 'function') {
     const result = validatorsGetter({
       all: identity,

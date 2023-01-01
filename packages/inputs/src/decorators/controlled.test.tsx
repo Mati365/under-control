@@ -6,7 +6,7 @@ import { controlled } from './controlled';
 
 describe('controlled', () => {
   it('should render uncontrolled component with default value', () => {
-    const Control = controlled<string>()(({ control }) => (
+    const Control = controlled<string>(({ control }) => (
       <input type="text" {...control.bind.entire()} />
     ));
 
@@ -20,7 +20,7 @@ describe('controlled', () => {
       onChange: jest.fn(),
     };
 
-    const Control = controlled<string>()(({ control }) => (
+    const Control = controlled<string>(({ control }) => (
       <input type="text" {...control.bind.entire()} />
     ));
 

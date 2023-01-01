@@ -6,6 +6,7 @@ export * from './join-with-separator';
 export * from './non-empty-array';
 export * from './nullable';
 export * from './object-with-paths';
+export * from './overwrite';
 export * from './reader';
 export * from './relax-narrow-type';
 export * from './split-literal-by';

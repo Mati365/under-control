@@ -1,5 +1,11 @@
 # @under-control/core
 
+## 1.2.0
+
+### Minor Changes
+
+- Add validation
+
 ## 1.1.4
 
 ### Patch Changes

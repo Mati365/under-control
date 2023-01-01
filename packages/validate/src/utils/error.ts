@@ -14,5 +14,3 @@ export const error = <V, O extends object>(
     },
   ],
 });
-
-export const noErrors = (): Array<ValidationError<any>> => [];
