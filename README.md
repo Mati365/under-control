@@ -23,6 +23,8 @@
 
 ## Install
 
+[![Edit React Typescript (forked)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-typescript-forked-jt16nb?fontsize=14&hidenavigation=1&theme=dark)
+
 If you want only control bind functions:
 
 ![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@under-control/inputs)
