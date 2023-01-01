@@ -7,7 +7,7 @@ describe('useFormValidatorsSelector', () => {
 
     renderHook(() => useFormValidatorsSelector(validators));
     expect(validators).toHaveBeenNthCalledWith(1, {
-      all: expect.any(Function),
+      global: expect.any(Function),
       path: expect.any(Function),
     });
   });

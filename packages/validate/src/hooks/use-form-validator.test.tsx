@@ -29,8 +29,8 @@ describe('useFormValidator', () => {
   it('should perform validation all fields', async () => {
     const { result } = renderHook(() =>
       useFormValidator<DefaultMockObj>({
-        validators: ({ all }) => [
-          all(({ value }) => {
+        validators: ({ global }) => [
+          global(({ value }) => {
             if (value.a.b !== 2) {
               return;
             }

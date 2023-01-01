@@ -15,7 +15,7 @@ export type FormValidatorUtils<V> = {
     fn: PathValidator<V, P>['fn'],
   ) => PathValidator<V, P>;
 
-  all: (fn: GlobalValidator<V>) => GlobalValidator<V>;
+  global: (fn: GlobalValidator<V>) => GlobalValidator<V>;
 };
 
 export type FormValidatorsList<V> =
@@ -28,7 +28,7 @@ export function useFormValidatorsSelector<V>(
 ): FormValidators<V> | undefined {
   if (typeof validatorsGetter === 'function') {
     const result = validatorsGetter({
-      all: identity,
+      global: identity,
       path: (path, fn) => ({
         path,
         fn,

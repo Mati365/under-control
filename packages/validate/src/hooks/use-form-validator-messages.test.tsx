@@ -15,6 +15,21 @@ describe('useFormValidatorMessages', () => {
     });
 
     expectTypeOf(extract).parameter(0).toEqualTypeOf<'a.b' | 'a'>();
-    expect(extract('a').errors).toHaveLength(1);
+    expect(extract('a').errors).toHaveLength(0);
+    expect(extract('a.b').errors).toHaveLength(1);
+  });
+
+  it('should extract global errors', () => {
+    const { global, extract } = useFormValidatorMessages<MockObj>({
+      errors: [error('Error 1'), error('Error 2', null, 'a.b')],
+    });
+
+    expect(global()).toMatchObject({
+      errors: [error('Error 1')],
+    });
+
+    expect(extract('a.b', { includeGlobals: true })).toMatchObject({
+      errors: [error('Error 1'), error('Error 2', null, 'a.b')],
+    });
   });
 });
