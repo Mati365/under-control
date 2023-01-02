@@ -142,12 +142,12 @@ const Component: FC = () => {
 ### With validation
 
 ```tsx
+import { useForm } from '@under-control/forms';
 import {
   flattenMessagesList,
   error,
   ValidationErrorsListProps,
 } from '@under-control/validate';
-import { useForm } from '@under-control/forms';
 
 // Example component that accepts list of errors, it may be controlled
 type FormInputProps = JSX.IntrinsicElements['input'] &
