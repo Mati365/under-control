@@ -1,6 +1,6 @@
-import { ValidationError } from '../types';
+import { ValidationErrorsArray } from '../types';
 
 export const flattenMessagesList = (
-  errors: Array<ValidationError<any>>,
+  errors: Readonly<ValidationErrorsArray<any>>,
 ): string[] =>
   errors.flatMap(({ messages }) => messages.map(({ message }) => message));

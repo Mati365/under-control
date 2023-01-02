@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 import {
   GetAllObjectPaths,
   getByPath,
@@ -16,6 +18,14 @@ import {
 } from '../types';
 
 import { ControlStateHookResult } from './use-control-state';
+
+type ControlBindCacheStore = Record<
+  string,
+  {
+    current: Function;
+    cached: Function;
+  }
+>;
 
 export type ControlBindInputEventAttrs<
   V extends ControlValue,
@@ -43,23 +53,48 @@ export function useControlBind<V extends ControlValue>({
   state,
   onBlur,
 }: ControlBindHookAttrs<V>): ControlBindMethods<V> {
+  const callbackCacheRef = useRef<ControlBindCacheStore>({});
+
+  // cache `onChange` / other events to prevent unnecessary rerenders
+  const constRefCallback = <T extends Function>(
+    { key, skip }: { key: string; skip?: boolean },
+    fn: T,
+  ): T => {
+    if (skip) {
+      return fn;
+    }
+
+    const { current: store } = callbackCacheRef;
+    if (key in store) {
+      store[key].current = fn;
+    } else {
+      store[key] = {
+        current: fn,
+        cached: (...args: any[]) => store[key].current(...args),
+      };
+    }
+
+    return store[key].cached as T;
+  };
+
+  // register input that writes directly to whole input state
   const registerEntire = (): ControlBindInputAttrs<V> => {
     const value = state.getValue();
 
     return {
       value,
-      onChange: event => {
+      onChange: constRefCallback({ key: '@onChange' }, event => {
         state.setValue({
           merge: false,
           value: pickEventValue(event),
         });
-      },
-      onBlur: () => {
+      }),
+      onBlur: constRefCallback({ key: '@onBlur' }, () => {
         onBlur?.({
           path: null,
           value,
         });
-      },
+      }),
     };
   };
 
@@ -74,22 +109,28 @@ export function useControlBind<V extends ControlValue>({
 
       return {
         value: nestedValue,
-        onChange: (event: any) => {
-          const nestedNewValue: any = (attrs?.output ?? identity)(
-            pickEventValue(event),
-          );
+        onChange: constRefCallback(
+          { key: `@onChange/${path}`, skip: attrs?.noCache },
+          (event: any) => {
+            const nestedNewValue: any = (attrs?.output ?? identity)(
+              pickEventValue(event),
+            );
 
-          state.setValue({
-            value: setByPath(path, nestedNewValue, stateValue),
-            merge: false,
-          });
-        },
-        onBlur: () => {
-          onBlur?.({
-            value: nestedValue,
-            path,
-          });
-        },
+            state.setValue({
+              value: setByPath(path, nestedNewValue, stateValue),
+              merge: false,
+            });
+          },
+        ),
+        onBlur: constRefCallback(
+          { key: `@onBlur/${path}`, skip: attrs?.noCache },
+          () => {
+            onBlur?.({
+              value: nestedValue,
+              path,
+            });
+          },
+        ),
       };
     };
 

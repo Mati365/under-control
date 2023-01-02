@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { expectTypeOf } from 'expect-type';
-import { render, renderHook, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { render, renderHook, screen, act } from '@testing-library/react';
 
 import { useControl } from './use-control';
 import { ControlBindInputAttrs } from '../types';
@@ -198,6 +198,78 @@ describe('useControl', () => {
         path: 'a',
         value: 'ABC',
       });
+    });
+  });
+
+  describe('bind cache', () => {
+    it('has onChange cache for bind global', async () => {
+      const { result } = renderHook(() =>
+        useControl({
+          defaultValue: 'Hello world',
+        }),
+      );
+
+      const cached = result.current.bind.entire();
+      await act(() => {
+        cached.onChange('Ala ma kota');
+      });
+
+      const newResult = result.current.bind.entire();
+      expect(newResult.onChange).toEqual(cached.onChange);
+      expect(newResult.value).toEqual('Ala ma kota');
+    });
+
+    it('has onChange cache for bind path', async () => {
+      const { result } = renderHook(() =>
+        useControl({
+          defaultValue: {
+            a: 'A',
+            b: 'B',
+          },
+        }),
+      );
+
+      const bindPaths = [
+        ['a', 'Ala ma kota'],
+        ['b', 'A kot ma ale'],
+      ] as const;
+
+      const bindCache: any[] = [];
+
+      await act(() => {
+        for (const [path, value] of bindPaths) {
+          const boundResult = result.current.bind.path(path);
+
+          bindCache.push(boundResult);
+          boundResult.onChange(value);
+        }
+      });
+
+      bindPaths.forEach(([path, value], index) => {
+        const newResult = result.current.bind.path(path);
+
+        expect(newResult.onChange).toEqual(bindCache[index].onChange);
+        expect(newResult.value).toEqual(value);
+      });
+    });
+
+    it('skips cache if noCache = true', async () => {
+      const { result } = renderHook(() =>
+        useControl({
+          defaultValue: {
+            a: 'Hello world',
+          },
+        }),
+      );
+
+      const cached = result.current.bind.path('a', { noCache: true });
+      await act(() => {
+        cached.onChange('Ala ma kota');
+      });
+
+      const newResult = result.current.bind.path('a', { noCache: true });
+      expect(newResult.onChange).not.toEqual(cached.onChange);
+      expect(newResult.value).toEqual('Ala ma kota');
     });
   });
 });

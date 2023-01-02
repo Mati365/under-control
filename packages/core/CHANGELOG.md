@@ -1,5 +1,11 @@
 # @under-control/core
 
+## 1.3.0
+
+### Minor Changes
+
+- Add caching support for onChange
+
 ## 1.2.1
 
 ### Patch Changes

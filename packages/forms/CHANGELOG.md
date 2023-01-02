@@ -1,5 +1,18 @@
 # @under-control/forms
 
+## 1.3.0
+
+### Minor Changes
+
+- Add caching support for onChange
+
+### Patch Changes
+
+- Updated dependencies
+  - @under-control/validate@1.3.0
+  - @under-control/inputs@1.3.0
+  - @under-control/core@1.3.0
+
 ## 1.2.1
 
 ### Patch Changes

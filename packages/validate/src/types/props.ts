@@ -1,5 +1,5 @@
-import { ValidationErrorsList } from './error';
+import { ValidationErrorsArray } from './error';
 
 export type ValidationErrorsListProps<V> = {
-  errors: ValidationErrorsList<V>;
+  errors: Readonly<ValidationErrorsArray<V>>;
 };

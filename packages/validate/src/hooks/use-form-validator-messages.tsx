@@ -1,6 +1,13 @@
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { GetAllObjectPaths, GetPathObjectType } from '@under-control/core';
-import { ValidationError, ValidationErrorsListProps } from '../types';
+import {
+  ValidationError,
+  ValidationErrorsArray,
+  ValidationErrorsListProps,
+} from '../types';
+
+const CACHE_EMPTY_ERRORS_ARRAY: Readonly<ValidationErrorsArray<any>> =
+  Object.freeze([]);
 
 type FormExtractorAttrs = {
   includeGlobals?: boolean;
@@ -14,11 +21,11 @@ type FormErrorsExtractor<V> = <P extends GetAllObjectPaths<V>>(
 type GlobalFormErrorsExtractor<V> = () => ValidationErrorsListProps<V>;
 
 export type FormValidatorMessagesHookAttrs<V> = {
-  errors: Array<ValidationError<V>>;
+  errors: ValidationErrorsArray<V>;
 };
 
 export type FormValidatorMessagesHookResult<V> = {
-  all: Array<ValidationError<V>>;
+  all: ValidationErrorsArray<V>;
   global: GlobalFormErrorsExtractor<V>;
   extract: FormErrorsExtractor<V>;
 };
@@ -26,8 +33,8 @@ export type FormValidatorMessagesHookResult<V> = {
 export function useFormValidatorMessages<V>({
   errors,
 }: FormValidatorMessagesHookAttrs<V>): FormValidatorMessagesHookResult<V> {
-  const extract: FormErrorsExtractor<V> = (path, attrs) => ({
-    errors: errors.flatMap(item => {
+  const extract: FormErrorsExtractor<V> = (path, attrs) => {
+    const extractedErrors = errors.flatMap(item => {
       const itemPath = item.path as string;
       if (
         (!itemPath || itemPath !== path) &&
@@ -42,8 +49,18 @@ export function useFormValidatorMessages<V>({
           path: itemPath,
         } as unknown as ValidationError<any>,
       ];
-    }),
-  });
+    });
+
+    if (extractedErrors.length) {
+      return {
+        errors: extractedErrors,
+      };
+    }
+
+    return {
+      errors: CACHE_EMPTY_ERRORS_ARRAY,
+    };
+  };
 
   const global: GlobalFormErrorsExtractor<V> = () => ({
     errors: errors.filter(error => !(error.path as string)),

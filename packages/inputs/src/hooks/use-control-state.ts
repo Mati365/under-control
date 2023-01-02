@@ -46,13 +46,13 @@ export function useControlState<V extends ControlValue>(
   const getInternalStateValue = useConstRefCallback(() => state.value);
   const setInternalStateValue = useConstRefCallback(
     ({ value, rerender }: { value: V; rerender: boolean }) => {
+      state.value = value;
+
       if (rerender) {
         setState(prevState => ({
           ...prevState,
           value,
         }));
-      } else {
-        state.value = value;
       }
     },
   );

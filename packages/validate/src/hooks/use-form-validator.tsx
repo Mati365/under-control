@@ -10,7 +10,7 @@ import {
 
 import { isGlobalValidator } from '../guards';
 
-import { ValidationErrorsList, Validator } from '../types';
+import { ValidationErrorsArray, Validator } from '../types';
 import { FormValidatorsList, useFormValidatorsSelector } from './internal';
 import {
   FormValidatorMessagesHookResult,
@@ -21,8 +21,8 @@ type FormValidateFn<V> = (
   value: V,
   fields?: NonEmptyArray<GetAllObjectPaths<V>>,
 ) => Promise<{
-  prevErrors: ValidationErrorsList<V>;
-  errors: ValidationErrorsList<V>;
+  prevErrors: ValidationErrorsArray<V>;
+  errors: ValidationErrorsArray<V>;
 }>;
 
 export type FormValidatorHookAttrs<V> = {
@@ -38,7 +38,7 @@ export type FormValidatorHookResult<V> = {
 export function useFormValidator<V>({
   validators: validatorsGetter,
 }: FormValidatorHookAttrs<V>): FormValidatorHookResult<V> {
-  const [errors, setErrors] = useState<ValidationErrorsList<V>>([]);
+  const [errors, setErrors] = useState<ValidationErrorsArray<V>>([]);
   const validators = useFormValidatorsSelector(validatorsGetter) ?? [];
 
   const executeValidator = (value: V) => async (validator: Validator<V>) => {

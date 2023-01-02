@@ -14,7 +14,7 @@ export type ValidationError<
   details?: O | null;
 };
 
-export type ValidationErrorsList<
+export type ValidationErrorsArray<
   V,
   M extends ValidationMessage = ValidationMessage,
   O extends object = object,

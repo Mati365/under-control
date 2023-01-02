@@ -14,6 +14,7 @@ export type ControlBindInputAttrs<V> = {
 };
 
 export type ControlBindPathAttrs<V, O = V> = {
+  noCache?: boolean;
   input?: (value: V) => O;
   output?: (value: O) => V;
 };
