@@ -21,6 +21,8 @@
   Are you losing sanity every time you need to make a form? Are you tired enough of all antipatterns and cursed React frameworks? Screw that! Treat all forms and inputs as a recursive composable controls!
 </p>
 
+![Object type check example](assets/examples/type-check-object.png 'Type check object with array')
+
 ## Install
 
 [![Edit React Typescript (forked)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-typescript-forked-jt16nb?fontsize=14&hidenavigation=1&theme=dark)
@@ -44,15 +46,11 @@ npm install @under-control/forms
 ## Features
 
 ### Utils
-
+ 
 - Hook that binds controls to state
 - Hook that implements simple form submitting / validation logic
 - Decorator that makes any passed component controllable
 - ... and nothing more
-
-### TypeScript integration
-
-![Object type check example](assets/examples/type-check-object.png 'Type check object with array')
 
 ### Composition
 
@@ -149,7 +147,6 @@ import {
   ValidationErrorsListProps,
 } from '@under-control/validate';
 
-// Example component that accepts list of errors, it may be controlled
 type FormInputProps = JSX.IntrinsicElements['input'] &
   ValidationErrorsListProps<string>;
 
@@ -160,14 +157,8 @@ const FormInput = ({ errors, ...props }: FormInputProps) => (
   </>
 );
 
-// Form that validates input on blur or validation
 const Form: FC<FormProps> = ({ onSubmit }) => {
-  const {
-    bind,
-    handleSubmitEvent,
-    submitState,
-    validator: { errors },
-  } = useForm({
+  const { bind, handleSubmitEvent, submitState, validator: { errors } } = useForm({
     validation: {
       mode: ['blur', 'submit'],
       validators: ({ path }) => [
