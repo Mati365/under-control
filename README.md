@@ -94,6 +94,11 @@ const PrefixedInputGroup = controlled<PrefixPair>(({ control: { bind } }) => (
 }
 ```
 
+## 📖 Docs
+
+1. [Quick Start](#install)
+2. [Creating Forms](#forms)
+
 ## Usage
 
 ### useForm
