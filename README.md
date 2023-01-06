@@ -32,8 +32,8 @@
 - [📝 Forms](#-forms)
   - [⚠️ Forms without validation](#️-forms-without-validation)
   - [✅ Forms with validation](#-forms-with-validation)
-  - [Single validator](#single-validator)
-  - [Multiple validators](#multiple-validators)
+    - [Single validator](#single-validator)
+    - [Multiple validators](#multiple-validators)
 - [🏗️ Composition](#️-composition)
   - [🖊️ Basic Custom Control](#️-basic-custom-control)
 - [✨ Binding controls](#-binding-controls)
@@ -108,7 +108,7 @@ Validation by default can result sync or async result and can be run in these mo
 
 Each validator can result also single error or array of errors with optional paths to inputs.
 
-### Single validator
+#### Single validator
 
 Example of form that performs validation on `blur` or `submit` event.
 
@@ -148,7 +148,7 @@ const Form = () => {
 
 [![Edit validated-form](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/validated-form-3rb96u?fontsize=14&hidenavigation=1&theme=dark)
 
-### Multiple validators
+#### Multiple validators
 
 Multiple validators can be provided. In example above `global` validator validates all inputs at once. If you want to assign error to specific input you can:
 
