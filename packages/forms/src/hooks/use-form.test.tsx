@@ -103,6 +103,7 @@ describe('useForm', () => {
 
       const Component: FC = () => {
         const { bind, handleSubmitEvent, submitState } = useForm({
+          rethrowSubmitErrors: false,
           defaultValue: {
             a: '',
             b: '',
@@ -113,8 +114,8 @@ describe('useForm', () => {
         return (
           <>
             <form onSubmit={handleSubmitEvent}>
-              <input type="text" data-testid="a" {...bind.path('a')} />
-              <input type="text" data-testid="b" {...bind.path('b')} />
+              <input type="text" aria-label="a" {...bind.path('a')} />
+              <input type="text" aria-label="b" {...bind.path('b')} />
               <input data-testid="submit" type="submit" value="Submit" />
             </form>
 
@@ -125,8 +126,13 @@ describe('useForm', () => {
 
       render(<Component />);
 
-      await userEvent.type(screen.getByTestId('a'), 'Test A');
-      await userEvent.type(screen.getByTestId('b'), 'Test B');
+      const inputs = {
+        a: screen.getByRole('textbox', { name: 'a' }),
+        b: screen.getByRole('textbox', { name: 'b' }),
+      };
+
+      await userEvent.type(inputs.a, 'Test A');
+      await userEvent.type(inputs.b, 'Test B');
       fireEvent.submit(screen.getByTestId('submit'));
 
       await waitFor(() => {
@@ -135,6 +141,9 @@ describe('useForm', () => {
           a: 'Test A',
           b: 'Test B',
         });
+
+        expect(inputs.a).toHaveValue('');
+        expect(inputs.b).toHaveValue('');
       });
     });
   });
@@ -164,6 +173,8 @@ describe('useForm', () => {
         submitState,
         validator: { errors },
       } = useForm({
+        resetAfterSubmit: false,
+        rethrowSubmitErrors: false,
         validation: {
           mode: validationMode,
           validators: ({ path }) => [
@@ -211,8 +222,13 @@ describe('useForm', () => {
 
       render(<Form validationMode={['change']} onSubmit={onSubmit} />);
 
-      await userEvent.type(screen.getByRole('textbox', { name: 'a' }), 'Hello');
-      await userEvent.type(screen.getByRole('textbox', { name: 'b' }), 'World');
+      const inputs = {
+        a: screen.getByRole('textbox', { name: 'a' }),
+        b: screen.getByRole('textbox', { name: 'b' }),
+      };
+
+      await userEvent.type(inputs.a, 'Hello');
+      await userEvent.type(inputs.b, 'World');
 
       expect(await screen.findByText('Error a')).toBeInTheDocument();
       expect(await screen.findByText('Error b')).toBeInTheDocument();
@@ -222,21 +238,21 @@ describe('useForm', () => {
       expect(onSubmit).not.toBeCalled();
 
       // after fixing errors submit should be possible
-      await userEvent.type(
-        screen.getByRole('textbox', { name: 'a' }),
-        'Hello2',
-      );
-      await userEvent.type(
-        screen.getByRole('textbox', { name: 'b' }),
-        'World3',
-      );
+      await userEvent.type(inputs.a, 'Hello2');
+      await userEvent.type(inputs.b, 'World3');
 
       fireEvent.submit(screen.getByTestId('submit'));
+
       await waitFor(() => {
         expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
       });
 
       expect(onSubmit).toBeCalled();
+
+      await waitFor(() => {
+        expect(inputs.a).not.toHaveValue('');
+        expect(inputs.b).not.toHaveValue('');
+      });
     });
 
     it('should perform on-submit validation', async () => {

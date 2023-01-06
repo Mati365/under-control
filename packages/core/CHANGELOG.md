@@ -1,5 +1,11 @@
 # @under-control/core
 
+## 1.5.0
+
+### Minor Changes
+
+- Drop either support
+
 ## 1.4.0
 
 ### Minor Changes

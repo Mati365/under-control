@@ -1,5 +1,18 @@
 # @under-control/forms
 
+## 1.5.0
+
+### Minor Changes
+
+- Drop either support
+
+### Patch Changes
+
+- Updated dependencies
+  - @under-control/core@1.5.0
+  - @under-control/inputs@1.5.0
+  - @under-control/validate@1.5.0
+
 ## 1.4.0
 
 ### Minor Changes

@@ -2,14 +2,11 @@
 import { useState, FormEvent } from 'react';
 
 import {
-  Either,
   RelaxNarrowType,
   CanBePromise,
   usePromiseCallback,
   useUpdateEffect,
   suppressEvent,
-  left,
-  right,
 } from '@under-control/core';
 
 import {
@@ -23,8 +20,9 @@ import {
   FormValidatorHookAttrs,
   FormValidatorHookResult,
   useFormValidator,
-  ValidationError,
 } from '@under-control/validate';
+
+import { ValidationException } from '../exceptions';
 
 export type FormValidationMode = 'blur' | 'submit' | 'change';
 
@@ -37,6 +35,9 @@ export type FormHookAttrs<
   };
 
   initialDirty?: boolean;
+  resetAfterSubmit?: boolean;
+  rethrowSubmitErrors?: boolean;
+
   onSubmit: (value: V) => CanBePromise<R>;
 };
 
@@ -52,12 +53,14 @@ export type FormHookResult<
   isDirty: boolean;
   setDirty: (dirty: boolean) => void;
   handleSubmitEvent: (e: FormEvent) => void;
-  submit: () => Promise<Either<Array<ValidationError<V, any, any>>, R>>;
+  submit: () => Promise<R>;
 };
 
 export function useForm<V extends ControlValue, R = void>({
   validation,
   initialDirty = false,
+  resetAfterSubmit = true,
+  rethrowSubmitErrors = true,
   onSubmit,
   ...attrs
 }: FormHookAttrs<RelaxNarrowType<V>, R>): FormHookResult<
@@ -85,20 +88,32 @@ export function useForm<V extends ControlValue, R = void>({
     },
   });
 
-  const [handleSubmit, submitState] = usePromiseCallback(async () => {
-    const value = control.getValue();
+  const [handleSubmit, submitState] = usePromiseCallback(
+    async () => {
+      const value = control.getValue();
 
-    if (supportsValidation('submit', 'blur')) {
-      const { errors } = await validator.validate(value);
-      if (errors.length) {
-        return left(errors);
+      if (supportsValidation('submit', 'blur')) {
+        const { errors } = await validator.validate(value);
+        if (errors.length) {
+          throw new ValidationException(errors);
+        }
+      } else if (validator.errors.all.length) {
+        throw new ValidationException(validator.errors.all);
       }
-    } else if (validator.errors.all.length) {
-      return left(validator.errors.all);
-    }
 
-    return right(await onSubmit(value));
-  });
+      const result = await onSubmit(value);
+
+      if (resetAfterSubmit) {
+        control.setValue({
+          value: attrs.defaultValue,
+          merge: false,
+        });
+      }
+
+      return result;
+    },
+    { rethrow: rethrowSubmitErrors },
+  );
 
   const handleSubmitEvent = (e: FormEvent): void => {
     suppressEvent(e);

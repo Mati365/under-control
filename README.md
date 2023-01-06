@@ -23,6 +23,15 @@
 
 ![Object type check example](assets/examples/type-check-object.png 'Type check object with array')
 
+## 📖 Docs
+
+1. [Quick Start](#-quick-start)
+   1. [Install](#-install)
+   2. [Features](#-features)
+2. [Creating Forms](#forms)
+   1. [Forms without validation](#)
+3. [Control composition](#-composition)
+
 ## 🚀 Quick start
 
 ### 📦 Install
@@ -45,15 +54,6 @@ npm install @under-control/forms
 - Provides rerender-free control value side effects. Modify of control can reset value of form without doing additional `useEffect`.
 - Exports additional hooks such as `use-promise-callback` / `use-update-effect` that can be reused in your project.
 - Highly testes codebase with 100% coverage.
-
-## 📖 Docs
-
-1. [Quick Start](#-quick-start)
-   1. [Install](#-install)
-   2. [Features](#-features)
-2. [Creating Forms](#forms)
-   1. [Forms without validation](#)
-3. [Control composition](#-composition)
 
 ## 📝 Forms
 
