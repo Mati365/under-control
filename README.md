@@ -35,7 +35,7 @@
   - [Single validator](#single-validator)
   - [Multiple validators](#multiple-validators)
 - [🏗️ Composition](#️-composition)
-  - [useControl](#usecontrol)
+  - [🖊️ Plain input data](#️-plain-input-data)
 - [License](#license)
 
 ## 🚀 Quick start
@@ -153,39 +153,62 @@ Multiple validators can be provided. In example above `global` validator validat
 Example:
 
 ```tsx
-const form = useForm({
-  validation: {
-    mode: ["blur", "submit"],
-    validators: ({ path, global }) => [
-      global(({ value: { a, b } }) => {
-        if (!a || !b) {
-          return error("Fill all required fields!");
-        }
+const Form = () => {
+  const {
+    bind,
+    handleSubmitEvent,
+    submitState,
+    validator: { errors },
+  } = useForm({
+    validation: {
+      mode: ['blur', 'submit'],
+      validators: ({ path, global }) => [
+        global(({ value: { a, b } }) => {
+          if (!a || !b) {
+            return error('Fill all required fields!');
+          }
 
-        if (b === "World") {
-          return error("It cannot be a world!", null, "b");
-        }
-      }),
-      path("a.c", ({ value }) => {
-        if (value === "Hello") {
-          return error("It should not be hello!");
-        }
-      })
-    ]
-  },
-  defaultValue: {
-    a: {
-      c: ""
+          if (b === 'World') {
+            return error('It cannot be a world!', null, 'b');
+          }
+        }),
+        path('a.c', ({ value }) => {
+          if (value === 'Hello') {
+            return error('It should not be hello!');
+          }
+        }),
+      ],
     },
-    b: ""
-  },
-  ...
-});
+    defaultValue: {
+      a: {
+        c: '',
+      },
+      b: '',
+    },
+    onSubmit: () => {
+      console.info('Submit!');
+    },
+  });
+
+  return (
+    <form onSubmit={handleSubmitEvent}>
+      <FormInput {...bind.path('a.c')} {...errors.extract('a.c')} />
+      <FormInput {...bind.path('b')} {...errors.extract('b')} />
+
+      <input type="submit" value="Submit" />
+
+      {submitState.loading && <div>Submitting...</div>}
+      <div>{flattenMessagesList(errors.global().errors)}</div>
+    </form>
+  );
+};
 ```
 
 [![Edit advanced-validation](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/advanced-validation-jt16nb?fontsize=14&hidenavigation=1&theme=dark)
 
 ## 🏗️ Composition
+
+### 🖊️ Plain input data
 
 Build and treat your forms as composable set of controlled controls. Do not mess with implementing `value` / `onChange` logic each time when you create standalone controls.
 
@@ -235,61 +258,28 @@ const PrefixedInputGroup = controlled<PrefixPair>(({ control: { bind } }) => (
 }
 ```
 
-### useControl
-
-Bind entire state to input:
+These newly created inputs can be later used in forms. Such like in this example:
 
 ```tsx
-import { useControl } from '@under-control/inputs';
+import { useForm, error, flattenMessagesList } from '@under-control/forms';
 
-const Component = () => {
-  const { bind } = useControl({
-    defaultValue: 'Hello world',
-  });
-
-  return <input type="text" {...bind.entire()} />;
-};
-```
-
-Bind single state property to input:
-
-```tsx
-import { useControl } from '@under-control/inputs';
-
-const Component = () => {
-  const { bind } = useControl({
+const Form = () => {
+  const { bind, handleSubmitEvent, isDirty, validator } = useForm({
     defaultValue: {
-      message: {
-        nested: ['Hello world'],
-      },
+      a: { prefix: '', name: '' },
+      b: { prefix: '', name: '' },
     },
-  });
-
-  return <input type="text" {...bind.path('message.nested[0]')} />;
-};
-```
-
-Map single property and map it to input:
-
-```tsx
-import { useControl } from '@under-control/inputs';
-
-const Component = () => {
-  const { bind } = useControl({
-    defaultValue: {
-      message: {
-        nested: ['Hello world'],
-      },
+    onSubmit: async data => {
+      console.info('Submit!', data);
     },
   });
 
   return (
-    <input
-      type="text"
-      {...bind.path('message.nested[0]', {
-        input: str => `${str}!`, // appends `!` value stored in message.nested[0]
-      })}
-    />
+    <form onSubmit={handleSubmitEvent}>
+      <PrefixedInputGroup {...bind.path('a')} />
+      <PrefixedInputGroup {...bind.path('b')} />
+      <input type="submit" value="Submit" disabled={!isDirty} />
+    </form>
   );
 };
 ```
