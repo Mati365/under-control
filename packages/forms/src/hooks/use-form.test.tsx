@@ -98,6 +98,41 @@ describe('useForm', () => {
       });
     });
 
+    it('calling submit() triggers loading state', async () => {
+      const errorLogSpy = jest
+        .spyOn(console, 'error')
+        .mockImplementation(() => {});
+
+      const mutex = new DeferredUnlock<number>();
+      const exception = new Error('xD!');
+
+      const onSubmit = jest.fn(async () => {
+        await mutex.promise;
+        throw exception;
+      });
+
+      const { result } = renderHook(() =>
+        useForm({
+          defaultValue: 456,
+          onSubmit,
+        }),
+      );
+
+      await act(() => {
+        result.current.handleSubmitEvent(new Event('click') as any);
+      });
+
+      expect(result.current.submitState.loading).toBe(true);
+      mutex.resolve(123);
+
+      await waitFor(() => {
+        expect(result.current.submitState.loading).toBe(false);
+      });
+
+      expect(errorLogSpy).toBeCalledWith(exception);
+      expect(result.current.submitState.error).toMatchObject(exception);
+    });
+
     it('react form handler works', async () => {
       const onSubmit = jest.fn();
 

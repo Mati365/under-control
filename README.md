@@ -89,6 +89,90 @@ const Form = () => {
 
 ### ✅ Forms with validation
 
+Example of form that performs validation on `blur` or `submit` event.
+
+```tsx
+import { useForm, error, flattenMessagesList } from '@under-control/forms';
+
+const Form = () => {
+  const { bind, handleSubmitEvent, isDirty, validator } = useForm({
+    defaultValue: {
+      a: '',
+      b: '',
+    },
+    validation: {
+      mode: ['blur', 'submit'],
+      validators: ({ global }) =>
+        global(({ value: { a, b } }) => {
+          if (!a || !b) {
+            return error('Fill all required fields!');
+          }
+        }),
+    },
+    onSubmit: async data => {
+      console.info('Submit!', data);
+    },
+  });
+
+  return (
+    <form onSubmit={handleSubmitEvent}>
+      <input type="text" {...bind.path('a')} />
+      <input type="text" {...bind.path('b')} />
+      <input type="submit" value="Submit" disabled={!isDirty} />
+      <div>{flattenMessagesList(validator.errors.all).join(',')}</div>
+    </form>
+  );
+};
+```
+
+[![Edit validated-form](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/validated-form-3rb96u?fontsize=14&hidenavigation=1&theme=dark)
+
+Validation can be run in these modes:
+
+1. `blur` - when user blurs any input. In this mode `bind.path` returns also `onBlur` handler. You have to assign it to input otherwise this mode will not work properly.
+2. `change` - when user changes any control (basically when `getValue()` changes)
+3. `submit` - when user submits form
+
+Multiple validators can be provided. In example above `global` validator validates all inputs at once. If you want to assign error to specific input you can:
+
+1. Return `error("Your error", null "path.to.control")` function call in `all` validator.
+2. User `path` validator and return plain `error("Your error")`.
+
+Example:
+
+```tsx
+const form = useForm({
+  validation: {
+    mode: ["blur", "submit"],
+    validators: ({ path, global }) => [
+      global(({ value: { a, b } }) => {
+        if (!a || !b) {
+          return error("Fill all required fields!");
+        }
+
+        if (b === "World") {
+          return error("It cannot be a world!", null, "b");
+        }
+      }),
+      path("a.c", ({ value }) => {
+        if (value === "Hello") {
+          return error("It should not be hello!");
+        }
+      })
+    ]
+  },
+  defaultValue: {
+    a: {
+      c: ""
+    },
+    b: ""
+  },
+  ...
+});
+```
+
+[![Edit advanced-validation](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/advanced-validation-jt16nb?fontsize=14&hidenavigation=1&theme=dark)
+
 ## 🏗️ Composition
 
 Build and treat your forms as composable set of controlled controls. Do not mess with implementing `value` / `onChange` logic each time when you create standalone controls.
@@ -177,55 +261,32 @@ const Component: FC = () => {
 ### With validation
 
 ```tsx
-import { useForm } from '@under-control/forms';
-import {
-  flattenMessagesList,
-  error,
-  ValidationErrorsListProps,
-} from '@under-control/validate';
-
-type FormInputProps = JSX.IntrinsicElements['input'] &
-  ValidationErrorsListProps<string>;
-
-const FormInput = ({ errors, ...props }: FormInputProps) => (
-  <>
-    <input type="text" {...props} />
-    <div>{flattenMessagesList(errors ?? []).join(',')}</div>
-  </>
-);
-
-const Form: FC<FormProps> = ({ onSubmit }) => {
-  const {
-    bind,
-    handleSubmitEvent,
-    submitState,
-    validator: { errors },
-  } = useForm({
-    validation: {
-      mode: ['blur', 'submit'],
-      validators: ({ path }) => [
-        path('a', ({ value }) => {
-          if (value === 'Hello') {
-            return error('Error a');
-          }
-        }),
-      ],
-    },
+const App = () => {
+  const { bind, handleSubmitEvent, isDirty, validator } = useForm({
     defaultValue: {
       a: '',
       b: '',
     },
-    onSubmit,
+    validation: {
+      mode: ['blur', 'submit'],
+      validators: ({ global }) =>
+        global(({ value: { a, b } }) => {
+          if (!a || !b) {
+            return error('Fill all required fields!');
+          }
+        }),
+    },
+    onSubmit: async data => {
+      console.info('Submit!', data);
+    },
   });
 
   return (
     <form onSubmit={handleSubmitEvent}>
-      <FormInput {...bind.path('a')} {...errors.extract('a')} />
-      <FormInput {...bind.path('b')} {...errors.extract('b')} />
-
-      <input type="submit" value="Submit" />
-
-      {submitState.loading && <div>Submitting...</div>}
+      <input type="text" {...bind.path('a')} />
+      <input type="text" {...bind.path('b')} />
+      <input type="submit" value="Submit" disabled={!isDirty} />
+      <div>{flattenMessagesList(validator.errors.all).join(',')}</div>
     </form>
   );
 };

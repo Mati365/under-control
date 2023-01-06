@@ -117,7 +117,10 @@ export function useForm<V extends ControlValue, R = void>({
 
   const handleSubmitEvent = (e: FormEvent): void => {
     suppressEvent(e);
-    handleSubmit();
+    handleSubmit().catch(error => {
+      // eslint-disable-next-line no-console
+      console.error(error);
+    });
   };
 
   useUpdateEffect(() => {

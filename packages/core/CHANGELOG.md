@@ -1,5 +1,17 @@
 # @under-control/core
 
+## 1.5.2
+
+### Patch Changes
+
+- submit fixes
+
+## 1.5.1
+
+### Patch Changes
+
+- add missing exports
+
 ## 1.5.0
 
 ### Minor Changes

@@ -3,6 +3,7 @@ const path = require('path');
 module.exports = ({ rootDir }) => ({
   rootDir,
   preset: 'ts-jest',
+  resetMocks: true,
   setupFilesAfterEnv: [path.resolve(__dirname, './jest.setup.js')],
   testPathIgnorePatterns: ['node_modules'],
   testEnvironment: 'jsdom',
