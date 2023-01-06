@@ -1,5 +1,21 @@
 # @under-control/validate
 
+## 1.6.2
+
+### Patch Changes
+
+- Relax typings in validator messages
+- Updated dependencies
+  - @under-control/core@1.6.2
+
+## 1.6.1
+
+### Patch Changes
+
+- Add missing useFormValidatorMessages export
+- Updated dependencies
+  - @under-control/core@1.6.1
+
 ## 1.6.0
 
 ### Minor Changes

@@ -58,7 +58,7 @@ export function useFormValidatorMessages<V>({
     }
 
     return {
-      errors: CACHE_EMPTY_ERRORS_ARRAY,
+      errors: CACHE_EMPTY_ERRORS_ARRAY as ValidationErrorsArray<any>,
     };
   };
 
