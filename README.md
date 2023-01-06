@@ -18,12 +18,12 @@
 </div>
 
 <p align='center'>
-  Are you losing sanity every time you need to make a form? Are you tired enough of all antipatterns and cursed React frameworks? Screw that! Treat all forms and inputs as a recursive composable controls!
+  Are you losing sanity every time you need to make a form? Are you tired enough of all antipatterns and cursed React frameworks? Screw that! Treat all forms and inputs as a recursive composable controls! **under-control** is a lightweight alternative to libraries such as **react-hook-form**, **formik**, **react-ts-form**, which, unlike them, allows you to turn your components into controllable controls.
 </p>
 
 ![Object type check example](assets/examples/type-check-object.png 'Type check object with array')
 
-## Install
+## 📦 Install
 
 [![Edit React Typescript (forked)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-typescript-forked-jt16nb?fontsize=14&hidenavigation=1&theme=dark)
 
@@ -33,16 +33,18 @@
 npm install @under-control/forms
 ```
 
-## Features
+## ✨ Features
 
-### Utils
+- Small size, it is around 4x smaller than **react-hook-form** and weights ~2.6kb (gzip).
+- Performance. Automatic caching of callbacks that binds controls. Modification of control A is not triggering rerender on control B.
+- Built in mind to be type-safe. Provides type-safe validation and controls binding.
+- Allows you to turn any component into a control with `value` and `onChange` properties. Treat your custom select-box the same as it would be plain `<select />` tag!
+- Better encapsulation of data. Due to low `context` usage it allows you to reuse built controllable controls in other forms.
+- Provides rerender-free control value side effects. Modify of control can reset value of form without doing additional `useEffect`.
+- Exports additional hooks such as `use-promise-callback` / `use-update-effect` that can be reused in your project.
+- Highly testes codebase with 100% coverage.
 
-- Hook that binds controls to state
-- Hook that implements simple form submitting / validation logic
-- Decorator that makes any passed component controllable
-- ... and nothing more
-
-### Composition
+### 🏗️ Composition
 
 Build and treat your forms as composable set of controlled controls. Do not mess with implementing `value` / `onChange` logic each time when you create standalone controls.
 
