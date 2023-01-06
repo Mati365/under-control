@@ -23,7 +23,9 @@
 
 ![Object type check example](assets/examples/type-check-object.png 'Type check object with array')
 
-## 📦 Install
+## 🚀 Quick start
+
+### 📦 Install
 
 [![Edit React Typescript (forked)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-typescript-forked-jt16nb?fontsize=14&hidenavigation=1&theme=dark)
 
@@ -33,7 +35,7 @@
 npm install @under-control/forms
 ```
 
-## ✨ Features
+### ✨ Features
 
 - Small size, it is around 4x smaller than **react-hook-form** and weights ~2.6kb (gzip).
 - Performance. Automatic caching of callbacks that binds controls. Modification of control A is not triggering rerender on control B.
@@ -44,7 +46,50 @@ npm install @under-control/forms
 - Exports additional hooks such as `use-promise-callback` / `use-update-effect` that can be reused in your project.
 - Highly testes codebase with 100% coverage.
 
-### 🏗️ Composition
+## 📖 Docs
+
+1. [Quick Start](#-quick-start)
+   1. [Install](#-install)
+   2. [Features](#-features)
+2. [Creating Forms](#forms)
+   1. [Forms without validation](#)
+3. [Control composition](#-composition)
+
+## 📝 Forms
+
+### ⚠️ Forms without validation
+
+The simplest possible form, without added validation:
+
+```tsx
+import { useForm } from '@under-control/forms';
+
+const Form = () => {
+  const { bind, handleSubmitEvent, isDirty } = useForm({
+    defaultValue: {
+      a: '',
+      b: '',
+    },
+    onSubmit: async data => {
+      console.info('Submit!', data);
+    },
+  });
+
+  return (
+    <form onSubmit={handleSubmitEvent}>
+      <input type="text" {...bind.path('a')} />
+      <input type="text" {...bind.path('b')} />
+      <input type="submit" value="Submit" disabled={!isDirty} />
+    </form>
+  );
+};
+```
+
+[![Edit not-validated-form](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/not-validated-form-5osyih?fontsize=14&hidenavigation=1&theme=dark)
+
+### ✅ Forms with validation
+
+## 🏗️ Composition
 
 Build and treat your forms as composable set of controlled controls. Do not mess with implementing `value` / `onChange` logic each time when you create standalone controls.
 
@@ -93,11 +138,6 @@ const PrefixedInputGroup = controlled<PrefixPair>(({ control: { bind } }) => (
   b: { prefix, name }
 }
 ```
-
-## 📖 Docs
-
-1. [Quick Start](#install)
-2. [Creating Forms](#forms)
 
 ## Usage
 
