@@ -1,6 +1,6 @@
 {
   "name": "@under-control/forms",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "repository": "https://github.com/Mati365/under-control",
@@ -12,9 +12,9 @@
     "lint": "npx eslint src/"
   },
   "dependencies": {
-    "@under-control/core": "1.5.2",
-    "@under-control/inputs": "1.5.2",
-    "@under-control/validate": "1.5.2"
+    "@under-control/core": "1.6.0",
+    "@under-control/inputs": "1.6.0",
+    "@under-control/validate": "1.6.0"
   },
   "publishConfig": {
     "access": "public"

@@ -1,5 +1,16 @@
 # @under-control/validate
 
+## 1.6.0
+
+### Minor Changes
+
+- Add related inputs helper
+
+### Patch Changes
+
+- Updated dependencies
+  - @under-control/core@1.6.0
+
 ## 1.5.2
 
 ### Patch Changes

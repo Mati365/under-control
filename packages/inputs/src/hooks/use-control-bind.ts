@@ -116,8 +116,18 @@ export function useControlBind<V extends ControlValue>({
               pickEventValue(event),
             );
 
+            let newGlobalValue = setByPath(path, nestedNewValue, stateValue);
+            if (attrs?.relatedInputs) {
+              newGlobalValue = attrs.relatedInputs({
+                controlValue: nestedNewValue,
+                newControlValue: nestedNewValue,
+                globalValue: stateValue,
+                newGlobalValue,
+              });
+            }
+
             state.setValue({
-              value: setByPath(path, nestedNewValue, stateValue),
+              value: newGlobalValue,
               merge: false,
             });
           },

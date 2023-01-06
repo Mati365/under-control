@@ -13,8 +13,15 @@ export type ControlBindInputAttrs<V> = {
   onBlur?: VoidFunction;
 };
 
-export type ControlBindPathAttrs<V, O = V> = {
+export type ControlBindPathAttrs<G, V, O = V> = {
   noCache?: boolean;
+  relatedInputs?: (attrs: {
+    controlValue: O;
+    newControlValue: O;
+    globalValue: G;
+    newGlobalValue: G;
+  }) => G;
+
   input?: (value: V) => O;
   output?: (value: O) => V;
 };
@@ -22,9 +29,10 @@ export type ControlBindPathAttrs<V, O = V> = {
 export type ControlBindPathFn<V extends ControlValue> = <
   K extends GetAllObjectPaths<V>,
   O extends ControlBindPathAttrs<
+    V,
     GetPathObjectType<V, K>,
     any
-  > = ControlBindPathAttrs<GetPathObjectType<V, K>>,
+  > = ControlBindPathAttrs<V, GetPathObjectType<V, K>>,
 >(
   path: K,
   attrs?: O,

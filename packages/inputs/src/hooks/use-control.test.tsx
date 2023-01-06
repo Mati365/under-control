@@ -85,6 +85,39 @@ describe('useControl', () => {
         onChange: (value: { d: number }) => void;
       }>();
     });
+
+    it('map relations returns proper value and type', async () => {
+      const { result } = renderHook(() =>
+        useControl({
+          defaultValue: {
+            a: 2,
+            b: 3,
+          },
+        }),
+      );
+
+      const mappedBind = result.current.bind.path('a', {
+        relatedInputs: ({ newControlValue, newGlobalValue }) => ({
+          ...newGlobalValue,
+          b: newControlValue * 2,
+        }),
+      });
+
+      expect(mappedBind.value).toEqual(2);
+      expectTypeOf(mappedBind).toMatchTypeOf<{
+        value: { d: number };
+        onChange: (value: { d: number }) => void;
+      }>();
+
+      await act(() => {
+        mappedBind.onChange(4);
+      });
+
+      expect(result.current.getValue()).toMatchObject({
+        a: 4,
+        b: 8,
+      });
+    });
   });
 
   describe('component usage', () => {

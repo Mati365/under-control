@@ -1,5 +1,11 @@
 # @under-control/core
 
+## 1.6.0
+
+### Minor Changes
+
+- Add related inputs helper
+
 ## 1.5.2
 
 ### Patch Changes

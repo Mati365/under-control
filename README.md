@@ -39,6 +39,7 @@
 - [✨ Binding controls](#-binding-controls)
   - [Bind whole state to input](#bind-whole-state-to-input)
   - [Bind specific path to input](#bind-specific-path-to-input)
+  - [Defining relations between inputs](#defining-relations-between-inputs)
   - [Mapping bound value to input](#mapping-bound-value-to-input)
 - [License](#license)
 
@@ -294,7 +295,7 @@ Check out example of custom controls with validation from previous example:
 
 ## ✨ Binding controls
 
-This is a core hook that is included into `useForm` and identical `bind` functions are exported there too. It allows you to bind values to input and it can be used alone without any form.
+`useControl` is a core hook that is included into `useForm` and identical `bind` functions are exported there too. It allows you to bind values to input and it can be used alone without any form.
 
 ### Bind whole state to input
 
@@ -331,6 +332,40 @@ const Component = () => {
   return <input type="text" {...bind.path('message.nested[0]')} />;
 };
 ```
+
+### Defining relations between inputs
+
+When user modifies `a` input then `b` input is also modified with `a` value + `!` character.
+
+```tsx
+import { useForm } from '@under-control/forms';
+
+const App = () => {
+  const { bind } = useControl({
+    defaultValue: {
+      a: '',
+      b: '',
+    },
+  });
+
+  return (
+    <div>
+      <input
+        type="text"
+        {...bind.path('a', {
+          relatedInputs: ({ newControlValue, newGlobalValue }) => ({
+            ...newGlobalValue,
+            b: `${newControlValue}!`,
+          }),
+        })}
+      />
+      <input type="text" {...bind.path('b')} />
+    </div>
+  );
+};
+```
+
+[![Edit form-inputs-relations](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/form-inputs-relations-gmbvb8?fontsize=14&hidenavigation=1&theme=dark)
 
 ### Mapping bound value to input
 
