@@ -35,7 +35,11 @@
   - [Single validator](#single-validator)
   - [Multiple validators](#multiple-validators)
 - [🏗️ Composition](#️-composition)
-  - [🖊️ Plain input data](#️-plain-input-data)
+  - [🖊️ Basic Custom Control](#️-basic-custom-control)
+- [✨ Binding controls](#-binding-controls)
+  - [Bind whole state to input](#bind-whole-state-to-input)
+  - [Bind specific path to input](#bind-specific-path-to-input)
+  - [Mapping bound value to input](#mapping-bound-value-to-input)
 - [License](#license)
 
 ## 🚀 Quick start
@@ -208,7 +212,7 @@ const Form = () => {
 
 ## 🏗️ Composition
 
-### 🖊️ Plain input data
+### 🖊️ Basic Custom Control
 
 Build and treat your forms as composable set of controlled controls. Do not mess with implementing `value` / `onChange` logic each time when you create standalone controls.
 
@@ -280,6 +284,77 @@ const Form = () => {
       <PrefixedInputGroup {...bind.path('b')} />
       <input type="submit" value="Submit" disabled={!isDirty} />
     </form>
+  );
+};
+```
+
+Check out example of custom controls with validation from previous example:
+
+[![Edit advanced-validation](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/advanced-validation-jt16nb?fontsize=14&hidenavigation=1&theme=dark)
+
+## ✨ Binding controls
+
+This is a core hook that is included into `useForm` and identical `bind` functions are exported there too. It allows you to bind values to input and it can be used alone without any form.
+
+### Bind whole state to input
+
+In example below it's binding whole input text to string state with initial value `Hello world`.
+
+```tsx
+import { useControl } from '@under-control/inputs';
+
+const Component = () => {
+  const { bind } = useControl({
+    defaultValue: 'Hello world',
+  });
+
+  return <input type="text" {...bind.entire()} />;
+};
+```
+
+### Bind specific path to input
+
+You can also bind specific nested path by providing path:
+
+```tsx
+import { useControl } from '@under-control/inputs';
+
+const Component = () => {
+  const { bind } = useControl({
+    defaultValue: {
+      message: {
+        nested: ['Hello world'],
+      },
+    },
+  });
+
+  return <input type="text" {...bind.path('message.nested[0]')} />;
+};
+```
+
+### Mapping bound value to input
+
+It picks value from `message.nested[0]`, appends `!` character to it, and assigns as `value` to input:
+
+```tsx
+import { useControl } from '@under-control/inputs';
+
+const Component = () => {
+  const { bind } = useControl({
+    defaultValue: {
+      message: {
+        nested: ['Hello world'],
+      },
+    },
+  });
+
+  return (
+    <input
+      type="text"
+      {...bind.path('message.nested[0]', {
+        input: str => `${str}!`, // appends `!` value stored in message.nested[0]
+      })}
+    />
   );
 };
 ```
