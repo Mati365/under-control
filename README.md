@@ -18,7 +18,7 @@
 </div>
 
 <p align='center'>
-  Are you losing sanity every time you need to make a form? Are you tired enough of all antipatterns and cursed React frameworks? Screw that! Treat all forms and inputs as a recursive composable controls! **under-control** is a lightweight alternative to libraries such as **react-hook-form**, **formik**, **react-ts-form**, which, unlike them, allows you to turn your components into controllable controls.
+  Are you losing sanity every time you need to make a form? Are you tired enough of all antipatterns and cursed React frameworks? Screw that! Treat all forms and inputs as a recursive composable controls! <b>under-control</b> is a lightweight alternative to libraries such as <b>react-hook-form</b>, <b>formik</b>, <b>react-ts-form</b>, which, unlike them, allows you to turn your components into controllable controls.
 </p>
 
 ![Object type check example](assets/examples/type-check-object.png 'Type check object with array')
