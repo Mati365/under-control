@@ -25,12 +25,18 @@
 
 ## 📖 Docs
 
-1. [Quick Start](#-quick-start)
-   1. [Install](#-install)
-   2. [Features](#-features)
-2. [Creating Forms](#forms)
-   1. [Forms without validation](#)
-3. [Control composition](#-composition)
+- [📖 Docs](#-docs)
+- [🚀 Quick start](#-quick-start)
+  - [📦 Install](#-install)
+  - [✨ Features](#-features)
+- [📝 Forms](#-forms)
+  - [⚠️ Forms without validation](#️-forms-without-validation)
+  - [✅ Forms with validation](#-forms-with-validation)
+  - [Single validator](#single-validator)
+  - [Multiple validators](#multiple-validators)
+- [🏗️ Composition](#️-composition)
+  - [useControl](#usecontrol)
+- [License](#license)
 
 ## 🚀 Quick start
 
@@ -89,6 +95,16 @@ const Form = () => {
 
 ### ✅ Forms with validation
 
+Validation by default can result sync or async result and can be run in these modes:
+
+1. `blur` - when user blurs any input. In this mode `bind.path` returns also `onBlur` handler. You have to assign it to input otherwise this mode will not work properly.
+2. `change` - when user changes any control (basically when `getValue()` changes)
+3. `submit` - when user submits form
+
+Each validator can result also single error or array of errors with optional paths to inputs.
+
+### Single validator
+
 Example of form that performs validation on `blur` or `submit` event.
 
 ```tsx
@@ -127,11 +143,7 @@ const Form = () => {
 
 [![Edit validated-form](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/validated-form-3rb96u?fontsize=14&hidenavigation=1&theme=dark)
 
-Validation can be run in these modes:
-
-1. `blur` - when user blurs any input. In this mode `bind.path` returns also `onBlur` handler. You have to assign it to input otherwise this mode will not work properly.
-2. `change` - when user changes any control (basically when `getValue()` changes)
-3. `submit` - when user submits form
+### Multiple validators
 
 Multiple validators can be provided. In example above `global` validator validates all inputs at once. If you want to assign error to specific input you can:
 
@@ -221,75 +233,6 @@ const PrefixedInputGroup = controlled<PrefixPair>(({ control: { bind } }) => (
   a: { prefix, name },
   b: { prefix, name }
 }
-```
-
-## Usage
-
-### useForm
-
-### Without validation
-
-Create basic form with `PrefixedInputs` from previous example.
-
-```tsx
-const createPrefixPair = (): PrefixPair => ({
-  prefix: '',
-  name: '',
-});
-
-const Component: FC = () => {
-  const { bind, handleSubmitEvent } = useForm({
-    defaultValue: {
-      a: createPrefixPair(),
-      b: createPrefixPair(),
-    },
-    onSubmit: async data => {
-      console.info('Submit!', data);
-    },
-  });
-
-  return (
-    <form onSubmit={handleSubmitEvent}>
-      <PrefixedInput type="text" {...bind.path('a')} />
-      <PrefixedInput type="text" {...bind.path('b')} />
-      <input type="submit" value="Submit" />
-    </form>
-  );
-};
-```
-
-### With validation
-
-```tsx
-const App = () => {
-  const { bind, handleSubmitEvent, isDirty, validator } = useForm({
-    defaultValue: {
-      a: '',
-      b: '',
-    },
-    validation: {
-      mode: ['blur', 'submit'],
-      validators: ({ global }) =>
-        global(({ value: { a, b } }) => {
-          if (!a || !b) {
-            return error('Fill all required fields!');
-          }
-        }),
-    },
-    onSubmit: async data => {
-      console.info('Submit!', data);
-    },
-  });
-
-  return (
-    <form onSubmit={handleSubmitEvent}>
-      <input type="text" {...bind.path('a')} />
-      <input type="text" {...bind.path('b')} />
-      <input type="submit" value="Submit" disabled={!isDirty} />
-      <div>{flattenMessagesList(validator.errors.all).join(',')}</div>
-    </form>
-  );
-};
 ```
 
 ### useControl
