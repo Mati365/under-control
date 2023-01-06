@@ -27,16 +27,6 @@
 
 [![Edit React Typescript (forked)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-typescript-forked-jt16nb?fontsize=14&hidenavigation=1&theme=dark)
 
-If you want only control bind functions:
-
-![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@under-control/inputs)
-
-```bash
-npm install @under-control/inputs
-```
-
-If you want form utils (it uses `@under-control/inputs` as dependency):
-
 ![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@under-control/forms)
 
 ```bash
@@ -46,7 +36,7 @@ npm install @under-control/forms
 ## Features
 
 ### Utils
- 
+
 - Hook that binds controls to state
 - Hook that implements simple form submitting / validation logic
 - Decorator that makes any passed component controllable
@@ -54,12 +44,12 @@ npm install @under-control/forms
 
 ### Composition
 
-Build and treat your forms as composable set of controlled components. Do not mess with implementing `value` / `onChange` logic each time when you create standalone controls.
+Build and treat your forms as composable set of controlled controls. Do not mess with implementing `value` / `onChange` logic each time when you create standalone controls.
 
 Example:
 
 ```tsx
-import { controlled } from '@under-control/inputs';
+import { controlled } from '@under-control/forms';
 
 type PrefixValue = {
   prefix: string;
@@ -77,7 +67,7 @@ const PrefixedInput = controlled<PrefixValue>(({ control: { bind } }) => (
 Usage in bigger component:
 
 ```tsx
-import { controlled } from '@under-control/inputs';
+import { controlled } from '@under-control/forms';
 import { PrefixedInput } from './prefixed-input';
 
 type PrefixPair = {
@@ -158,7 +148,12 @@ const FormInput = ({ errors, ...props }: FormInputProps) => (
 );
 
 const Form: FC<FormProps> = ({ onSubmit }) => {
-  const { bind, handleSubmitEvent, submitState, validator: { errors } } = useForm({
+  const {
+    bind,
+    handleSubmitEvent,
+    submitState,
+    validator: { errors },
+  } = useForm({
     validation: {
       mode: ['blur', 'submit'],
       validators: ({ path }) => [

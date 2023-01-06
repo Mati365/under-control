@@ -1,5 +1,16 @@
 # @under-control/inputs
 
+## 1.4.0
+
+### Minor Changes
+
+- Reexport resources in forms pkg
+
+### Patch Changes
+
+- Updated dependencies
+  - @under-control/core@1.4.0
+
 ## 1.3.0
 
 ### Minor Changes
