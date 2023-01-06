@@ -64,7 +64,7 @@ npm install @under-control/forms
 - Better encapsulation of data. Due to low `context` usage it allows you to reuse built controllable controls in other forms.
 - Provides rerender-free control value side effects. Modify of control can reset value of form without doing additional `useEffect`.
 - Exports additional hooks such as `use-promise-callback` / `use-update-effect` that can be reused in your project.
-- Highly testes codebase with 100% coverage.
+- Highly tested codebase with 100% coverage.
 
 ## 📝 Forms
 
