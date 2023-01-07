@@ -29,13 +29,13 @@
 - [🚀 Quick start](#-quick-start)
   - [📦 Install](#-install)
   - [✨ Features](#-features)
+- [🏗️ Composition](#️-composition)
+  - [🖊️ Basic Custom Control](#️-basic-custom-control)
 - [📝 Forms](#-forms)
   - [⚠️ Forms without validation](#️-forms-without-validation)
   - [✅ Forms with validation](#-forms-with-validation)
     - [Single validator](#single-validator)
     - [Multiple validators](#multiple-validators)
-- [🏗️ Composition](#️-composition)
-  - [🖊️ Basic Custom Control](#️-basic-custom-control)
 - [✨ Binding controls](#-binding-controls)
   - [Bind whole state to input](#bind-whole-state-to-input)
   - [Bind specific path to input](#bind-specific-path-to-input)
@@ -57,14 +57,96 @@ npm install @under-control/forms
 
 ### ✨ Features
 
+- Allows you to turn any component into a control with `value` and `onChange` properties. Treat your custom select-box the same as it would be plain `<select />` tag! Other libs such as **react-hook-form** do not provide similar mechanism.
+- Better encapsulation of data. Due to low `context` usage it allows you to reuse built controllable controls in other forms.
 - Small size, it is around 4x smaller than **react-hook-form** and weights ~2.6kb (gzip).
 - Performance. Automatic caching of callbacks that binds controls. Modification of control A is not triggering rerender on control B.
 - Built in mind to be type-safe. Provides type-safe validation and controls binding.
-- Allows you to turn any component into a control with `value` and `onChange` properties. Treat your custom select-box the same as it would be plain `<select />` tag!
-- Better encapsulation of data. Due to low `context` usage it allows you to reuse built controllable controls in other forms.
 - Provides rerender-free control value side effects. Modify of control can reset value of form without doing additional `useEffect`.
 - Exports additional hooks such as `use-promise-callback` / `use-update-effect` that can be reused in your project.
 - Highly tested codebase with 100% coverage.
+
+## 🏗️ Composition
+
+### 🖊️ Basic Custom Control
+
+Build and treat your forms as composable set of controlled controls. Do not mess with implementing `value` / `onChange` logic each time when you create standalone controls.
+
+Example:
+
+```tsx
+import { controlled } from '@under-control/forms';
+
+type PrefixValue = {
+  prefix: string;
+  name: string;
+};
+
+const PrefixedInput = controlled<PrefixValue>(({ control: { bind } }) => (
+  <>
+    <input type="text" {...bind.path('prefix')} />
+    <input type="text" {...bind.path('name')} />
+  </>
+));
+```
+
+Usage in bigger component:
+
+```tsx
+import { controlled } from '@under-control/forms';
+import { PrefixedInput } from './prefixed-input';
+
+type PrefixPair = {
+  a: PrefixValue;
+  b: PrefixValue;
+};
+
+const PrefixedInputGroup = controlled<PrefixPair>(({ control: { bind } }) => (
+  <>
+    <PrefixedInput {...bind.path('a')} />
+    <PrefixedInput {...bind.path('b')} />
+  </>
+));
+```
+
+`onChange` output from `PrefixedInput` component:
+
+```tsx
+{
+  a: { prefix, name },
+  b: { prefix, name }
+}
+```
+
+These newly created inputs can be later used in forms. Such like in this example:
+
+```tsx
+import { useForm, error, flattenMessagesList } from '@under-control/forms';
+
+const Form = () => {
+  const { bind, handleSubmitEvent, isDirty, validator } = useForm({
+    defaultValue: {
+      a: { prefix: '', name: '' },
+      b: { prefix: '', name: '' },
+    },
+    onSubmit: async data => {
+      console.info('Submit!', data);
+    },
+  });
+
+  return (
+    <form onSubmit={handleSubmitEvent}>
+      <PrefixedInputGroup {...bind.path('a')} />
+      <PrefixedInputGroup {...bind.path('b')} />
+      <input type="submit" value="Submit" disabled={!isDirty} />
+    </form>
+  );
+};
+```
+
+Check out example of custom controls with validation from previous example:
+
+[![Edit advanced-validation](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/advanced-validation-jt16nb?fontsize=14&hidenavigation=1&theme=dark)
 
 ## 📝 Forms
 
@@ -208,88 +290,6 @@ const Form = () => {
   );
 };
 ```
-
-[![Edit advanced-validation](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/advanced-validation-jt16nb?fontsize=14&hidenavigation=1&theme=dark)
-
-## 🏗️ Composition
-
-### 🖊️ Basic Custom Control
-
-Build and treat your forms as composable set of controlled controls. Do not mess with implementing `value` / `onChange` logic each time when you create standalone controls.
-
-Example:
-
-```tsx
-import { controlled } from '@under-control/forms';
-
-type PrefixValue = {
-  prefix: string;
-  name: string;
-};
-
-const PrefixedInput = controlled<PrefixValue>(({ control: { bind } }) => (
-  <>
-    <input type="text" {...bind.path('prefix')} />
-    <input type="text" {...bind.path('name')} />
-  </>
-));
-```
-
-Usage in bigger component:
-
-```tsx
-import { controlled } from '@under-control/forms';
-import { PrefixedInput } from './prefixed-input';
-
-type PrefixPair = {
-  a: PrefixValue;
-  b: PrefixValue;
-};
-
-const PrefixedInputGroup = controlled<PrefixPair>(({ control: { bind } }) => (
-  <>
-    <PrefixedInput {...bind.path('a')} />
-    <PrefixedInput {...bind.path('b')} />
-  </>
-));
-```
-
-`onChange` output from `PrefixedInput` component:
-
-```tsx
-{
-  a: { prefix, name },
-  b: { prefix, name }
-}
-```
-
-These newly created inputs can be later used in forms. Such like in this example:
-
-```tsx
-import { useForm, error, flattenMessagesList } from '@under-control/forms';
-
-const Form = () => {
-  const { bind, handleSubmitEvent, isDirty, validator } = useForm({
-    defaultValue: {
-      a: { prefix: '', name: '' },
-      b: { prefix: '', name: '' },
-    },
-    onSubmit: async data => {
-      console.info('Submit!', data);
-    },
-  });
-
-  return (
-    <form onSubmit={handleSubmitEvent}>
-      <PrefixedInputGroup {...bind.path('a')} />
-      <PrefixedInputGroup {...bind.path('b')} />
-      <input type="submit" value="Submit" disabled={!isDirty} />
-    </form>
-  );
-};
-```
-
-Check out example of custom controls with validation from previous example:
 
 [![Edit advanced-validation](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/advanced-validation-jt16nb?fontsize=14&hidenavigation=1&theme=dark)
 
