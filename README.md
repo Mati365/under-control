@@ -144,7 +144,13 @@ const Form = () => {
 };
 ```
 
-Check out example of custom controls with validation from previous example:
+You can use created in such way controls also in uncontrolled mode. In that mode `defaultValue` is required.
+
+```tsx
+<PrefixedInputGroup defaultValue={{ prefix: 'abc', name: 'def' }} />
+```
+
+Check out example of custom controls with validation from other example:
 
 [![Edit advanced-validation](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/advanced-validation-jt16nb?fontsize=14&hidenavigation=1&theme=dark)
 
