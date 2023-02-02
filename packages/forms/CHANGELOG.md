@@ -1,5 +1,15 @@
 # @under-control/forms
 
+## 1.6.5
+
+### Patch Changes
+
+- Minor partial typings improvements
+- Updated dependencies
+  - @under-control/core@1.6.5
+  - @under-control/inputs@1.6.5
+  - @under-control/validate@1.6.5
+
 ## 1.6.4
 
 ### Patch Changes

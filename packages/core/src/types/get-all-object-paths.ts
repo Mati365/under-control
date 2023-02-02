@@ -33,12 +33,12 @@ export type GetAllObjectPathsEntries<
           ? ObjectTypeEntry<P, O>
           : O extends object
           ? {
-              [Key in keyof O]: GetAllObjectPathsEntries<
+              [Key in keyof Required<O>]: GetAllObjectPathsEntries<
                 O[Key],
                 S,
                 JoinWithSeparator<P, Key>
               >;
-            }[keyof O]
+            }[keyof Required<O>]
           : ObjectTypeEntry<P, O>);
 
 export type GetAllObjectPaths<
