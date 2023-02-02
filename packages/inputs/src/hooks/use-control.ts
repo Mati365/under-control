@@ -33,12 +33,10 @@ export type ControlHookResult<V extends ControlValue> =
  * In this scenario TS resolves `a.b` property type to `2` instead of `number`.
  * After apply `RelaxNarrowType` type is converted to `number`.
  */
-export function useControl<V extends ControlValue>({
+export function useControlStrict<V extends ControlValue>({
   onBlur,
   ...stateAttrs
-}: ControlHookAttrs<RelaxNarrowType<V>>): ControlHookResult<
-  RelaxNarrowType<V>
-> {
+}: ControlHookAttrs<V>): ControlHookResult<V> {
   const state = useControlState(stateAttrs);
   const bind = useControlBind({ state, onBlur });
 
@@ -47,3 +45,7 @@ export function useControl<V extends ControlValue>({
     ...state,
   };
 }
+
+export const useControl = <V extends ControlValue>(
+  attrs: ControlHookAttrs<RelaxNarrowType<V>>,
+): ControlHookResult<RelaxNarrowType<V>> => useControlStrict(attrs);

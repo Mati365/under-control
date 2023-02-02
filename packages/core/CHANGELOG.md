@@ -1,5 +1,11 @@
 # @under-control/core
 
+## 1.6.4
+
+### Patch Changes
+
+- Do not relax typings in controlled decorator
+
 ## 1.6.3
 
 ### Patch Changes

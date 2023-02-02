@@ -1,5 +1,13 @@
 # @under-control/validate
 
+## 1.6.4
+
+### Patch Changes
+
+- Do not relax typings in controlled decorator
+- Updated dependencies
+  - @under-control/core@1.6.4
+
 ## 1.6.3
 
 ### Patch Changes
