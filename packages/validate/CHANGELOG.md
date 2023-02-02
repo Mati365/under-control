@@ -1,5 +1,13 @@
 # @under-control/validate
 
+## 1.6.3
+
+### Patch Changes
+
+- Add missing null type to ControlValue
+- Updated dependencies
+  - @under-control/core@1.6.3
+
 ## 1.6.2
 
 ### Patch Changes

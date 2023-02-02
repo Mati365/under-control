@@ -1,3 +1,3 @@
 import { ObjectWithPaths } from '@under-control/core';
 
-export type ControlValue = ObjectWithPaths | number | string;
+export type ControlValue = ObjectWithPaths | number | string | null;

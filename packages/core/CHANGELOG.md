@@ -1,5 +1,11 @@
 # @under-control/core
 
+## 1.6.3
+
+### Patch Changes
+
+- Add missing null type to ControlValue
+
 ## 1.6.2
 
 ### Patch Changes

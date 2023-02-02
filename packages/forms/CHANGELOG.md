@@ -1,5 +1,15 @@
 # @under-control/forms
 
+## 1.6.3
+
+### Patch Changes
+
+- Add missing null type to ControlValue
+- Updated dependencies
+  - @under-control/inputs@1.6.3
+  - @under-control/core@1.6.3
+  - @under-control/validate@1.6.3
+
 ## 1.6.2
 
 ### Patch Changes
