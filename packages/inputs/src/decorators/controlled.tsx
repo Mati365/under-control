@@ -6,7 +6,7 @@ import { areControlledControlAttrs } from '../guards';
 
 export type ControlBindProps<V extends ControlValue> = ControlStateAttrs<V>;
 
-type ControlInternalProps<V extends ControlValue> = {
+export type ControlInternalProps<V extends ControlValue> = {
   control: ControlHookResult<V>;
 };
 

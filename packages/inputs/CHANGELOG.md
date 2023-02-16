@@ -1,5 +1,13 @@
 # @under-control/inputs
 
+## 1.6.6
+
+### Patch Changes
+
+- Export internal props from inputs
+- Updated dependencies
+  - @under-control/core@1.6.6
+
 ## 1.6.5
 
 ### Patch Changes
