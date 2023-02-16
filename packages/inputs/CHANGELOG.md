@@ -1,5 +1,13 @@
 # @under-control/inputs
 
+## 1.6.7
+
+### Patch Changes
+
+- Export value from hook result
+- Updated dependencies
+  - @under-control/core@1.6.7
+
 ## 1.6.6
 
 ### Patch Changes

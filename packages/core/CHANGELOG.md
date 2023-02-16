@@ -1,5 +1,11 @@
 # @under-control/core
 
+## 1.6.7
+
+### Patch Changes
+
+- Export value from hook result
+
 ## 1.6.6
 
 ### Patch Changes

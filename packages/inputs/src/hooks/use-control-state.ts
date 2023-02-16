@@ -15,6 +15,7 @@ type ControlHookState<V> = {
 export type ControlStateHookAttrs<V> = ControlStateAttrs<V>;
 
 export type ControlStateHookResult<V> = {
+  value: V;
   getValue: () => V;
   setValue: (attrs: ControlValueSettersAttrs<V>) => void;
 };
@@ -96,6 +97,7 @@ export function useControlState<V extends ControlValue>(
   );
 
   return {
+    value: getInternalStateValue(),
     getValue: getInternalStateValue,
     setValue: setValueOrFireChange,
   };
