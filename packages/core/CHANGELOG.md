@@ -1,5 +1,11 @@
 # @under-control/core
 
+## 1.6.9
+
+### Patch Changes
+
+- Fix exception on input with boolean value
+
 ## 1.6.8
 
 ### Patch Changes

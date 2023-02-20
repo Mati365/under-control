@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { pickEventValue } from './pick-event-value';
 
 describe('pickEventValue', () => {
-  it.each([1, 'abc', { a: 2 }, [1, 2]])(
+  it.each([1, 'abc', { a: 2 }, [1, 2], true, false])(
     'should not process event "%s" value',
     value => {
       expect(pickEventValue(value)).toEqual(value);

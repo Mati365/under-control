@@ -1,5 +1,5 @@
 export function pickEventValue(e: any): any {
-  if (['string', 'number'].includes(typeof e)) {
+  if (['string', 'number', 'boolean'].includes(typeof e)) {
     return e;
   }
 

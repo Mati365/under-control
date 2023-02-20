@@ -1,5 +1,15 @@
 # @under-control/forms
 
+## 1.6.9
+
+### Patch Changes
+
+- Fix exception on input with boolean value
+- Updated dependencies
+  - @under-control/inputs@1.6.9
+  - @under-control/core@1.6.9
+  - @under-control/validate@1.6.9
+
 ## 1.6.8
 
 ### Patch Changes
