@@ -1,5 +1,13 @@
 # @under-control/inputs
 
+## 1.6.8
+
+### Patch Changes
+
+- Add missing boolean type to ControlValue
+- Updated dependencies
+  - @under-control/core@1.6.8
+
 ## 1.6.7
 
 ### Patch Changes
