@@ -1,5 +1,13 @@
 # @under-control/inputs
 
+## 1.6.11
+
+### Patch Changes
+
+- fix typings in paths
+- Updated dependencies
+  - @under-control/core@1.6.11
+
 ## 1.6.10
 
 ### Patch Changes

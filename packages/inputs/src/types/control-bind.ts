@@ -38,10 +38,10 @@ export type ControlBindPathFn<V extends ControlValue> = <
   attrs?: O,
 ) => ControlBindInputAttrs<ReturnType<Exclude<O['input'], undefined>>>;
 
-export type ControlBindMethods<V> = {
+export type ControlBindMethods<V, RV = NonNullable<V>> = {
   entire: () => ControlBindInputAttrs<V>;
-} & (V extends ObjectWithPaths
+} & (RV extends ObjectWithPaths
   ? {
-      path: ControlBindPathFn<V>;
+      path: ControlBindPathFn<RV>;
     }
   : {});

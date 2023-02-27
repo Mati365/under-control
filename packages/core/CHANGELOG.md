@@ -1,5 +1,11 @@
 # @under-control/core
 
+## 1.6.11
+
+### Patch Changes
+
+- fix typings in paths
+
 ## 1.6.10
 
 ### Patch Changes
