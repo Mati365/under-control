@@ -7,31 +7,33 @@ export function setByPath<
   K extends GetAllObjectPaths<O>,
 >(path: K, value: GetPathObjectType<O, K>, obj: O): O {
   const flattenParts = getFlattenPathParts(path);
-  const reducedObj: any = Array.isArray(obj) ? [...obj] : { ...obj };
 
-  let previousObj = reducedObj;
+  const lookupAndSet = (pathIndex: number, nestedObj: any): any => {
+    const firstPathPart = flattenParts[pathIndex];
 
-  for (let i = 0; i < flattenParts.length; ++i) {
-    const part = flattenParts[i];
-
-    if (part === null) {
-      continue;
+    if (pathIndex === flattenParts.length) {
+      return value;
     }
 
-    if (i === flattenParts.length - 1) {
-      previousObj[part] = value;
-    } else {
-      if (!(part in previousObj)) {
-        if (typeof flattenParts[i + 1] === 'number') {
-          previousObj[part] = [];
-        } else {
-          previousObj[part] = {};
-        }
-      }
-
-      previousObj = previousObj[part];
+    if (firstPathPart === null) {
+      return lookupAndSet(pathIndex + 1, nestedObj);
     }
-  }
 
-  return reducedObj as O;
+    if (Array.isArray(nestedObj) || typeof firstPathPart === 'number') {
+      const clone = Array.isArray(nestedObj) ? [...nestedObj] : [];
+      clone[+firstPathPart] = lookupAndSet(
+        pathIndex + 1,
+        clone[+firstPathPart],
+      );
+      return clone;
+    }
+
+    if (typeof nestedObj === 'object' || typeof firstPathPart === 'string') {
+      const clone = typeof nestedObj === 'object' ? { ...nestedObj } : {};
+      clone[firstPathPart] = lookupAndSet(pathIndex + 1, clone[firstPathPart]);
+      return clone;
+    }
+  };
+
+  return lookupAndSet(0, obj);
 }

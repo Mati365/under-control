@@ -70,4 +70,18 @@ describe('setByPath', () => {
       expect(result).toEqual({ a: { b: [undefined, 4] } });
     });
   });
+
+  describe('incorrect path', () => {
+    it('should erase object if index path is provided', () => {
+      const result = setByPath('a.b[1]', 4, { a: { b: { s: 2 } } });
+
+      expect(result).toEqual({ a: { b: [undefined, 4] } });
+    });
+
+    it('should override path with number ', () => {
+      const result = setByPath('a.b[1]', 4, { a: 2 });
+
+      expect(result).toEqual({ a: { b: [undefined, 4] } });
+    });
+  });
 });

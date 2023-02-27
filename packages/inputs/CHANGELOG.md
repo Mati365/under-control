@@ -1,5 +1,13 @@
 # @under-control/inputs
 
+## 1.6.10
+
+### Patch Changes
+
+- Fix incorrect refrence for nested object returned from set-by-path
+- Updated dependencies
+  - @under-control/core@1.6.10
+
 ## 1.6.9
 
 ### Patch Changes
