@@ -127,7 +127,7 @@ export function useForm<V extends ControlValue, R = void>({
     }
 
     validator.validate(control.getValue());
-  }, [control.getValue(), validation?.mode]);
+  }, [JSON.stringify(control.getValue()), validation?.mode]);
 
   return {
     ...control,

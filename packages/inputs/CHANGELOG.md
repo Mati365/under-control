@@ -1,5 +1,13 @@
 # @under-control/inputs
 
+## 1.6.13
+
+### Patch Changes
+
+- Fix validation loop when `change` event mode validation is enabled
+- Updated dependencies
+  - @under-control/core@1.6.13
+
 ## 1.6.12
 
 ### Patch Changes
