@@ -1,5 +1,15 @@
 # @under-control/forms
 
+## 1.6.12
+
+### Patch Changes
+
+- Improve submit result typing
+- Updated dependencies
+  - @under-control/core@1.6.12
+  - @under-control/inputs@1.6.12
+  - @under-control/validate@1.6.12
+
 ## 1.6.11
 
 ### Patch Changes

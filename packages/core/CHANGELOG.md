@@ -1,5 +1,11 @@
 # @under-control/core
 
+## 1.6.12
+
+### Patch Changes
+
+- Improve submit result typing
+
 ## 1.6.11
 
 ### Patch Changes

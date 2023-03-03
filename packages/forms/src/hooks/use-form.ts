@@ -4,6 +4,7 @@ import { useState, FormEvent } from 'react';
 import {
   RelaxNarrowType,
   CanBePromise,
+  PromiseState,
   usePromiseCallback,
   useUpdateEffect,
   suppressEvent,
@@ -46,10 +47,7 @@ export type FormHookResult<
   R = void,
 > = ControlHookResult<V> & {
   validator: FormValidatorHookResult<V>;
-  submitState: {
-    loading: boolean;
-    error?: any;
-  };
+  submitState: PromiseState<Awaited<R>, any>;
   isDirty: boolean;
   setDirty: (dirty: boolean) => void;
   handleSubmitEvent: (e: FormEvent) => void;
