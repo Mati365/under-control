@@ -1,6 +1,6 @@
 {
   "name": "@under-control/core",
-  "version": "1.6.13",
+  "version": "1.6.14",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "repository": "https://github.com/Mati365/under-control",

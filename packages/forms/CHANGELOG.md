@@ -1,5 +1,15 @@
 # @under-control/forms
 
+## 1.6.14
+
+### Patch Changes
+
+- Fix loop again
+- Updated dependencies
+  - @under-control/core@1.6.14
+  - @under-control/inputs@1.6.14
+  - @under-control/validate@1.6.14
+
 ## 1.6.13
 
 ### Patch Changes
