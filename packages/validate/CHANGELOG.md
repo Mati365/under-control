@@ -1,5 +1,13 @@
 # @under-control/validate
 
+## 1.6.15
+
+### Patch Changes
+
+- Export missing util from inputs
+- Updated dependencies
+  - @under-control/core@1.6.15
+
 ## 1.6.14
 
 ### Patch Changes
