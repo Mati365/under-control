@@ -1,5 +1,11 @@
 # @under-control/core
 
+## 1.6.16
+
+### Patch Changes
+
+- Add merged bind function
+
 ## 1.6.15
 
 ### Patch Changes

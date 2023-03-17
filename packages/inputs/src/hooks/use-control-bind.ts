@@ -98,6 +98,26 @@ export function useControlBind<V extends ControlValue>({
     };
   };
 
+  const registerMerge = (): ControlBindInputAttrs<V, Partial<V>> => {
+    const value = state.getValue();
+
+    return {
+      value,
+      onChange: constRefCallback({ key: '@onChange' }, event => {
+        state.setValue({
+          merge: true,
+          value: pickEventValue(event),
+        });
+      }),
+      onBlur: constRefCallback({ key: '@onBlur' }, () => {
+        onBlur?.({
+          path: null,
+          value,
+        });
+      }),
+    };
+  };
+
   // for objects provide additional method - `path`
   // it should be not available for primitive types such as number / bool
   if (isObjectWithPaths(state.getValue())) {
@@ -145,12 +165,14 @@ export function useControlBind<V extends ControlValue>({
     };
 
     return {
+      merged: registerMerge,
       path: registerPath,
       entire: registerEntire,
     } as unknown as ControlBindMethods<V>;
   }
 
   return {
+    merged: registerMerge,
     entire: registerEntire,
   } as unknown as ControlBindMethods<V>;
 }

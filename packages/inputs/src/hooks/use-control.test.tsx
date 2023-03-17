@@ -5,6 +5,7 @@ import { render, renderHook, screen, act } from '@testing-library/react';
 
 import { useControl } from './use-control';
 import { ControlBindInputAttrs } from '../types';
+import { controlled } from '../decorators/controlled';
 
 describe('useControl', () => {
   describe('type inference for value and onChange', () => {
@@ -17,6 +18,7 @@ describe('useControl', () => {
 
       expectTypeOf(result.current.bind).toEqualTypeOf<{
         entire: () => ControlBindInputAttrs<string>;
+        merged: () => ControlBindInputAttrs<string, Partial<string>>;
       }>();
     });
 
@@ -121,6 +123,40 @@ describe('useControl', () => {
   });
 
   describe('component usage', () => {
+    it('should sync merged state with <input /> when use entire bind', async () => {
+      const ComponentA = controlled<{ a: string }>(({ control }) => (
+        <input name="input" type="text" {...control.bind.path('a')} />
+      ));
+
+      const ComponentB: FC = () => {
+        const { getValue, bind } = useControl({
+          defaultValue: {
+            a: 'Hello world',
+            b: 'survived',
+          },
+        });
+
+        return (
+          <>
+            <ComponentA {...bind.merged()} />
+            <div>Value: {getValue().b}</div>
+          </>
+        );
+      };
+
+      render(<ComponentB />);
+
+      const input = screen.getByRole('textbox');
+      expect(input).toHaveValue('Hello world');
+
+      await userEvent.clear(input);
+      expect(input).toHaveValue('');
+
+      await userEvent.type(input, 'Abc');
+      expect(input).toHaveValue('Abc');
+      expect(screen.getByText('Value: survived')).toBeInTheDocument();
+    });
+
     it('should sync state with <input /> when use entire bind', async () => {
       const Component: FC = () => {
         const { getValue, bind } = useControl({

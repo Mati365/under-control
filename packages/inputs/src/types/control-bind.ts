@@ -7,9 +7,9 @@ import {
 
 import { ControlValue } from './control-value';
 
-export type ControlBindInputAttrs<V> = {
+export type ControlBindInputAttrs<V, O = V> = {
   value: V;
-  onChange: (value: V | ChangeEvent<HTMLElement>) => void;
+  onChange: (value: O | ChangeEvent<HTMLElement>) => void;
   onBlur?: VoidFunction;
 };
 
@@ -40,6 +40,7 @@ export type ControlBindPathFn<V extends ControlValue> = <
 
 export type ControlBindMethods<V, RV = NonNullable<V>> = {
   entire: () => ControlBindInputAttrs<V>;
+  merged: () => ControlBindInputAttrs<V, Partial<V>>;
 } & (RV extends ObjectWithPaths
   ? {
       path: ControlBindPathFn<RV>;
