@@ -240,6 +240,53 @@ describe('useControl', () => {
       });
     });
 
+    it('should detect blur in merged component', async () => {
+      const onBlurMock = jest.fn();
+
+      const ComponentA = controlled<{ a: string }, { onBlur?: any }>(
+        ({ control, onBlur }) => (
+          <input
+            name="input"
+            type="text"
+            {...control.bind.path('a')}
+            onBlur={onBlur}
+          />
+        ),
+      );
+
+      const ComponentB: FC = () => {
+        const { getValue, bind } = useControl({
+          defaultValue: {
+            a: 'Hello world',
+            b: 'survived',
+          },
+          onBlur: onBlurMock,
+        });
+
+        return (
+          <>
+            <ComponentA {...bind.merged()} />
+            <div>Value: {getValue().b}</div>
+          </>
+        );
+      };
+
+      render(<ComponentB />);
+
+      const input = await screen.findByRole('textbox');
+
+      await userEvent.type(input, 'ABC');
+      await userEvent.click(document.body);
+
+      expect(onBlurMock).toHaveBeenNthCalledWith(1, {
+        path: null,
+        value: {
+          a: 'Hello worldABC',
+          b: 'survived',
+        },
+      });
+    });
+
     it('should detect blur on path nested elements', async () => {
       const onBlur = jest.fn();
 

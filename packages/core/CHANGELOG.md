@@ -1,5 +1,11 @@
 # @under-control/core
 
+## 1.6.17
+
+### Patch Changes
+
+- useForm is no more relaxed
+
 ## 1.6.16
 
 ### Patch Changes

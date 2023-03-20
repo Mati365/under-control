@@ -2,7 +2,6 @@
 import { useState, FormEvent } from 'react';
 
 import {
-  RelaxNarrowType,
   CanBePromise,
   PromiseState,
   usePromiseCallback,
@@ -14,7 +13,7 @@ import {
   ControlHookResult,
   ControlValue,
   UncontrolledControlStateAttrs,
-  useControl,
+  useControlStrict,
 } from '@under-control/inputs';
 
 import {
@@ -61,17 +60,14 @@ export function useForm<V extends ControlValue, R = void>({
   rethrowSubmitErrors = true,
   onSubmit,
   ...attrs
-}: FormHookAttrs<RelaxNarrowType<V>, R>): FormHookResult<
-  RelaxNarrowType<V>,
-  R
-> {
+}: FormHookAttrs<V, R>): FormHookResult<V, R> {
   const supportsValidation = (...modes: FormValidationMode[]): boolean =>
     !!validation?.mode?.some(item => modes.includes(item));
 
   const [isDirty, setDirty] = useState(initialDirty);
 
-  const validator = useFormValidator<RelaxNarrowType<V>>(validation ?? {});
-  const control = useControl<V>({
+  const validator = useFormValidator<V>(validation ?? {});
+  const control = useControlStrict<V>({
     ...attrs,
     onChange: (newValue, prevValue) => {
       attrs.onChange?.(newValue, prevValue);
