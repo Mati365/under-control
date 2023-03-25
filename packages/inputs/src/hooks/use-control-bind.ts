@@ -103,13 +103,13 @@ export function useControlBind<V extends ControlValue>({
 
     return {
       value,
-      onChange: constRefCallback({ key: '@onChange' }, event => {
+      onChange: constRefCallback({ key: '@merge/onChange' }, event => {
         state.setValue({
           merge: true,
           value: pickEventValue(event),
         });
       }),
-      onBlur: constRefCallback({ key: '@onBlur' }, () => {
+      onBlur: constRefCallback({ key: '@merge/onBlur' }, () => {
         onBlur?.({
           path: null,
           value,

@@ -1,5 +1,13 @@
 # @under-control/inputs
 
+## 1.6.18
+
+### Patch Changes
+
+- Fix incorrect caching `registerMerge` callbacks
+- Updated dependencies
+  - @under-control/core@1.6.18
+
 ## 1.6.17
 
 ### Patch Changes
