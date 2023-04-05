@@ -68,6 +68,7 @@ export function useFormValidator<V>({
 
     // execute nested validators
     const results = await validator.fn({
+      globalValue: value,
       value: getByPath<any, any>(validator.path, value),
     });
 

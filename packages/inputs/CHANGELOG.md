@@ -1,5 +1,24 @@
 # @under-control/inputs
 
+## 1.7.1
+
+### Patch Changes
+
+- Add `globalValue` to validator error selector
+- Updated dependencies
+  - @under-control/core@1.7.1
+
+## 1.7.0
+
+### Minor Changes
+
+- Add global value to validator selector
+
+### Patch Changes
+
+- Updated dependencies
+  - @under-control/core@1.7.0
+
 ## 1.6.18
 
 ### Patch Changes

@@ -21,7 +21,9 @@ export type GlobalValidator<V> = (
 
 export type PathValidator<V, P extends GetAllObjectPaths<V>> = {
   path: P;
-  fn: (attrs: ValidatorAttrs<GetPathObjectType<V, P>>) => ValidatorResult<V>;
+  fn: (
+    attrs: ValidatorAttrs<GetPathObjectType<V, P>> & { globalValue: V },
+  ) => ValidatorResult<V>;
 };
 
 export type Validator<V, P extends GetAllObjectPaths<V> = any> =
