@@ -1,5 +1,13 @@
 # @under-control/validate
 
+## 1.7.2
+
+### Patch Changes
+
+- Add `Date` to `ControlValue` type
+- Updated dependencies
+  - @under-control/core@1.7.2
+
 ## 1.7.1
 
 ### Patch Changes
