@@ -11,6 +11,7 @@ const CACHE_EMPTY_ERRORS_ARRAY: Readonly<ValidationErrorsArray<any>> =
 
 type FormExtractorAttrs = {
   includeGlobals?: boolean;
+  nested?: boolean;
 };
 
 type FormErrorsExtractor<V> = <P extends GetAllObjectPaths<V>>(
@@ -33,20 +34,35 @@ export type FormValidatorMessagesHookResult<V> = {
 export function useFormValidatorMessages<V>({
   errors,
 }: FormValidatorMessagesHookAttrs<V>): FormValidatorMessagesHookResult<V> {
-  const extract: FormErrorsExtractor<V> = (path, attrs) => {
+  const extract: FormErrorsExtractor<V> = (
+    path,
+    { includeGlobals, nested } = {},
+  ) => {
     const extractedErrors = errors.flatMap(item => {
       const itemPath = item.path as string;
-      if (
-        (!itemPath || itemPath !== path) &&
-        (!attrs?.includeGlobals || itemPath)
-      ) {
+      const nestedPath = `${path as string}.`;
+
+      if (nested) {
+        if (itemPath?.startsWith(nestedPath)) {
+          return [
+            {
+              ...item,
+              path: itemPath.replace(nestedPath, ''),
+            } as unknown as ValidationError<any>,
+          ];
+        }
+
+        return [];
+      }
+
+      if ((!itemPath || itemPath !== path) && (!includeGlobals || itemPath)) {
         return [];
       }
 
       return [
         {
           ...item,
-          path: itemPath,
+          path: null,
         } as unknown as ValidationError<any>,
       ];
     });

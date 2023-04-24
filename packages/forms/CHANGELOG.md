@@ -1,5 +1,25 @@
 # @under-control/forms
 
+## 1.7.4
+
+### Patch Changes
+
+- Add nested error extraction mode
+- Updated dependencies
+  - @under-control/validate@1.7.4
+  - @under-control/inputs@1.7.4
+  - @under-control/core@1.7.4
+
+## 1.7.3
+
+### Patch Changes
+
+- Add nested extractor
+- Updated dependencies
+  - @under-control/validate@1.7.3
+  - @under-control/core@1.7.3
+  - @under-control/inputs@1.7.3
+
 ## 1.7.2
 
 ### Patch Changes

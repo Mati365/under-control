@@ -29,7 +29,17 @@ describe('useFormValidatorMessages', () => {
     });
 
     expect(extract('a.b', { includeGlobals: true })).toMatchObject({
+      errors: [error('Error 1', null, null), error('Error 2', null, null)],
+    });
+  });
+
+  it('should extract nested paths', () => {
+    const { extract } = useFormValidatorMessages<MockObj>({
       errors: [error('Error 1'), error('Error 2', null, 'a.b')],
+    });
+
+    expect(extract('a', { nested: true })).toMatchObject({
+      errors: [error('Error 2', null, 'b')],
     });
   });
 });
