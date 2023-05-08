@@ -22,4 +22,16 @@ describe('getByPath', () => {
 
     expect(getByPath('a.b[0][1]', obj)).toBeUndefined();
   });
+
+  it('should return undefined for null keys', () => {
+    const obj: { a?: { b?: number[][] } | null } = { a: null };
+
+    expect(getByPath('a.b[0][1]', obj)).toBeUndefined();
+  });
+
+  it('should return null for nested null keys', () => {
+    const obj: { a?: { b?: number[][] | null } | null } = { a: { b: null } };
+
+    expect(getByPath('a.b', obj)).toBeNull();
+  });
 });

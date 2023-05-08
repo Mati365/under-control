@@ -1,5 +1,11 @@
 # @under-control/core
 
+## 1.7.9
+
+### Patch Changes
+
+- Fix crash on null object key
+
 ## 1.7.8
 
 ### Patch Changes

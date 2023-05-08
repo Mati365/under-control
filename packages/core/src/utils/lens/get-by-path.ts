@@ -9,12 +9,23 @@ export function getByPath<
   const flattenParts = getFlattenPathParts(path);
   let reducedObj: any = obj;
 
-  for (const part of flattenParts) {
+  for (let i = 0; i < flattenParts.length; ++i) {
+    const part = flattenParts[i];
+
     if (part === null) {
       continue;
     }
 
     reducedObj = reducedObj[part];
+
+    if (reducedObj === null) {
+      if (i + 2 < flattenParts.length) {
+        return undefined;
+      }
+
+      return reducedObj;
+    }
+
     if (typeof reducedObj === 'undefined') {
       break;
     }

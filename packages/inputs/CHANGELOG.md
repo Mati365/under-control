@@ -1,5 +1,13 @@
 # @under-control/inputs
 
+## 1.7.9
+
+### Patch Changes
+
+- Fix crash on null object key
+- Updated dependencies
+  - @under-control/core@1.7.9
+
 ## 1.7.8
 
 ### Patch Changes
