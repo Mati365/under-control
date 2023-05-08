@@ -1,5 +1,37 @@
 # @under-control/validate
 
+## 1.7.8
+
+### Patch Changes
+
+- Fix again
+- Updated dependencies
+  - @under-control/core@1.7.8
+
+## 1.7.7
+
+### Patch Changes
+
+- Fix unions again
+- Updated dependencies
+  - @under-control/core@1.7.7
+
+## 1.7.6
+
+### Patch Changes
+
+- Fix union type again
+- Updated dependencies
+  - @under-control/core@1.7.6
+
+## 1.7.5
+
+### Patch Changes
+
+- Better support for union types
+- Updated dependencies
+  - @under-control/core@1.7.5
+
 ## 1.7.4
 
 ### Patch Changes

@@ -10,3 +10,4 @@ export * from './overwrite';
 export * from './reader';
 export * from './relax-narrow-type';
 export * from './split-literal-by';
+export * from './union-to-interception';

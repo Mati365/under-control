@@ -2,6 +2,7 @@ import { ChangeEvent } from 'react';
 import {
   GetAllObjectPaths,
   GetPathObjectType,
+  UnionToIntersection,
   ObjectWithPaths,
 } from '@under-control/core';
 
@@ -41,8 +42,8 @@ export type ControlBindPathFn<V extends ControlValue> = <
 export type ControlBindMethods<V, RV = NonNullable<V>> = {
   entire: () => ControlBindInputAttrs<V>;
   merged: () => ControlBindInputAttrs<V, Partial<V>>;
-} & (RV extends ObjectWithPaths
+} & (UnionToIntersection<RV> extends ObjectWithPaths
   ? {
-      path: ControlBindPathFn<RV>;
+      path: ControlBindPathFn<UnionToIntersection<RV>>;
     }
   : {});

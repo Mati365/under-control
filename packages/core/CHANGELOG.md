@@ -1,5 +1,29 @@
 # @under-control/core
 
+## 1.7.8
+
+### Patch Changes
+
+- Fix again
+
+## 1.7.7
+
+### Patch Changes
+
+- Fix unions again
+
+## 1.7.6
+
+### Patch Changes
+
+- Fix union type again
+
+## 1.7.5
+
+### Patch Changes
+
+- Better support for union types
+
 ## 1.7.4
 
 ### Patch Changes
