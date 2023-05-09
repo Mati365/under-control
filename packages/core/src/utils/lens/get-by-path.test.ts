@@ -26,7 +26,7 @@ describe('getByPath', () => {
   it('should return undefined for null keys', () => {
     const obj: { a?: { b?: number[][] } | null } = { a: null };
 
-    expect(getByPath('a.b[0][1]', obj)).toBeUndefined();
+    expect(getByPath('a.b', obj)).toBeUndefined();
   });
 
   it('should return null for nested null keys', () => {

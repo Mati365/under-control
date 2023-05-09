@@ -1,5 +1,13 @@
 # @under-control/validate
 
+## 1.7.10
+
+### Patch Changes
+
+- Fix get-by-path
+- Updated dependencies
+  - @under-control/core@1.7.10
+
 ## 1.7.9
 
 ### Patch Changes

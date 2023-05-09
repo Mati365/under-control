@@ -1,5 +1,11 @@
 # @under-control/core
 
+## 1.7.10
+
+### Patch Changes
+
+- Fix get-by-path
+
 ## 1.7.9
 
 ### Patch Changes

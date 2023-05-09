@@ -16,18 +16,18 @@ export function getByPath<
       continue;
     }
 
-    reducedObj = reducedObj[part];
-
-    if (reducedObj === null) {
-      if (i + 2 < flattenParts.length) {
-        return undefined;
-      }
-
-      return reducedObj;
-    }
-
     if (typeof reducedObj === 'undefined') {
       break;
+    }
+
+    reducedObj = reducedObj?.[part];
+
+    if (reducedObj === null) {
+      if (i + 1 === flattenParts.length) {
+        return reducedObj;
+      }
+
+      return undefined;
     }
   }
 
