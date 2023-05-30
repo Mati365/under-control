@@ -104,6 +104,7 @@ export function useForm<V extends ControlValue, R = void>({
         });
       }
 
+      setDirty(false);
       return result;
     },
     { rethrow: rethrowSubmitErrors },

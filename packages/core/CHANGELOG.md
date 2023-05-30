@@ -1,5 +1,11 @@
 # @under-control/core
 
+## 1.7.11
+
+### Patch Changes
+
+- Set dirty=false status after submit
+
 ## 1.7.10
 
 ### Patch Changes

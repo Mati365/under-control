@@ -1,5 +1,13 @@
 # @under-control/validate
 
+## 1.7.11
+
+### Patch Changes
+
+- Set dirty=false status after submit
+- Updated dependencies
+  - @under-control/core@1.7.11
+
 ## 1.7.10
 
 ### Patch Changes
