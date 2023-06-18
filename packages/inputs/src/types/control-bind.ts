@@ -14,7 +14,7 @@ export type ControlBindInputAttrs<V, O = V> = {
   onBlur?: VoidFunction;
 };
 
-export type ControlBindPathAttrs<G, V, O = V> = {
+export type ControlBindPathAttrs<G, O, I = O> = {
   noCache?: boolean;
   relatedInputs?: (attrs: {
     controlValue: O;
@@ -23,21 +23,18 @@ export type ControlBindPathAttrs<G, V, O = V> = {
     newGlobalValue: G;
   }) => G;
 
-  input?: (value: V) => O;
-  output?: (value: O) => V;
+  input?: (value: I) => O;
+  output?: (value: O) => I;
 };
 
 export type ControlBindPathFn<V extends ControlValue> = <
   K extends GetAllObjectPaths<V>,
-  O extends ControlBindPathAttrs<
-    V,
-    GetPathObjectType<V, K>,
-    any
-  > = ControlBindPathAttrs<V, GetPathObjectType<V, K>>,
+  O = GetPathObjectType<V, K>,
+  I = O,
 >(
   path: K,
-  attrs?: O,
-) => ControlBindInputAttrs<ReturnType<Exclude<O['input'], undefined>>>;
+  attrs?: ControlBindPathAttrs<V, O, I>,
+) => ControlBindInputAttrs<O>;
 
 export type ControlBindMethods<V, RV = NonNullable<V>> = {
   entire: () => ControlBindInputAttrs<V>;

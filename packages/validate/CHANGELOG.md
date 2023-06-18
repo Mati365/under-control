@@ -1,5 +1,13 @@
 # @under-control/validate
 
+## 1.7.12
+
+### Patch Changes
+
+- Improve type infer in `input` / `output` mappers
+- Updated dependencies
+  - @under-control/core@1.7.12
+
 ## 1.7.11
 
 ### Patch Changes

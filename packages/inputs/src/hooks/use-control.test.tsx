@@ -107,8 +107,8 @@ describe('useControl', () => {
 
       expect(mappedBind.value).toEqual(2);
       expectTypeOf(mappedBind).toMatchTypeOf<{
-        value: { d: number };
-        onChange: (value: { d: number }) => void;
+        value: number;
+        onChange: (value: number) => void;
       }>();
 
       await act(() => {
