@@ -1,5 +1,21 @@
 # @under-control/validate
 
+## 1.7.14
+
+### Patch Changes
+
+- More infer changes
+- Updated dependencies
+  - @under-control/core@1.7.14
+
+## 1.7.13
+
+### Patch Changes
+
+- More infer fixes
+- Updated dependencies
+  - @under-control/core@1.7.13
+
 ## 1.7.12
 
 ### Patch Changes

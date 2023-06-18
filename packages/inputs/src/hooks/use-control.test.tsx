@@ -123,6 +123,36 @@ describe('useControl', () => {
   });
 
   describe('component usage', () => {
+    it('infer properly input type', async () => {
+      const ComponentA = controlled<string>(({ control }) => (
+        <input name="input" type="text" {...control.bind.entire()} />
+      ));
+
+      const ComponentB: FC = () => {
+        const { bind } = useControl({
+          defaultValue: {
+            a: {
+              content: 'Hello world',
+            },
+          },
+        });
+
+        return (
+          <ComponentA
+            {...bind.path('a', {
+              input: val => val.content,
+              output: val => ({ content: val }),
+            })}
+          />
+        );
+      };
+
+      render(<ComponentB />);
+
+      const input = screen.getByRole('textbox');
+      expect(input).toHaveValue('Hello world');
+    });
+
     it('should sync merged state with <input /> when use entire bind', async () => {
       const ComponentA = controlled<{ a: string }>(({ control }) => (
         <input name="input" type="text" {...control.bind.path('a')} />
