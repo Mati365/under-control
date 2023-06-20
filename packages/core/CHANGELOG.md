@@ -1,5 +1,11 @@
 # @under-control/core
 
+## 1.7.15
+
+### Patch Changes
+
+- relax typing in `Record`
+
 ## 1.7.14
 
 ### Patch Changes

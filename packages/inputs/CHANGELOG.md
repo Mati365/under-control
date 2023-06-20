@@ -1,5 +1,13 @@
 # @under-control/inputs
 
+## 1.7.15
+
+### Patch Changes
+
+- relax typing in `Record`
+- Updated dependencies
+  - @under-control/core@1.7.15
+
 ## 1.7.14
 
 ### Patch Changes

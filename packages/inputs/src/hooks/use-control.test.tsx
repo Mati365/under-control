@@ -88,6 +88,30 @@ describe('useControl', () => {
       }>();
     });
 
+    it('returns proper type for hash map', () => {
+      type HashMap = Record<string, { content: string }>;
+
+      const {
+        result: {
+          current: { bind },
+        },
+      } = renderHook(() =>
+        useControl<HashMap>({
+          defaultValue: {
+            a: { content: '' },
+          },
+        }),
+      );
+
+      const mappedBind = bind.path('a.content');
+
+      expect(mappedBind.value).toEqual('');
+      expectTypeOf(mappedBind).toMatchTypeOf<{
+        value: any;
+        onChange: (value: any) => void;
+      }>();
+    });
+
     it('map relations returns proper value and type', async () => {
       const { result } = renderHook(() =>
         useControl({
