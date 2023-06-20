@@ -1,5 +1,11 @@
 # @under-control/core
 
+## 1.7.16
+
+### Patch Changes
+
+- More type fixes
+
 ## 1.7.15
 
 ### Patch Changes

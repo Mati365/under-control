@@ -1,5 +1,15 @@
 # @under-control/forms
 
+## 1.7.16
+
+### Patch Changes
+
+- More type fixes
+- Updated dependencies
+  - @under-control/inputs@1.7.16
+  - @under-control/core@1.7.16
+  - @under-control/validate@1.7.16
+
 ## 1.7.15
 
 ### Patch Changes

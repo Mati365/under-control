@@ -25,8 +25,6 @@ export type GetAllObjectPathsEntries<
       path: string;
       type: any;
     }
-  : Record<string | number, any> extends O
-  ? any
   :
       | (P extends '' ? never : ObjectTypeEntry<P, O>)
       | (O extends unknown[]
