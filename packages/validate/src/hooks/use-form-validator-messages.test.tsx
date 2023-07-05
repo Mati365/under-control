@@ -42,4 +42,14 @@ describe('useFormValidatorMessages', () => {
       errors: [error('Error 2', null, 'b')],
     });
   });
+
+  it('should extract nested array paths', () => {
+    const { extract } = useFormValidatorMessages<{ a: number[] }>({
+      errors: [error('Error 1'), error('Error 2', null, 'a[0]')],
+    });
+
+    expect(extract('a', { nested: true })).toMatchObject({
+      errors: [error('Error 2', null, '[0]')],
+    });
+  });
 });

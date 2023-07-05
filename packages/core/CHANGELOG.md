@@ -1,5 +1,11 @@
 # @under-control/core
 
+## 1.7.17
+
+### Patch Changes
+
+- Fix broken nested validation extract for array
+
 ## 1.7.16
 
 ### Patch Changes

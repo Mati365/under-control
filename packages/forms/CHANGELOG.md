@@ -1,5 +1,15 @@
 # @under-control/forms
 
+## 1.7.17
+
+### Patch Changes
+
+- Fix broken nested validation extract for array
+- Updated dependencies
+  - @under-control/validate@1.7.17
+  - @under-control/core@1.7.17
+  - @under-control/inputs@1.7.17
+
 ## 1.7.16
 
 ### Patch Changes

@@ -40,14 +40,25 @@ export function useFormValidatorMessages<V>({
   ) => {
     const extractedErrors = errors.flatMap(item => {
       const itemPath = item.path as string;
-      const nestedPath = `${path as string}.`;
 
       if (nested) {
+        const nestedPath = `${path as string}.`;
+        const nestedArrayPath = `${path as string}[`;
+
         if (itemPath?.startsWith(nestedPath)) {
           return [
             {
               ...item,
               path: itemPath.replace(nestedPath, ''),
+            } as unknown as ValidationError<any>,
+          ];
+        }
+
+        if (itemPath?.startsWith(nestedArrayPath)) {
+          return [
+            {
+              ...item,
+              path: itemPath.substring((path as string).length),
             } as unknown as ValidationError<any>,
           ];
         }
