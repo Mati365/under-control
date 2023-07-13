@@ -8,6 +8,8 @@ type ControlValueSettersAttrs<V> =
   | { value: V; merge?: false }
   | { value: Partial<V>; merge: true };
 
+type ControlInternalValueSetterAttrs<V> = { value: V; rerender: boolean };
+
 type ControlHookState<V> = {
   value: V;
 };
@@ -18,6 +20,7 @@ export type ControlStateHookResult<V> = {
   value: V;
   getValue: () => V;
   setValue: (attrs: ControlValueSettersAttrs<V>) => void;
+  setInternalValue: (attrs: ControlInternalValueSetterAttrs<V>) => void;
 };
 
 export function useControlState<V extends ControlValue>(
@@ -46,7 +49,7 @@ export function useControlState<V extends ControlValue>(
   // `getStateValue()` call will return always newest value even if you call it in useMemo(() => {}, [])
   const getInternalStateValue = useConstRefCallback(() => state.value);
   const setInternalStateValue = useConstRefCallback(
-    ({ value, rerender }: { value: V; rerender: boolean }) => {
+    ({ value, rerender }: ControlInternalValueSetterAttrs<V>) => {
       state.value = value;
 
       if (rerender) {
@@ -100,5 +103,6 @@ export function useControlState<V extends ControlValue>(
     value: getInternalStateValue(),
     getValue: getInternalStateValue,
     setValue: setValueOrFireChange,
+    setInternalValue: setInternalStateValue,
   };
 }

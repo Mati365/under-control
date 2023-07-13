@@ -1,5 +1,15 @@
 # @under-control/forms
 
+## 1.7.18
+
+### Patch Changes
+
+- export `setInternalValue` from `useForm`
+- Updated dependencies
+  - @under-control/inputs@1.7.18
+  - @under-control/core@1.7.18
+  - @under-control/validate@1.7.18
+
 ## 1.7.17
 
 ### Patch Changes

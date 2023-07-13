@@ -1,5 +1,11 @@
 # @under-control/core
 
+## 1.7.18
+
+### Patch Changes
+
+- export `setInternalValue` from `useForm`
+
 ## 1.7.17
 
 ### Patch Changes
