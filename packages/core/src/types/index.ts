@@ -1,6 +1,7 @@
 export * from './can-be-array';
 export * from './can-be-blank';
 export * from './can-be-promise';
+export * from './distributive-omit';
 export * from './get-all-object-paths';
 export * from './join-with-separator';
 export * from './non-empty-array';

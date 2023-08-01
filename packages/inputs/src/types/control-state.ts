@@ -1,3 +1,5 @@
+import { DistributiveOmit } from '@under-control/core';
+
 export type ControlChangeValueCallback<V> = (newValue: V, prevValue: V) => void;
 
 export type UncontrolledControlStateAttrs<V> = {
@@ -13,3 +15,8 @@ export type ControlledControlStateAttrs<V> = {
 export type ControlStateAttrs<V> =
   | UncontrolledControlStateAttrs<V>
   | ControlledControlStateAttrs<V>;
+
+export type OmitControlStateAttrs<V> = DistributiveOmit<
+  V,
+  'value' | 'defaultValue' | 'onChange'
+>;

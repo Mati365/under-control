@@ -1,5 +1,29 @@
 # @under-control/inputs
 
+## 1.7.21
+
+### Patch Changes
+
+- Fixes again
+- Updated dependencies
+  - @under-control/core@1.7.21
+
+## 1.7.20
+
+### Patch Changes
+
+- Fixes again
+- Updated dependencies
+  - @under-control/core@1.7.20
+
+## 1.7.19
+
+### Patch Changes
+
+- Add typings utility, improve typings
+- Updated dependencies
+  - @under-control/core@1.7.19
+
 ## 1.7.18
 
 ### Patch Changes

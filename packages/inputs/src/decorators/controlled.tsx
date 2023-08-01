@@ -1,8 +1,12 @@
 import React, { ComponentType, FC } from 'react';
 
-import { ControlHookResult, useControlStrict } from '../hooks/use-control';
-import { ControlStateAttrs, ControlValue } from '../types';
 import { areControlledControlAttrs } from '../guards';
+import { ControlHookResult, useControlStrict } from '../hooks/use-control';
+import {
+  ControlStateAttrs,
+  ControlValue,
+  OmitControlStateAttrs,
+} from '../types';
 
 export type ControlBindProps<V extends ControlValue> = ControlStateAttrs<V>;
 
@@ -12,8 +16,8 @@ export type ControlInternalProps<V extends ControlValue> = {
 
 export function controlled<V extends ControlValue, P = {}>(
   Component: ComponentType<P & ControlInternalProps<V>>,
-): ComponentType<P & ControlBindProps<V>> {
-  const Wrapped: FC<P & ControlBindProps<V>> = props => {
+): ComponentType<OmitControlStateAttrs<P> & ControlBindProps<V>> {
+  const Wrapped: FC<OmitControlStateAttrs<P> & ControlBindProps<V>> = props => {
     const control = useControlStrict<V>(props);
     const forwardProps = (() => {
       if (areControlledControlAttrs(props)) {
