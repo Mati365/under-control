@@ -20,7 +20,9 @@ export type ControlInternalProps<V extends ControlValue> = {
 
 export function controlled<V extends ControlValue, P = {}>(
   Component: ComponentType<P & ControlInternalProps<V>>,
-): ForwardRefExoticComponent<OmitControlStateAttrs<P> & ControlBindProps<V>> {
+): ForwardRefExoticComponent<
+  OmitControlStateAttrs<P> & ControlBindProps<V> & { ref?: any }
+> {
   const Wrapped = forwardRef<
     any,
     OmitControlStateAttrs<P> & ControlBindProps<V>

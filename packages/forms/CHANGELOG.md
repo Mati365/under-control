@@ -1,5 +1,15 @@
 # @under-control/forms
 
+## 1.7.24
+
+### Patch Changes
+
+- add missing ref prop type
+- Updated dependencies
+  - @under-control/inputs@1.7.24
+  - @under-control/core@1.7.24
+  - @under-control/validate@1.7.24
+
 ## 1.7.23
 
 ### Patch Changes
