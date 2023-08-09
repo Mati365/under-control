@@ -1,4 +1,8 @@
-import React, { ComponentType, FC } from 'react';
+import React, {
+  ComponentType,
+  ForwardRefExoticComponent,
+  forwardRef,
+} from 'react';
 
 import { areControlledControlAttrs } from '../guards';
 import { ControlHookResult, useControlStrict } from '../hooks/use-control';
@@ -16,8 +20,11 @@ export type ControlInternalProps<V extends ControlValue> = {
 
 export function controlled<V extends ControlValue, P = {}>(
   Component: ComponentType<P & ControlInternalProps<V>>,
-): ComponentType<OmitControlStateAttrs<P> & ControlBindProps<V>> {
-  const Wrapped: FC<OmitControlStateAttrs<P> & ControlBindProps<V>> = props => {
+): ForwardRefExoticComponent<OmitControlStateAttrs<P> & ControlBindProps<V>> {
+  const Wrapped = forwardRef<
+    any,
+    OmitControlStateAttrs<P> & ControlBindProps<V>
+  >((props, ref) => {
     const control = useControlStrict<V>(props);
     const forwardProps = (() => {
       if (areControlledControlAttrs(props)) {
@@ -29,10 +36,12 @@ export function controlled<V extends ControlValue, P = {}>(
       return other;
     })();
 
-    return <Component {...(forwardProps as P)} control={control} />;
-  };
+    return <Component {...(forwardProps as P)} control={control} ref={ref} />;
+  });
 
   Wrapped.displayName = `controlled(${Component.displayName ?? '?'})`;
 
-  return Wrapped;
+  return Wrapped as ForwardRefExoticComponent<
+    OmitControlStateAttrs<P> & ControlBindProps<V>
+  >;
 }

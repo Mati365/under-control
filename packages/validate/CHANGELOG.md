@@ -1,5 +1,21 @@
 # @under-control/validate
 
+## 1.7.23
+
+### Patch Changes
+
+- add ref to controlled
+- Updated dependencies
+  - @under-control/core@1.7.23
+
+## 1.7.22
+
+### Patch Changes
+
+- Add forwardRef to controlled
+- Updated dependencies
+  - @under-control/core@1.7.22
+
 ## 1.7.21
 
 ### Patch Changes
