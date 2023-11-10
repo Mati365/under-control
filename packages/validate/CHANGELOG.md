@@ -1,5 +1,13 @@
 # @under-control/validate
 
+## 1.7.25
+
+### Patch Changes
+
+- Add File typing to ControlValue
+- Updated dependencies
+  - @under-control/core@1.7.25
+
 ## 1.7.24
 
 ### Patch Changes
