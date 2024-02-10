@@ -1,6 +1,5 @@
 import path from 'path';
 
-console.info(import.meta.dirname);
 export const createDefaultConfig = ({ rootDir }) => ({
   rootDir,
   preset: 'ts-jest',
