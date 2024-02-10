@@ -1,4 +1,4 @@
-import { ValidationErrorsArray } from '@under-control/validate';
+import type { ValidationErrorsArray } from '@under-control/validate';
 
 export class ValidationException extends Error {
   constructor(public readonly validation: ValidationErrorsArray<any>) {

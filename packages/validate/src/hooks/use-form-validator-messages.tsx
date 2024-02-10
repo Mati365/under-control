@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-import { GetAllObjectPaths, GetPathObjectType } from '@under-control/core';
-import {
+import type { GetAllObjectPaths, GetPathObjectType } from '@under-control/core';
+import type {
   ValidationError,
   ValidationErrorsArray,
   ValidationErrorsListProps,

@@ -1,5 +1,5 @@
-import { GetAllObjectPaths, CanBeBlank } from '@under-control/core';
-import { ValidationError } from '../types';
+import type { GetAllObjectPaths, CanBeBlank } from '@under-control/core';
+import type { ValidationError } from '../types';
 
 export const error = <V, O extends object>(
   message: string,

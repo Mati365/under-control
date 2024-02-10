@@ -3,15 +3,19 @@ import path from 'path';
 import typescript from 'rollup-plugin-typescript2';
 import resolve from '@rollup/plugin-node-resolve';
 import del from 'rollup-plugin-delete';
-import { externals } from 'rollup-plugin-node-externals';
-import { uglify } from 'rollup-plugin-uglify';
+import { nodeExternals } from 'rollup-plugin-node-externals';
 
 export const createPackageRollupConfig = ({ outDir = 'dist' } = {}) => ({
   input: 'src/index.ts',
   output: [
     {
-      file: path.join(outDir, 'index.js'),
+      file: './dist/cjs/index.js',
       format: 'cjs',
+    },
+    {
+      dir: './dist/esm',
+      format: 'esm',
+      preserveModules: true,
     },
   ],
   plugins: [
@@ -22,17 +26,18 @@ export const createPackageRollupConfig = ({ outDir = 'dist' } = {}) => ({
       tsconfig: './tsconfig.json',
       tsconfigOverride: {
         compilerOptions: {
-          module: 'ESNext',
+          module: 'ES2022',
+          moduleResolution: 'node',
           declaration: true,
         },
+        include: ['src/'],
         exclude: ['node_modules/', '**/*.test.tsx', '**/*.test.ts'],
       },
     }),
-    externals(),
+    nodeExternals(),
     resolve({
       moduleDirectories: ['node_modules'],
     }),
-    uglify(),
   ],
   external: ['react'],
 });

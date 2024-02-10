@@ -1,4 +1,4 @@
-import { ControlStateAttrs, ControlledControlStateAttrs } from '../types';
+import type { ControlStateAttrs, ControlledControlStateAttrs } from '../types';
 
 export function areControlledControlAttrs<V>(
   attrs: ControlStateAttrs<V>,

@@ -1,10 +1,11 @@
-const path = require('path');
+import path from 'path';
 
-module.exports = ({ rootDir }) => ({
+console.info(import.meta.dirname);
+export const createDefaultConfig = ({ rootDir }) => ({
   rootDir,
   preset: 'ts-jest',
   resetMocks: true,
-  setupFilesAfterEnv: [path.resolve(__dirname, './jest.setup.js')],
+  setupFilesAfterEnv: [path.resolve(import.meta.dirname, './jest.setup.js')],
   testPathIgnorePatterns: ['node_modules'],
   testEnvironment: 'jsdom',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],

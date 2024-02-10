@@ -5,14 +5,15 @@ describe('useUpdateEffect', () => {
   it('should call effect function only after first change of value', () => {
     const fn = jest.fn();
     const { rerender } = renderHook(({ num }: { num?: number } = {}) =>
+      // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
       useUpdateEffect(fn, [num]),
     );
 
-    expect(fn).not.toBeCalled();
+    expect(fn).not.toHaveBeenCalled();
     rerender();
-    expect(fn).not.toBeCalled();
+    expect(fn).not.toHaveBeenCalled();
 
     rerender({ num: 2 });
-    expect(fn).toBeCalledTimes(1);
+    expect(fn).toHaveBeenCalledTimes(1);
   });
 });

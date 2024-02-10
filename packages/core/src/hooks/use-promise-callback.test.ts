@@ -2,8 +2,9 @@
 import { waitFor } from '@testing-library/dom';
 import { act, renderHook } from '@testing-library/react';
 
+import type { Nullable } from '../types';
+
 import { DeferredUnlock } from '../../test/deferred-unlock';
-import { Nullable } from '../types';
 import { usePromiseCallback } from './use-promise-callback';
 
 describe('usePromiseCallback hook', () => {
@@ -14,7 +15,7 @@ describe('usePromiseCallback hook', () => {
       usePromiseCallback(async () => mutex.promise),
     );
 
-    await act(() => {
+    act(() => {
       callbackFnResultPromise = result.current[0]();
     });
 
@@ -45,7 +46,7 @@ describe('usePromiseCallback hook', () => {
       usePromiseCallback(async () => mutex.promise, { rethrow: false }),
     );
 
-    await act(() => {
+    act(() => {
       result.current[0]();
     });
 
@@ -78,7 +79,7 @@ describe('usePromiseCallback hook', () => {
       usePromiseCallback(async () => mutex.promise),
     );
 
-    await act(() => {
+    act(() => {
       result.current[0]().catch(exceptionHandleFn);
     });
 
@@ -112,7 +113,7 @@ describe('usePromiseCallback hook', () => {
       usePromiseCallback(async () => mutex[callNo.current++].promise),
     );
 
-    await act(() => {
+    act(() => {
       const [fn] = result.current;
 
       fn();
@@ -140,7 +141,7 @@ describe('usePromiseCallback hook', () => {
       }),
     );
 
-    await act(() => {
+    act(() => {
       const [fn] = result.current;
 
       fn();
@@ -167,7 +168,7 @@ describe('usePromiseCallback hook', () => {
       }),
     );
 
-    await act(() => {
+    act(() => {
       const [fn] = result.current;
 
       fn();

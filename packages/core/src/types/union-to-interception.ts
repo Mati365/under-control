@@ -1,4 +1,4 @@
-import { ObjectWithoutPaths } from './get-all-object-paths';
+import type { ObjectWithoutPaths } from './get-all-object-paths';
 
 type UnionToIntersectionInternal<U> = (
   U extends any ? (k: U) => void : never
@@ -9,5 +9,5 @@ type UnionToIntersectionInternal<U> = (
 export type UnionToIntersection<U> = U extends ObjectWithoutPaths
   ? U
   : UnionToIntersectionInternal<U> extends infer O
-  ? { [K in keyof O]: O[K] }
-  : never;
+    ? { [K in keyof O]: O[K] }
+    : never;

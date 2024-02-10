@@ -1,12 +1,13 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import React, {
-  ComponentType,
-  ForwardRefExoticComponent,
   forwardRef,
+  type ComponentType,
+  type ForwardRefExoticComponent,
 } from 'react';
 
 import { areControlledControlAttrs } from '../guards';
-import { ControlHookResult, useControlStrict } from '../hooks/use-control';
-import {
+import { useControlStrict, type ControlHookResult } from '../hooks/use-control';
+import type {
   ControlStateAttrs,
   ControlValue,
   OmitControlStateAttrs,

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, FC } from 'react';
-import userEvent from '@testing-library/user-event';
+import React, { useState, useEffect, type FC } from 'react';
+import { userEvent } from '@testing-library/user-event';
 import { render, renderHook } from '@testing-library/react';
 import { screen, waitFor } from '@testing-library/dom';
 
@@ -22,7 +22,14 @@ describe('useConstRefCallback', () => {
         mutex.promise.then(safeFn).catch(console.error);
       }, []);
 
-      return <button type="button" onClick={() => setTime(10)} />;
+      return (
+        <button
+          type="button"
+          onClick={() => {
+            setTime(10);
+          }}
+        />
+      );
     };
 
     render(<CustomAsyncComponent />);

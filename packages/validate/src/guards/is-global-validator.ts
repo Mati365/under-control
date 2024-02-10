@@ -1,4 +1,4 @@
-import { GlobalValidator, Validator } from '../types';
+import type { GlobalValidator, Validator } from '../types';
 
 export function isGlobalValidator<V>(
   validator: Validator<V, any>,

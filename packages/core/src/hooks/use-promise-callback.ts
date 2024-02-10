@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { useState, useRef, useCallback } from 'react';
 
-import { Nullable } from '../types';
+import type { Nullable } from '../types';
 
 import { identity } from '../utils';
 import { useMountedRef } from './use-mounted-ref';
@@ -86,7 +87,7 @@ export const usePromiseCallback = <F extends (...args: any) => any, E = any>(
   };
 
   const fn = useCallback(
-    (...args: any[]) => promiseFnRef.current?.(...args),
+    async (...args: any[]) => promiseFnRef.current?.(...args),
     [],
   );
 

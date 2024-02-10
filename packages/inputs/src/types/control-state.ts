@@ -1,4 +1,4 @@
-import { DistributiveOmit } from '@under-control/core';
+import type { DistributiveOmit } from '@under-control/core';
 
 export type ControlChangeValueCallback<V> = (newValue: V, prevValue: V) => void;
 

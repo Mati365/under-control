@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import React, { type FC } from 'react';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 
 import { pickEventValue } from './pick-event-value';
 
@@ -21,7 +21,7 @@ describe('pickEventValue', () => {
     render(<Component />);
     await userEvent.click(screen.getByRole('checkbox'));
 
-    expect(trackFn).toBeCalledWith(true);
+    expect(trackFn).toHaveBeenCalledWith(true);
   });
 
   it('should pick first file from file input', async () => {
@@ -39,6 +39,6 @@ describe('pickEventValue', () => {
     );
 
     await userEvent.upload(screen.getByTestId('file'), testFile);
-    expect(callback).toBeCalledWith(testFile);
+    expect(callback).toHaveBeenCalledWith(testFile);
   });
 });

@@ -1,11 +1,11 @@
 import {
-  NonEmptyArray,
-  GetAllObjectPaths,
-  Reader,
   identity,
+  type NonEmptyArray,
+  type GetAllObjectPaths,
+  type Reader,
 } from '@under-control/core';
 
-import { PathValidator, GlobalValidator, Validator } from '../../types';
+import type { PathValidator, GlobalValidator, Validator } from '../../types';
 
 export type FormValidators<V> = NonEmptyArray<Validator<V>>;
 

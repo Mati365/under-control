@@ -1,20 +1,20 @@
 import { useState } from 'react';
 
 import {
-  NonEmptyArray,
-  GetAllObjectPaths,
   usePromiseCallback,
   getByPath,
   safeToArray,
+  type NonEmptyArray,
+  type GetAllObjectPaths,
 } from '@under-control/core';
 
 import { isGlobalValidator } from '../guards';
 
-import { ValidationErrorsArray, Validator } from '../types';
-import { FormValidatorsList, useFormValidatorsSelector } from './internal';
+import type { ValidationErrorsArray, Validator } from '../types';
+import { useFormValidatorsSelector, type FormValidatorsList } from './internal';
 import {
-  FormValidatorMessagesHookResult,
   useFormValidatorMessages,
+  type FormValidatorMessagesHookResult,
 } from './use-form-validator-messages';
 
 type FormValidateFn<V> = (
@@ -99,6 +99,7 @@ export function useFormValidator<V>({
     const filteredValidators = fields
       ? validators.filter(
           validator =>
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             isGlobalValidator(validator) || fields.includes(validator.path),
         )
       : validators;

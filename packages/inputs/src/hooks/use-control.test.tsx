@@ -1,11 +1,12 @@
-import React, { FC } from 'react';
+import React, { type FC } from 'react';
+
 import { expectTypeOf } from 'expect-type';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 import { render, renderHook, screen, act } from '@testing-library/react';
 
 import { useControl } from './use-control';
-import { ControlBindInputAttrs } from '../types';
 import { controlled } from '../decorators/controlled';
+import type { ControlBindInputAttrs } from '../types';
 
 describe('useControl', () => {
   describe('type inference for value and onChange', () => {
@@ -111,7 +112,7 @@ describe('useControl', () => {
         onChange: (value: number) => void;
       }>();
 
-      await act(() => {
+      act(() => {
         mappedBind.onChange(4);
       });
 
@@ -356,7 +357,7 @@ describe('useControl', () => {
       );
 
       const cached = result.current.bind.entire();
-      await act(() => {
+      act(() => {
         cached.onChange('Ala ma kota');
       });
 
@@ -382,7 +383,7 @@ describe('useControl', () => {
 
       const bindCache: any[] = [];
 
-      await act(() => {
+      act(() => {
         for (const [path, value] of bindPaths) {
           const boundResult = result.current.bind.path(path);
 
@@ -409,7 +410,7 @@ describe('useControl', () => {
       );
 
       const cached = result.current.bind.path('a', { noCache: true });
-      await act(() => {
+      act(() => {
         cached.onChange('Ala ma kota');
       });
 

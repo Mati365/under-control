@@ -1,25 +1,25 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { useState, FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 
 import {
-  CanBePromise,
-  PromiseState,
   usePromiseCallback,
   useUpdateEffect,
   suppressEvent,
+  type PromiseState,
+  type CanBePromise,
 } from '@under-control/core';
 
 import {
-  ControlHookResult,
-  ControlValue,
-  UncontrolledControlStateAttrs,
   useControlStrict,
+  type ControlHookResult,
+  type ControlValue,
+  type UncontrolledControlStateAttrs,
 } from '@under-control/inputs';
 
 import {
-  FormValidatorHookAttrs,
-  FormValidatorHookResult,
   useFormValidator,
+  type FormValidatorHookAttrs,
+  type FormValidatorHookResult,
 } from '@under-control/validate';
 
 import { ValidationException } from '../exceptions';

@@ -16,7 +16,7 @@ describe('useFormValidator', () => {
   it('should not crash if validators list is blank', async () => {
     const { result } = renderHook(() => useFormValidator<DefaultMockObj>({}));
 
-    await act(() => {
+    act(() => {
       result.current.validate({ a: { b: 2 } });
     });
 
@@ -42,7 +42,7 @@ describe('useFormValidator', () => {
       }),
     );
 
-    await act(() => {
+    act(() => {
       result.current.validate({ a: { b: 2 } });
     });
 
@@ -53,7 +53,7 @@ describe('useFormValidator', () => {
       ]);
     });
 
-    await act(() => {
+    act(() => {
       result.current.validate({ a: { b: 3 } });
     });
 
@@ -79,7 +79,7 @@ describe('useFormValidator', () => {
       }),
     );
 
-    await act(() => {
+    act(() => {
       result.current.validate({ a: { b: 2 } });
     });
 
@@ -117,7 +117,7 @@ describe('useFormValidator', () => {
       }),
     );
 
-    await act(() => {
+    act(() => {
       result.current.validate({ a: 2, b: 3 });
     });
 
@@ -128,7 +128,7 @@ describe('useFormValidator', () => {
       ]);
     });
 
-    await act(() => {
+    act(() => {
       result.current.validate({ a: 2, b: 4 }, ['b']);
     });
 
@@ -138,7 +138,7 @@ describe('useFormValidator', () => {
       ]);
     });
 
-    await act(() => {
+    act(() => {
       result.current.validate({ a: 3, b: 4 });
     });
 

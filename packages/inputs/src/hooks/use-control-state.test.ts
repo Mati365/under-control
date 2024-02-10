@@ -28,7 +28,7 @@ describe('useControlState', () => {
         }),
       );
 
-      await act(() => {
+      act(() => {
         result.current.setValue({ value: 'World' });
       });
 
@@ -44,7 +44,7 @@ describe('useControlState', () => {
         }),
       );
 
-      await act(() => {
+      act(() => {
         result.current.setValue({ value: 'World' });
       });
 
@@ -82,7 +82,7 @@ describe('useControlState', () => {
         }),
       );
 
-      await act(() => {
+      act(() => {
         result.current.setValue({
           value: {
             d: 4,

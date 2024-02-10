@@ -1,12 +1,13 @@
-import { ChangeEvent } from 'react';
-import {
+/* eslint-disable @typescript-eslint/ban-types */
+import type { ChangeEvent } from 'react';
+import type {
   GetAllObjectPaths,
   GetPathObjectType,
   UnionToIntersection,
   ObjectWithPaths,
 } from '@under-control/core';
 
-import { ControlValue } from './control-value';
+import type { ControlValue } from './control-value';
 
 export type ControlBindInputAttrs<V, O = V> = {
   value: V;

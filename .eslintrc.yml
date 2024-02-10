@@ -16,6 +16,13 @@ parserOptions:
   sourceType: module
   project: ./tsconfig.json
 
+ignorePatterns:
+  - node_modules
+  - dist
+  - rollup.shared.config.mjs
+  - jest.setup.mjs
+  - jest.shared.config.mjs
+
 settings:
   react:
     version: detect

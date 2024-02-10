@@ -1,11 +1,14 @@
-import { RelaxNarrowType } from '@under-control/core';
-import { ControlBindMethods, ControlValue } from '../types';
+import type { RelaxNarrowType } from '@under-control/core';
+import type { ControlBindMethods, ControlValue } from '../types';
 
-import { ControlBindInputEventFn, useControlBind } from './use-control-bind';
 import {
-  ControlStateHookAttrs,
-  ControlStateHookResult,
+  useControlBind,
+  type ControlBindInputEventFn,
+} from './use-control-bind';
+import {
   useControlState,
+  type ControlStateHookAttrs,
+  type ControlStateHookResult,
 } from './use-control-state';
 
 export type ControlHookAttrs<V extends ControlValue> =

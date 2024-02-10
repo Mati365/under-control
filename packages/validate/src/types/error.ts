@@ -1,4 +1,4 @@
-import { GetAllObjectPaths, CanBeBlank } from '@under-control/core';
+import type { GetAllObjectPaths, CanBeBlank } from '@under-control/core';
 
 export type ValidationMessage = {
   message: string;

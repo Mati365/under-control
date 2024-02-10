@@ -1,4 +1,5 @@
-import { JoinWithSeparator } from './join-with-separator';
+/* eslint-disable @typescript-eslint/ban-types */
+import type { JoinWithSeparator } from './join-with-separator';
 
 export type ObjectWithoutPaths =
   | (new (...parms: any[]) => any)
@@ -30,16 +31,16 @@ export type GetAllObjectPathsEntries<
       | (O extends unknown[]
           ? GetAllObjectPathsEntries<O[number], S, `${P}[${number}]`>
           : O extends ObjectWithoutPaths
-          ? ObjectTypeEntry<P, O>
-          : O extends object
-          ? {
-              [Key in keyof Required<O>]: GetAllObjectPathsEntries<
-                O[Key],
-                S,
-                JoinWithSeparator<P, Key>
-              >;
-            }[keyof Required<O>]
-          : ObjectTypeEntry<P, O>);
+            ? ObjectTypeEntry<P, O>
+            : O extends object
+              ? {
+                  [Key in keyof Required<O>]: GetAllObjectPathsEntries<
+                    O[Key],
+                    S,
+                    JoinWithSeparator<P, Key>
+                  >;
+                }[keyof Required<O>]
+              : ObjectTypeEntry<P, O>);
 
 export type GetAllObjectPaths<
   O,
@@ -55,7 +56,7 @@ export type GetPathObjectType<
 > = O extends ObjectWithoutPaths
   ? O
   : D extends ObjectTypeEntry<any, any>
-  ? P extends D['path']
-    ? D['type']
-    : never
-  : unknown;
+    ? P extends D['path']
+      ? D['type']
+      : never
+    : unknown;

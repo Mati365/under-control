@@ -1,4 +1,4 @@
-import { ObjectWithPaths } from '@under-control/core';
+import type { ObjectWithPaths } from '@under-control/core';
 
 export type ControlValue =
   | ObjectWithPaths

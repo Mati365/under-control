@@ -1,4 +1,4 @@
-import { Validator } from '../types';
+import type { Validator } from '../types';
 import { isGlobalValidator } from './is-global-validator';
 
 describe('isGlobalValidator', () => {

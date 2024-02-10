@@ -1,4 +1,4 @@
-import { ValidationErrorsArray } from '../types';
+import type { ValidationErrorsArray } from '../types';
 
 export const flattenMessagesList = (
   errors: Readonly<ValidationErrorsArray<any>>,

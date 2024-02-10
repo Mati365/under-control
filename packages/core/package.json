@@ -1,8 +1,30 @@
 {
   "name": "@under-control/core",
   "version": "1.7.25",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/cjs/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
+    },
+    "./index.css": {
+      "import": {
+        "default": "./dist/esm/index.css"
+      },
+      "require": {
+        "default": "./dist/cjs/index.css"
+      }
+    }
+  },
   "repository": "https://github.com/Mati365/under-control",
   "author": "Mateusz Bagiński",
   "license": "MIT",

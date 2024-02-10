@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useConstRefCallback } from '@under-control/core';
 
 import { areControlledControlAttrs } from '../guards';
-import { ControlStateAttrs, ControlValue } from '../types';
+import type { ControlStateAttrs, ControlValue } from '../types';
 
 type ControlValueSettersAttrs<V> =
   | { value: V; merge?: false }

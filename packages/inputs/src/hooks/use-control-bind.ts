@@ -1,23 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument, @typescript-eslint/ban-types */
 import { useRef } from 'react';
 
 import {
-  GetAllObjectPaths,
   getByPath,
   isObjectWithPaths,
   setByPath,
   identity,
-  GetPathObjectType,
+  type GetPathObjectType,
+  type GetAllObjectPaths,
 } from '@under-control/core';
 
 import { pickEventValue } from '../utils';
-import {
+import type {
   ControlBindInputAttrs,
   ControlBindMethods,
   ControlBindPathFn,
   ControlValue,
 } from '../types';
 
-import { ControlStateHookResult } from './use-control-state';
+import type { ControlStateHookResult } from './use-control-state';
 
 type ControlBindCacheStore = Record<
   string,

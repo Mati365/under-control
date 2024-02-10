@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
-import userEvent from '@testing-library/user-event';
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+import React, { type FC } from 'react';
+import { userEvent } from '@testing-library/user-event';
 import {
   renderHook,
   act,
@@ -9,16 +10,21 @@ import {
   fireEvent,
 } from '@testing-library/react';
 
+import '@testing-library/jest-dom';
 import { controlled } from '@under-control/inputs';
 
-import { DeferredUnlock } from '@under-control/core/test';
+import { DeferredUnlock } from '../../../core/test/deferred-unlock';
 import {
-  ValidationErrorsListProps,
-  flattenMessagesList,
   error,
+  flattenMessagesList,
+  type ValidationErrorsListProps,
 } from '@under-control/validate';
 
-import { FormHookAttrs, FormValidationMode, useForm } from './use-form';
+import {
+  useForm,
+  type FormHookAttrs,
+  type FormValidationMode,
+} from './use-form';
 
 const DEFAULT_HOOK_ATTRS: FormHookAttrs<any> = {
   defaultValue: {},
@@ -47,7 +53,7 @@ describe('useForm', () => {
     it('setValue should set dirty flag to true', async () => {
       const { result } = renderHook(() => useForm(DEFAULT_HOOK_ATTRS));
 
-      await act(() => {
+      act(() => {
         result.current.setValue({
           value: {
             abc: 2,
@@ -62,7 +68,7 @@ describe('useForm', () => {
     it('input change should set dirty flag to true', async () => {
       const { result } = renderHook(() => useForm(DEFAULT_HOOK_ATTRS));
 
-      await act(() => {
+      act(() => {
         result.current.bind.entire().onChange({ a: 2 });
       });
 
@@ -83,7 +89,7 @@ describe('useForm', () => {
         }),
       );
 
-      await act(() => {
+      act(() => {
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         result.current.submit();
       });
@@ -118,7 +124,7 @@ describe('useForm', () => {
         }),
       );
 
-      await act(() => {
+      act(() => {
         result.current.handleSubmitEvent(new Event('click') as any);
       });
 

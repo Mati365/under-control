@@ -1,11 +1,11 @@
-import {
+import type {
   CanBeArray,
   CanBePromise,
   GetAllObjectPaths,
   GetPathObjectType,
 } from '@under-control/core';
 
-import { ValidationError } from './error';
+import type { ValidationError } from './error';
 
 export type ValidatorAttrs<V> = {
   value: V;
