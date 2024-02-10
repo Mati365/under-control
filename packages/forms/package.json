@@ -1,6 +1,6 @@
 {
   "name": "@under-control/forms",
-  "version": "1.7.25",
+  "version": "2.0.0",
   "type": "module",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -34,9 +34,9 @@
     "lint": "npx eslint src/"
   },
   "dependencies": {
-    "@under-control/core": "1.7.25",
-    "@under-control/inputs": "1.7.25",
-    "@under-control/validate": "1.7.25"
+    "@under-control/core": "2.0.0",
+    "@under-control/inputs": "2.0.0",
+    "@under-control/validate": "2.0.0"
   },
   "publishConfig": {
     "access": "public"

@@ -1,5 +1,18 @@
 # @under-control/forms
 
+## 2.0.0
+
+### Major Changes
+
+- ES modules
+
+### Patch Changes
+
+- Updated dependencies
+  - @under-control/core@2.0.0
+  - @under-control/inputs@2.0.0
+  - @under-control/validate@2.0.0
+
 ## 1.7.25
 
 ### Patch Changes

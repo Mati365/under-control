@@ -1,5 +1,11 @@
 # @under-control/core
 
+## 2.0.0
+
+### Major Changes
+
+- ES modules
+
 ## 1.7.25
 
 ### Patch Changes
