@@ -1,5 +1,16 @@
 # @under-control/inputs
 
+## 2.1.0
+
+### Minor Changes
+
+- Add react@19 to peerDependencies.
+
+### Patch Changes
+
+- Updated dependencies
+  - @under-control/core@2.1.0
+
 ## 2.0.0
 
 ### Major Changes
